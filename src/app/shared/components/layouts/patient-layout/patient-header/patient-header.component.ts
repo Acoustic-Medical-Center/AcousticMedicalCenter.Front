@@ -1,18 +1,18 @@
 import { Component, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../../../features/auth/services/auth.service';
+import { AuthService } from '../../../../../features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { HostListener, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-patient-header',
   standalone: true,
   imports: [RouterModule, CommonModule],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './patient-header.component.html',
+  styleUrl: './patient-header.component.scss',
 })
-export class HeaderComponent {
+export class PatientHeaderComponent {
   constructor(
     private authService: AuthService,
     private router: Router,

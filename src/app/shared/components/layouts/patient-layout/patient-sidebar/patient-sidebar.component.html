@@ -1,0 +1,41 @@
+<div class="hidden h-screen bg-gray-200 md:flex">
+  <div class="flex flex-col fixed w-64 bg-white shadow-lg h-screen">
+    <app-sidebar [menuItems]="patientMenuItems"></app-sidebar>
+    <ul>
+      <li class="mx-4">
+        <a
+          routerLink="createAppointment"
+          class="block p-2 rounded bg-red-500"
+          href=""
+          >Randevu Al</a
+        >
+      </li>
+    </ul>
+
+    <!-- <nav class="flex-grow p-4 overflow-y-auto">
+      <ul>
+        <li class="my-2">
+          <a
+            class="block p-2 rounded hover:bg-gray-300"
+            routerLink="/profile"
+            routerLinkActive="bg-gray-300"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Profile</a
+          >
+        </li>
+        <li class="my-2">
+          <a
+            class="block p-2 rounded hover:bg-gray-300"
+            routerLink="/settings"
+            routerLinkActive="bg-gray-300"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Settings</a
+          >
+        </li>
+        <li class="my-2">
+          <a class="block p-2 rounded hover:bg-gray-300">Logout</a>
+        </li>
+      </ul>
+    </nav> -->
+  </div>
+</div>
