@@ -75,13 +75,19 @@ export class AuthService {
       decodedToken[
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
       ];
+
+    const userType = decodedToken['UserType'];
+
     console.log('name: ' + name);
     console.log('email: ' + email);
+    console.log('userType: ' + userType);
+
     // localStorage.setItem('name', name);
     // localStorage.setItem('email', email);
 
     this.localStorageService.set('name', name);
     this.localStorageService.set('email', email);
+    this.localStorageService.set('userType', userType);
 
     this.userProfileSubject.next({ name, email });
     console.log('userProfileSujbject nedir?', this.userProfileSubject);
