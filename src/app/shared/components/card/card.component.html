@@ -1,0 +1,14 @@
+<div class="card mx-auto card-compact w-96 bg-base-100 shadow-xl">
+  <figure>
+    <img [src]="imageUrl" alt="{{ title }}" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">{{ title }}</h2>
+    <p>{{ description }}</p>
+    <div class="card-actions justify-end">
+      <button (click)="onCardClick()" class="btn btn-primary">
+        {{ buttonText }}
+      </button>
+    </div>
+  </div>
+</div>
