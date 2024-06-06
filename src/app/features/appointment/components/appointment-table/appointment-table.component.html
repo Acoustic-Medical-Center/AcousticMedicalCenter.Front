@@ -1,0 +1,48 @@
+<!-- <div class="overflow-x-auto">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Doktor İsmi</th>
+        <th>Klinik Adı</th>
+        <th>Tarih</th>
+        <th>Randevu Durumu</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doktor of doktorlar" class="hover:bg-gray-100">
+        <th></th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img [src]="doktor.avatarUrl" alt="Avatar" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">{{ doktor.isim }}</div>
+              <div class="text-sm opacity-50">{{ doktor.ulke }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {{ doktor.klinikAdi }}
+          <br />
+          <span class="badge badge-ghost badge-sm">{{ doktor.pozisyon }}</span>
+        </td>
+        <td>{{ doktor.tarih }}</td>
+        <td>{{ doktor.randevuDurumu }}</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="space-y-4">
+  <div *ngFor="let appointment of appointments">
+    <app-horizontal-card [appointment]="appointment"></app-horizontal-card>
+  </div>
+</div>
