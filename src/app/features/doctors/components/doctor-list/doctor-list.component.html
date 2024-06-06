@@ -1,0 +1,11 @@
+<ng-container *ngFor="let doctor of doctors">
+  <app-card
+    [imageUrl]="doctor.imageUrl"
+    [title]="doctor.name"
+    [description]="doctor.specialty"
+    buttonText="Doktor Sec"
+    [id]="doctor.id"
+  >
+    >
+  </app-card>
+</ng-container>

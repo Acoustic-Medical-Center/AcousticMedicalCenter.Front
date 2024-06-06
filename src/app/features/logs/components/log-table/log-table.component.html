@@ -1,0 +1,13 @@
+<app-table [headers]="headers" [items]="items">
+  <ng-template #rowTemplate let-item>
+    <tr class="hover:bg-gray-100">
+      <td>{{ item.kullaniciAdi }}</td>
+      <td>{{ item.girisTarihi }}</td>
+      <td>{{ item.randevuTarihi }}</td>
+      <td>{{ item.islemDurumu }}</td>
+      <td>
+        <button class="btn btn-ghost btn-xs">details</button>
+      </td>
+    </tr>
+  </ng-template>
+</app-table>
