@@ -1,0 +1,46 @@
+<div class="collapse bg-base-200">
+  <input type="checkbox" />
+  <div class="collapse-title text-xl font-medium">
+    {{ now | date: "d MMMM EEEE" }}
+  </div>
+  <div class="collapse-content">
+    <div
+      class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4"
+    >
+      <button
+        (click)="selectTime(now, time)"
+        *ngFor="let time of times"
+        class="bg-blue-500 text-white py-2 px-4 rounded flex items-center justify-center"
+      >
+        {{ time }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="collapse mt-4 bg-base-200">
+  <input type="checkbox" />
+  <div class="collapse-title text-xl font-medium">
+    {{ tomorrow | date: "d MMMM EEEE" }}
+  </div>
+  <div class="collapse-content">
+    <div
+      class="grid grid-cols-2 gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4"
+    >
+      <button
+        (click)="selectTime(tomorrow, time)"
+        *ngFor="let time of times"
+        class="bg-blue-500 text-white py-2 px-4 rounded flex items-center justify-center"
+      >
+        {{ time }}
+      </button>
+    </div>
+  </div>
+</div>
+
+{{ selectedDate$ | async }}
+
+<!-- {{ now }}
+
+<h1></h1>
+
+<div class="bg-purple-800 w-4 h-4"></div> -->

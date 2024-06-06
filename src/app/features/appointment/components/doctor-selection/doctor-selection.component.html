@@ -1,0 +1,20 @@
+<div class="doctor-selection p-2">
+  <ul>
+    <li
+      *ngFor="let doctor of doctors"
+      (click)="selectDoctor(doctor.id)"
+      class="flex items-center p-2 border-b-2 border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 transition"
+    >
+      <img
+        [src]="doctor.imageUrl"
+        alt="{{ doctor.name }} icon"
+        class="w-8 h-8 mr-4"
+      />
+      <span class="text-lg font-medium">{{ doctor.name }}</span>
+    </li>
+  </ul>
+</div>
+
+{{ selectedDoctor$ | async }}
+
+{{ selectedBranch$ | async }}
