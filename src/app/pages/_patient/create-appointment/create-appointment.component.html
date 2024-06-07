@@ -1,0 +1,23 @@
+<div class="container mx-auto">
+  <div class="flex justify-between p-4">
+    <h1></h1>
+    <button (click)="createAppointment()" class="btn bg-green-700">
+      Randevu Oluştur
+    </button>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3">
+    <app-branch-selection></app-branch-selection>
+    <app-doctor-selection></app-doctor-selection>
+    <app-create-appointment-dropdown-form></app-create-appointment-dropdown-form>
+  </div>
+</div>
+
+<!-- <app-branch-selection></app-branch-selection>
+
+<br />
+
+<app-doctor-list></app-doctor-list>
+
+<br />
+
+<app-create-appointment-dropdown-form></app-create-appointment-dropdown-form> -->

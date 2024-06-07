@@ -1,7 +1,63 @@
-<div>
-  <ul>
-    <li><a routerLink="">Home</a></li>
-    <li><a routerLink="auth/login" href="">Login</a></li>
-    <li><a routerLink="auth/signup" href="">Signup</a></li>
-  </ul>
+<div class="navbar sticky top-0 bg-purple-100 border-b-2 border-black">
+  <div class="container mx-auto">
+    <div class="flex-1">
+      <a routerLink="" class="btn btn-ghost text-xl">AMC</a>
+    </div>
+    <div class="flex-none">
+      <div class="dropdown">{{ isDropdownOpen }}</div>
+      <div
+        (click)="toggleDropdown($event)"
+        class="dropdown dropdown-end"
+        [ngClass]="isDropdownOpen ? 'dropdown-open' : ''"
+        #dropdownMenu
+      >
+        <summary class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS Navbar component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+            />
+          </div>
+        </summary>
+        <ul
+          class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a (click)="toggleDropdownListItem()" routerLink="profile"
+              >Profile
+            </a>
+          </li>
+          <li>
+            <a (click)="toggleDropdownListItem()" routerLink="settings"
+              >Settings</a
+            >
+          </li>
+          <li><a (click)="logout()">Logout</a></li>
+        </ul>
+      </div>
+      <!-- burdan -->
+      <!-- <div class="dropdown dropdown-end" id="dropdownMenu">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <img
+                alt="Tailwind CSS Navbar component"
+                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+              />
+            </div>
+          </div>
+          <ul
+            tabindex="0"
+            class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a routerLink="profile"> Profile </a>
+            </li>
+            <li><a routerLink="settings">Settings</a></li>
+            <li><a (click)="logout()">Logout</a></li>
+          </ul>
+        </div> -->
+
+      <!-- buraya -->
+    </div>
+  </div>
 </div>
