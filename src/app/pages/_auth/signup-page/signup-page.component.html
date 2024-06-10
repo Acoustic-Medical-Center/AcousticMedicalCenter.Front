@@ -60,5 +60,40 @@
     </div>
   </div>
 
+  <div>
+    <label for="phoneNumber">Phone Number:</label>
+    <input id="phoneNumber" formControlName="phoneNumber" />
+    <div
+      *ngIf="
+        signupForm.get('phoneNumber')?.invalid &&
+        signupForm.get('phoneNumber')?.touched
+      "
+    >
+      <div *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">
+        Phone Number is required.
+      </div>
+      <div *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">
+        Phone Number is invalid.
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="gender">gender:</label>
+    <input id="gender" formControlName="gender" />
+    <div
+      *ngIf="
+        signupForm.get('gender')?.invalid && signupForm.get('gender')?.touched
+      "
+    >
+      <div *ngIf="signupForm.get('gender')?.errors?.['required']">
+        gender is required.
+      </div>
+      <div *ngIf="signupForm.get('gender')?.errors?.['gender']">
+        gender is invalid.
+      </div>
+    </div>
+  </div>
+
   <button type="submit">Sign Up</button>
 </form>
