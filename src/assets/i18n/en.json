@@ -1,0 +1,10 @@
+{
+  "MY_APPOINTMENTS": {
+    "label": "My Appointments",
+    "link": "/my-appointments"
+  },
+  "SETTINGS": {
+    "label": "Settings",
+    "link": "/settings"
+  }
+}

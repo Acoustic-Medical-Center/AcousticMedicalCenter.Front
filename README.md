@@ -7,7 +7,12 @@
 
 - [ ] İngilizce Dil desteğine bak.
 
+- [ ] Global Error Handler bak.
+
 - [ ] Backendden roller geldikten sonra guarda bak.
+
+- [ ] Alert mesajlarına bak. (ngx toastr)
+
 - [ ] Doktor ve Admin sayfasını yap.
 
 ### backend todos

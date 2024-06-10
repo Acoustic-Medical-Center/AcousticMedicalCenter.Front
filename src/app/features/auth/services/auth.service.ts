@@ -10,6 +10,8 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
+  phoneNumber: string;
+  gender: string;
 }
 
 @Injectable({
@@ -36,7 +38,8 @@ export class AuthService {
   }
 
   signup(user: IUser): Observable<IUser> {
-    return this.http.post<IUser>(`${this.baseUrl}/Auth/Register`, user);
+    console.log('user', user);
+    return this.http.post<IUser>(`${this.baseUrl}/auth/register`, user);
   }
 
   logout(): void {

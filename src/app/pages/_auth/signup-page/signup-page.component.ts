@@ -6,6 +6,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { AuthService } from '../../../features/auth/services/auth.service';
 
 @Component({
   selector: 'app-signup-page',
@@ -17,18 +18,25 @@ import {
 export class SignupPageComponent {
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+  ) {
     this.signupForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      gender: ['', Validators.required],
+
+      phoneNumber: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
   onSubmit() {
     if (this.signupForm.valid) {
       console.log('Form Submitted', this.signupForm.value);
+      this.authService.signup(this.signupForm.value).subscribe();
     } else {
       console.log('Form is not valid');
     }

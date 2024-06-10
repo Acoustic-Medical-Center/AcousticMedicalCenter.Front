@@ -6,14 +6,15 @@ export const adminMenuItems = [
 ];
 
 export const patientMenuItems = [
-  { label: 'Ziyaretlerim', link: '/my-visits' },
-  { label: 'Reçetelerim', link: '/my-prescriptions' },
-  { label: 'Raporlarım', link: '/my-reports' },
-  { label: 'Hastalıklarım', link: '/my-diseases' },
-  { label: 'Tahlillerim', link: '/my-tests' },
+  { label: 'Ziyaretlerim', link: 'my-visits' },
+  { label: 'Reçetelerim', link: 'my-prescriptions' },
+  { label: 'Raporlarım', link: 'my-reports' },
+  { label: 'Hastalıklarım', link: 'my-diseases' },
+  { label: 'Tahlillerim', link: 'my-tests' },
 
   { label: 'Radyolojik Görüntülerim', link: 'radiologyImages' },
-  { label: 'Randevularım', link: '/my-appointments' },
+  { label: 'MY_APPOINTMENTS.label', link: 'MY_APPOINTMENTS.link' },
+  { label: 'MY_APPOINTMENTS.label', link: 'my-appointments' },
 ];
 
 export const doctorMenuItems = [
