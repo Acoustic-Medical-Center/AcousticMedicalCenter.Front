@@ -22,17 +22,32 @@
         <ul
           class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
         >
-          <li>
+          <li *ngIf="!dropdownLanguageOpen">
             <a (click)="toggleDropdownListItem()" routerLink="profile"
-              >Profile
-            </a>
+              >Profile</a
+            >
           </li>
-          <li>
+          <li *ngIf="!dropdownLanguageOpen">
             <a (click)="toggleDropdownListItem()" routerLink="settings"
               >Settings</a
             >
           </li>
-          <li><a (click)="logout()">Logout</a></li>
+          <li *ngIf="!dropdownLanguageOpen">
+            <a (click)="toggleLanguageDropdown($event)">Language</a>
+          </li>
+          <li *ngIf="!dropdownLanguageOpen">
+            <a (click)="logout()">Logout</a>
+          </li>
+          <li *ngIf="dropdownLanguageOpen">
+            <a (click)="selectLanguage('en')">
+              <span class="fi fi-gb"></span> English
+            </a>
+          </li>
+          <li *ngIf="dropdownLanguageOpen">
+            <a (click)="selectLanguage('tr')">
+              <span class="fi fi-tr"></span> Türkçe
+            </a>
+          </li>
         </ul>
       </div>
       <!-- burdan -->
