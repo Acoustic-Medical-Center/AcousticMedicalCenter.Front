@@ -1,0 +1,10 @@
+{
+  "MY_APPOINTMENTS": {
+    "label": "Randevularım",
+    "link": "/randevularim"
+  },
+  "SETTINGS": {
+    "label": "Ayarlar",
+    "link": "/ayarlar"
+  }
+}
