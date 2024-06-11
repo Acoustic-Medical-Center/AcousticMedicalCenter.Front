@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
 
 export interface IUser {
-
   firstName: string;
   lastName: string;
   email: string;
@@ -13,20 +13,29 @@ export interface IUser {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PatientSettingsService {
-  private baseUrl = 'https://localhost:7172/api/User'; 
+  private baseUrl = 'https://localhost:7172/api/User';
   // https://localhost:7172/api/User/GetById?UserId=1
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+  ) {}
 
   getUserSettings(UserId: string): Observable<any> {
-    return this.http.get<any>(`https://localhost:7172/api/User/GetById?UserId=1`);
-
+    console.log('id nedir', this.localStorageService.get('Id'));
+    console.log('girdi mi buraya?');
+    return this.http.get<any>(
+      `https://localhost:7172/api/User/GetById?UserId=${UserId}`,
+    );
   }
 
   updateUserSettings(UserId: string, userSettings: IUser): Observable<any> {
-    return this.http.post(`${this.baseUrl}/Update`, { id: UserId, ...userSettings });
+    return this.http.post(`${this.baseUrl}/Update`, {
+      id: UserId,
+      ...userSettings,
+    });
   }
 }

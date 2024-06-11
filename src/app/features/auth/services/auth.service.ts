@@ -70,6 +70,11 @@ export class AuthService {
     this.localStorageService.set('token', token);
     const decodedToken: { [key: string]: any } = this.decodeToken();
     console.log('getUserProfile Token', decodedToken);
+
+    const id =
+      decodedToken[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+      ];
     const name =
       decodedToken[
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
@@ -91,6 +96,7 @@ export class AuthService {
     this.localStorageService.set('name', name);
     this.localStorageService.set('email', email);
     this.localStorageService.set('userType', userType);
+    this.localStorageService.set('Id', id);
 
     this.userProfileSubject.next({ name, email });
     console.log('userProfileSujbject nedir?', this.userProfileSubject);
