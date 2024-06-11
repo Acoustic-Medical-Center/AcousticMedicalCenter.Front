@@ -51,6 +51,7 @@ export class AppointmentService {
   }
 
   getAllAppointmentsByPatient(): Observable<any> {
+    console.log('=');
     return this.http.get(
       'https://localhost:7172/api/Appointment/GetAllAppointmentsByPatient',
     );

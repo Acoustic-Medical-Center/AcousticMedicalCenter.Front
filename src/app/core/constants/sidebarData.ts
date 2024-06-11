@@ -13,7 +13,6 @@ export const patientMenuItems = [
   { label: 'Tahlillerim', link: 'my-tests' },
 
   { label: 'Radyolojik Görüntülerim', link: 'radiologyImages' },
-  { label: 'MY_APPOINTMENTS.label', link: 'MY_APPOINTMENTS.link' },
   { label: 'MY_APPOINTMENTS.label', link: 'my-appointments' },
 ];
 
