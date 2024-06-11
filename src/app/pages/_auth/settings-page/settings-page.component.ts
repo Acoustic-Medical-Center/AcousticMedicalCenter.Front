@@ -10,7 +10,7 @@ import {
 import {
   PatientSettingsService,
   IUser,
-} from '../../../features/auth/services/patient-settings.service';
+} from '../../../features/patient/services/patient-settings.service';
 
 @Component({
   selector: 'app-settings-page',
@@ -66,7 +66,7 @@ export class SettingsPageComponent implements OnInit {
       this.settingsService
         .updateUserSettings(this.userId, this.settingsForm.value)
         .subscribe((response) => {
-          console.log('Settings updated successfully');
+          console.log('Settings updated successfully', response);
         });
     }
   }

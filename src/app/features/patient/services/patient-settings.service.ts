@@ -10,6 +10,7 @@ export interface IUser {
   email: string;
   phoneNumber: string;
   gender: string;
+  address: string;
 }
 
 @Injectable({
