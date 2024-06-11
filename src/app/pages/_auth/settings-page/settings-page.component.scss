@@ -1,0 +1,30 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+   
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    
+   input{
+    width: 100%;
+    background-color: rgb(192, 189, 189);
+    height: 3rem;
+   }
+}
+
+
+@media (max-width: 768px) {
+    .container form .form-group {
+        flex: 0 0 100%;
+    }
+}
+
+.save-button{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: green;
+    margin-top: 5px;
+}

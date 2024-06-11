@@ -1,0 +1,32 @@
+<div class="container">
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div>
+        <label for="firstName">First Name:</label>
+        <input id="firstName" formControlName="firstName" />
+      </div>
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input id="lastName" formControlName="lastName" />
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" />
+      </div>
+      <div>
+        <label for="phoneNumber">Phone Number:</label>
+        <input id="phoneNumber" formControlName="phoneNumber" />
+      </div>
+      <div>
+        <label for="gender">Gender:</label>
+        <select id="gender" formControlName="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <button type="submit" class="save-button">Save Settings</button>
+    </div>
+   
+  </form>
+  
+</div>
