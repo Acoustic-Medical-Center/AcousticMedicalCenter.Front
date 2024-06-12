@@ -11,7 +11,7 @@ import {
   PatientSettingsService,
   IUser,
 } from '../../../features/patient/services/patient-settings.service';
-
+import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
 @Component({
   selector: 'app-settings-page',
   standalone: true,
@@ -22,10 +22,11 @@ import {
 export class SettingsPageComponent implements OnInit {
   settingsForm: FormGroup;
 
-  userId: string = 'UserId';
+  userId: string | null = '';
   constructor(
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
+    private LocalStorageService : LocalStorageService
   ) {
     this.settingsForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -33,15 +34,26 @@ export class SettingsPageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.minLength(6)]],
       gender: ['', Validators.required],
+      
     });
   }
 
   ngOnInit(): void {
-    this.loadUserSettings();
+    this.userId = this.LocalStorageService.get<string>('Id');
+    console.log('Fetched userIdd from LocalStorage', this.userId);
+
+
+    if (this.userId) {
+      this.loadUserSettings(this.userId);
+    }else{
+      console.log("User id bulunamadı");
+    }
+    
   }
 
-  loadUserSettings() {
-    this.settingsService.getUserSettings('1').subscribe(
+  loadUserSettings(userId:string) {
+    
+    this.settingsService.getUserSettings(userId).subscribe(
       (settings) => {
         const filteredSettings = {
           firstName: settings.user.firstName,
@@ -49,25 +61,30 @@ export class SettingsPageComponent implements OnInit {
           email: settings.user.email,
           phoneNumber: settings.user.phoneNumber,
           gender: settings.gender,
+          addres: settings.address
         };
 
         this.settingsForm.patchValue(filteredSettings);
-        console.log('Filtered Settings:', settings); // Filtrelenmiş verileri konsola yazdır
+        console.log('Filtered Settings:', settings); 
         console.log('settingsFormValue', this.settingsForm.value);
       },
       (error) => {
-        console.error('Error fetching user settings:', error); // Hata durumunda konsola hata mesajını yazdır
+        console.error('Error fetching user settings:', error); 
       },
     );
+    
+    
   }
 
   onSubmit(): void {
-    if (this.settingsForm.valid) {
+    if (this.settingsForm.valid && this.userId) {
       this.settingsService
         .updateUserSettings(this.userId, this.settingsForm.value)
         .subscribe((response) => {
           console.log('Settings updated successfully', response);
         });
+    }else{
+      console.error("Form geçersiz");
     }
   }
 }

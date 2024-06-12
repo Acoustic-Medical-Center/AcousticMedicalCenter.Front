@@ -18,7 +18,7 @@ export interface IUser {
 })
 export class PatientSettingsService {
   private baseUrl = 'https://localhost:7172/api/User';
-  // https://localhost:7172/api/User/GetById?UserId=1
+ 
 
   constructor(
     private http: HttpClient,
@@ -34,9 +34,11 @@ export class PatientSettingsService {
   }
 
   updateUserSettings(UserId: string, userSettings: IUser): Observable<any> {
+    console.log("Güncellendi", this.localStorageService.get('Id'));
     return this.http.post(`${this.baseUrl}/Update`, {
       id: UserId,
       ...userSettings,
     });
+   
   }
 }
