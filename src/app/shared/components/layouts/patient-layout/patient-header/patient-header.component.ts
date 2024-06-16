@@ -16,10 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class PatientHeaderComponent {
   constructor(
     private authService: AuthService,
-    private router: Router,
     private renderer: Renderer2,
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone,
     private elRef: ElementRef,
     private translate: TranslateService,
   ) {}
@@ -29,6 +26,8 @@ export class PatientHeaderComponent {
   dropdownLanguageOpen = false;
 
   private clickListener!: () => void;
+
+  date = Date.now();
 
   ngOnInit() {
     this.clickListener = this.renderer.listen('document', 'click', (e) => {
@@ -76,7 +75,6 @@ export class PatientHeaderComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/']);
   }
 
   @HostListener('document:keydown.escape', ['$event'])
