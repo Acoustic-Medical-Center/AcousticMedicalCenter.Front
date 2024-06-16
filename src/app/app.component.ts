@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { BasicLayoutComponent } from './shared/components/layouts/basic-layout/basic-layout.component';
 import { PatientLayoutComponent } from './shared/components/layouts/patient-layout/patient-layout.component';
@@ -24,17 +24,11 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   constructor(public authService: AuthService) {}
 
-  isLoggedIn = false;
-
-  role = 'patient';
+  userType = '';
 
   ngOnInit(): void {
-    this.authService.isLoggedIn().subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
+    this.authService.getUserType().subscribe((userType) => {
+      this.userType = userType;
     });
-  }
-
-  showLoggedIn() {
-    console.log(this.isLoggedIn);
   }
 }
