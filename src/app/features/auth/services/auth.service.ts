@@ -1,39 +1,33 @@
 import { Injectable, afterNextRender } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
-
-export interface IUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
-  gender: string;
-}
+import { IUser } from '../interfaces/IUser';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://localhost:7172/api';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(
-    this.checkTokenPresence(),
-  );
-  private userProfileSubject = new BehaviorSubject<any>(
-    this.checkUserProfile(),
-  );
-
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
+    private router: Router,
   ) {}
+
+  private baseUrl = 'https://localhost:7172/api';
+
+  // private userProfileSubject = new BehaviorSubject<any>(
+  //   this.checkUserProfile(),
+  // );
+
+  private userTypeSubject = new BehaviorSubject<any>(this.checkUserType());
 
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http
-      .post(`${this.baseUrl}/Auth/Login`, credentials)
+      .post(`${this.baseUrl}/auth/login`, credentials)
       .pipe(tap((response: any) => this.handleAuthentication(response.token)));
   }
 
@@ -46,97 +40,75 @@ export class AuthService {
     this.localStorageService.remove('token');
     this.localStorageService.remove('name');
     this.localStorageService.remove('email');
+    this.localStorageService.remove('id');
+    this.localStorageService.remove('userType');
 
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('name');
-    // localStorage.removeItem('email');
-
-    this.isLoggedInSubject.next(false);
-    this.userProfileSubject.next(null);
+    // this.userProfileSubject.next(null);
+    this.userTypeSubject.next(null);
+    this.router.navigate(['/login']);
   }
 
-  isLoggedIn(): Observable<boolean> {
-    return this.isLoggedInSubject.asObservable();
-  }
+  // getUserProfile(): Observable<any> {
+  //   console.log(this.userProfileSubject.value);
+  //   return this.userProfileSubject.asObservable();
+  // }
 
-  getUserProfile(): Observable<any> {
-    //mantık hatası var tokenı olmayan adamdan token isteyen fonksiyon mu olur mk
-
-    return this.userProfileSubject.asObservable();
+  getUserType(): Observable<string> {
+    console.log(this.userTypeSubject.value);
+    return this.userTypeSubject.asObservable();
   }
 
   handleAuthentication(token: string): void {
-    // localStorage.setItem('token', token);
-    this.localStorageService.set('token', token);
-    const decodedToken: { [key: string]: any } = this.decodeToken();
-    console.log('getUserProfile Token', decodedToken);
+    try {
+      this.localStorageService.set('token', token);
+      const decodedToken: { [key: string]: any } = this.decodeToken();
+      const id =
+        decodedToken[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
+        ];
+      const name =
+        decodedToken[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+        ];
+      const email =
+        decodedToken[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+        ];
+      const userType = decodedToken['UserType'];
 
-    const id =
-      decodedToken[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'
-      ];
-    const name =
-      decodedToken[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
-      ];
-    const email =
-      decodedToken[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
-      ];
+      this.localStorageService.set('name', name);
+      this.localStorageService.set('email', email);
+      this.localStorageService.set('userType', userType);
+      this.localStorageService.set('id', id);
+      // this.userProfileSubject.next({ id, name, email, userType });
+      this.userTypeSubject.next(userType);
 
-    const userType = decodedToken['UserType'];
-
-    console.log('name: ' + name);
-    console.log('email: ' + email);
-    console.log('userType: ' + userType);
-
-    // localStorage.setItem('name', name);
-    // localStorage.setItem('email', email);
-
-    this.localStorageService.set('name', name);
-    this.localStorageService.set('email', email);
-    this.localStorageService.set('userType', userType);
-    this.localStorageService.set('Id', id);
-
-    this.userProfileSubject.next({ name, email });
-    console.log('userProfileSujbject nedir?', this.userProfileSubject);
-
-    this.isLoggedInSubject.next(true);
+      console.log('userTypeSubject nedir?', this.userTypeSubject.value);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  // checkTokenPresence(): any {
-  //SSR varken local storage is undefined hatası çözüyor ama bu yaklaşım doru mu ?
-  //   afterNextRender(() => {
-  //     console.log('checkTokenPresence', !!localStorage.getItem('token'));
-  //     console.log(this.isLoggedInSubject);
-  //     return !!localStorage.getItem('token');
-  //   });
+  // private checkUserProfile() {
+  //   const name = this.localStorageService.get('name');
+  //   const email = this.localStorageService.get('email');
+  //   const id = this.localStorageService.get('id');
+  //   const userType = this.localStorageService.get('userType');
+
+  //   if (name && email && userType && id) {
+  //     return { name, email, id, userType };
+  //   } else {
+  //     return null;
+  //   }
   // }
 
-  checkTokenPresence(): any {
-    // return !!localStorage.getItem('token');
-
-    return !!this.localStorageService.get('token');
-  }
-
-  private checkUserProfile() {
-    // const name = localStorage.getItem('name');
-    // const email = localStorage.getItem('email');
-
-    const name = this.localStorageService.get('name');
-    const email = this.localStorageService.get('email');
-
-    if (name && email) {
-      return { name, email };
-    } else {
-      return null;
-    }
+  private checkUserType() {
+    return this.localStorageService.get('userType');
   }
 
   decodeToken(): any {
     const token = localStorage.getItem('token');
-
-    // const token = String(this.localStorageService.get('token'));
-    return token ? jwtDecode(token) : null;
+    const response = token ? jwtDecode(token) : null;
+    return response;
   }
 }

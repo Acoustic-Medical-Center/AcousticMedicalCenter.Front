@@ -61,7 +61,6 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/']);
   }
 
   @HostListener('document:keydown.escape', ['$event'])

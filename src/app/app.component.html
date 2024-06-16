@@ -1,33 +1,14 @@
-<!-- <app-basic-layout>
-  <router-outlet></router-outlet>
-</app-basic-layout> -->
-
-<!-- isLoggedIn: {{ isLoggedIn }} <br />
-
-<button class="btn" (click)="showLoggedIn()">Show loggedIn</button> -->
-
-<!-- @if (true) {
-<app-patient-layout>
-  <router-outlet></router-outlet>
-</app-patient-layout>
-
-} @else {
-<app-basic-layout>
-  <router-outlet></router-outlet>
-</app-basic-layout>
-} -->
-
-<div [ngSwitch]="role">
-  <app-patient-layout *ngSwitchCase="'patient'">
+<div [ngSwitch]="userType">
+  <app-patient-layout *ngSwitchCase="'Patient'">
     <router-outlet></router-outlet>
   </app-patient-layout>
-  <app-doctor-layout *ngSwitchCase="'doctor'">
+  <app-doctor-layout *ngSwitchCase="'Doctor'">
     <router-outlet></router-outlet>
   </app-doctor-layout>
-  <app-admin-layout *ngSwitchCase="'admin'">
+  <app-admin-layout *ngSwitchCase="'Admin'">
     <router-outlet></router-outlet>
   </app-admin-layout>
-  <app-basic-layout *ngSwitchDefault>
+  <app-basic-layout *ngSwitchDefault="">
     <router-outlet></router-outlet>
   </app-basic-layout>
 </div>
