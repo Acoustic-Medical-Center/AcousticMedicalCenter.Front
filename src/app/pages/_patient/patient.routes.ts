@@ -7,46 +7,41 @@ import { MyTestsComponent } from './my-tests/my-tests.component';
 import { MyVisitsComponent } from './my-visits/my-visits.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
+import { isPatient } from '../../core/guards/auth.guard';
 
 export const patientRoutes: Routes = [
   {
-    path: 'my-diseases',
-    component: MyDiseasesComponent,
-    title: 'Diseases',
-  },
-  {
-    path: 'my-appointments',
-    component: MyAppointmentsComponent,
-    title: 'Appointments',
-  },
-  {
-    path: 'createAppointment',
-    component: CreateAppointmentComponent,
-    title: 'Create Appointment',
-  },
-  {
-    path: 'my-prescriptions',
-    component: MyPrescriptionsComponent,
-    title: 'Prescriptions',
-  },
-  {
-    path: 'radiologyImages',
-    component: MyRadiologyImagesComponent,
-    title: 'Radiology Images',
-  },
-  {
-    path: 'my-reports',
-    component: MyReportsComponent,
-    title: 'Reports',
-  },
-  {
-    path: 'my-tests',
-    component: MyTestsComponent,
-    title: 'Tests',
-  },
-  {
-    path: 'my-visits',
-    component: MyVisitsComponent,
-    title: 'Visits',
+    path: '',
+    canMatch: [isPatient],
+    children: [
+      {
+        path: 'my-diseases',
+        component: MyDiseasesComponent,
+        title: 'Diseases',
+      },
+      {
+        path: 'my-appointments',
+        component: MyAppointmentsComponent,
+        title: 'Appointments',
+      },
+      {
+        path: 'createAppointment',
+        component: CreateAppointmentComponent,
+        title: 'Create Appointment',
+      },
+      {
+        path: 'my-prescriptions',
+        component: MyPrescriptionsComponent,
+        title: 'Prescriptions',
+      },
+      {
+        path: 'radiologyImages',
+        component: MyRadiologyImagesComponent,
+        title: 'Radiology Images',
+      },
+      { path: 'my-reports', component: MyReportsComponent, title: 'Reports' },
+      { path: 'my-tests', component: MyTestsComponent, title: 'Tests' },
+      { path: 'my-visits', component: MyVisitsComponent, title: 'Visits' },
+    ],
   },
 ];
