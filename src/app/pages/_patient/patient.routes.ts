@@ -7,7 +7,7 @@ import { MyTestsComponent } from './my-tests/my-tests.component';
 import { MyVisitsComponent } from './my-visits/my-visits.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
-
+import { PatientSettingsComponent } from './patient-settings/patient-settings.component';
 export const patientRoutes: Routes = [
   {
     path: 'my-diseases',
@@ -49,4 +49,9 @@ export const patientRoutes: Routes = [
     component: MyVisitsComponent,
     title: 'Visits',
   },
+  {
+    path: 'patient-settings',
+    component: PatientSettingsComponent,
+    title: 'Settings'
+  }
 ];

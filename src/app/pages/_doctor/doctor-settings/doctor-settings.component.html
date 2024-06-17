@@ -1,0 +1,24 @@
+<!-- Örnek tab geçişleri DaisyUI ile -->
+
+<div class="flex">
+    <button 
+      class="py-2 px-4 bg-gray-200 hover:bg-gray-300 mr-2"
+      (click)="currentTab = 'general'"
+      [class.bg-gray-300]="currentTab === 'general'">
+      Genel Ayarlar
+    </button>
+    <button 
+      class="py-2 px-4 bg-gray-200 hover:bg-gray-300"
+      (click)="currentTab = 'settings'"
+      [class.bg-gray-300]="currentTab === 'settings'">
+      Özel Ayarlar
+    </button>
+  </div>
+  
+  <div *ngIf="currentTab === 'general'">
+    <app-doctor-general-settings></app-doctor-general-settings>
+  </div>
+  <div *ngIf="currentTab === 'settings'">
+    <app-doctor-settings-form></app-doctor-settings-form>
+  </div>
+  

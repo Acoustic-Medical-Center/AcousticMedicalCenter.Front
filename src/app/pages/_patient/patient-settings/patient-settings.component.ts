@@ -10,16 +10,16 @@ import {
 import {
   PatientSettingsService,
   IUser,
-} from '../../../features/patient/services/patient-settings.service';
+} from '../../../features/patient/services/settings-service/patient-settings.service';
 import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
 @Component({
   selector: 'app-settings-page',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './settings-page.component.html',
-  styleUrls: ['./settings-page.component.scss'],
+  templateUrl: './patient-settings.component.html',
+  styleUrls: ['./patient-settings.component.scss'],
 })
-export class SettingsPageComponent implements OnInit {
+export class PatientSettingsComponent implements OnInit {
   settingsForm: FormGroup;
 
   userId: string | null = '';
@@ -33,7 +33,7 @@ export class SettingsPageComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.minLength(6)]],
-      gender: ['', Validators.required],
+      gender: [''],
       
     });
   }

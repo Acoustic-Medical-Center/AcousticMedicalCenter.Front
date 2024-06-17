@@ -1,0 +1,19 @@
+
+<div class="container">
+    <form [formGroup]="settingsPatientForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        
+        <div>
+          <label for="biography">Biography:</label>
+          <input id="biography" formControlName="biography" />
+        </div>
+        <div>
+          <label for="experience">Experience:</label>
+          <input id="experience" formControlName="experience" />
+        </div>
+        <button type="submit" class="save-button" [disabled]="settingsPatientForm.invalid">Save Settings</button>
+      </div>
+      
+    </form>
+</div>
+    
