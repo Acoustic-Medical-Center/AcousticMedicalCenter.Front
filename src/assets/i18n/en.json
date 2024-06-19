@@ -1,10 +1,23 @@
 {
-  "MY_APPOINTMENTS": {
-    "label": "My Appointments",
-    "link": "/my-appointments"
+  "adminMenu": {
+    "dashboard": "Dashboard",
+    "doctors": "Doctors",
+    "patients": "Patients",
+    "appointments": "Appointments"
   },
-  "SETTINGS": {
-    "label": "Settings",
-    "link": "/settings"
+  "patientMenu": {
+    "myVisits": "My Visits",
+    "myPrescriptions": "My Prescriptions",
+    "myReports": "My Reports",
+    "myDiseases": "My Diseases",
+    "myTests": "My Tests",
+    "radiologyImages": "Radiology Images",
+    "myAppointments": "My Appointments",
+    "createAppointment": "Create Appointment"
+  },
+  "doctorMenu": {
+    "appointments": "Appointments",
+    "myPatients": "My Patients",
+    "myCalendar": "My Calendar"
   }
 }

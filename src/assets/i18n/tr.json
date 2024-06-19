@@ -1,10 +1,23 @@
 {
-  "MY_APPOINTMENTS": {
-    "label": "Randevularım",
-    "link": "/randevularim"
+  "adminMenu": {
+    "dashboard": "Gösterge Paneli",
+    "doctors": "Doktorlar",
+    "patients": "Hastalar",
+    "appointments": "Randevular"
   },
-  "SETTINGS": {
-    "label": "Ayarlar",
-    "link": "/ayarlar"
+  "patientMenu": {
+    "myVisits": "Ziyaretlerim",
+    "myPrescriptions": "Reçetelerim",
+    "myReports": "Raporlarım",
+    "myDiseases": "Hastalıklarım",
+    "myTests": "Tahlillerim",
+    "radiologyImages": "Radyolojik Görüntülerim",
+    "myAppointments": "Randevularım",
+    "createAppointment": "Randevu Al"
+  },
+  "doctorMenu": {
+    "appointments": "Randevular",
+    "myPatients": "Hastalarım",
+    "myCalendar": "Randevu Takvimim"
   }
 }

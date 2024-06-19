@@ -8,6 +8,40 @@ import { MyVisitsComponent } from './my-visits/my-visits.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { isPatient } from '../../core/guards/auth.guard';
+import { inject } from '@angular/core';
+import { ResolveFn } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom } from 'rxjs';
+
+export const resolvedMyDiseasesTitle: ResolveFn<string> = async () => {
+  const translateService = inject(TranslateService);
+  const translatedTitle = await firstValueFrom(
+    translateService.get('patientMenu.myDiseases'),
+  );
+  console.log(translateService);
+  return translatedTitle;
+};
+
+export const titleResolver = (path: string): ResolveFn<string> => {
+  return async () => {
+    const translateService = inject(TranslateService);
+    const translatedTitle = await firstValueFrom(
+      translateService.get(`patientMenu.${path}`),
+    );
+
+    // Dil değişikliklerini dinleyin ve başlığı güncelleyin
+    translateService.onLangChange.subscribe(() => {
+      translateService
+        .get(`patientMenu.${path}`)
+        .subscribe((newTranslatedTitle: string) => {
+          console.log(`Yeni başlık: ${newTranslatedTitle}`);
+          document.title = newTranslatedTitle;
+        });
+    });
+
+    return translatedTitle;
+  };
+};
 
 export const patientRoutes: Routes = [
   {
@@ -17,31 +51,43 @@ export const patientRoutes: Routes = [
       {
         path: 'my-diseases',
         component: MyDiseasesComponent,
-        title: 'Diseases',
+        title: titleResolver('myDiseases'),
       },
       {
         path: 'my-appointments',
         component: MyAppointmentsComponent,
-        title: 'Appointments',
+        title: titleResolver('myAppointments'),
       },
       {
-        path: 'createAppointment',
+        path: 'create-appointment',
         component: CreateAppointmentComponent,
-        title: 'Create Appointment',
+        title: titleResolver('createAppointment'),
       },
       {
         path: 'my-prescriptions',
         component: MyPrescriptionsComponent,
-        title: 'Prescriptions',
+        title: titleResolver('myPrescriptions'),
       },
       {
-        path: 'radiologyImages',
+        path: 'radiology-images',
         component: MyRadiologyImagesComponent,
-        title: 'Radiology Images',
+        title: titleResolver('radiologyImages'),
       },
-      { path: 'my-reports', component: MyReportsComponent, title: 'Reports' },
-      { path: 'my-tests', component: MyTestsComponent, title: 'Tests' },
-      { path: 'my-visits', component: MyVisitsComponent, title: 'Visits' },
+      {
+        path: 'my-reports',
+        component: MyReportsComponent,
+        title: titleResolver('myReports'),
+      },
+      {
+        path: 'my-tests',
+        component: MyTestsComponent,
+        title: titleResolver('myTests'),
+      },
+      {
+        path: 'my-visits',
+        component: MyVisitsComponent,
+        title: titleResolver('myVisits'),
+      },
     ],
   },
 ];
