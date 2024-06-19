@@ -1,22 +1,22 @@
 export const adminMenuItems = [
-  { label: 'Dashboard', link: 'dashboard' },
-  { label: 'Doktorlar', link: 'doctors' },
-  { label: 'Hastalar', link: 'patients' },
-  { label: 'Randevular', link: 'appointments' },
+  { label: 'adminMenu.dashboard', link: 'dashboard' },
+  { label: 'adminMenu.doctors', link: 'doctors' },
+  { label: 'adminMenu.patients', link: 'patients' },
+  { label: 'adminMenu.appointments', link: 'appointments' },
 ];
 
 export const patientMenuItems = [
-  { label: 'Ziyaretlerim', link: 'my-visits' },
-  { label: 'Reçetelerim', link: 'my-prescriptions' },
-  { label: 'Raporlarım', link: 'my-reports' },
-  { label: 'Hastalıklarım', link: 'my-diseases' },
-  { label: 'Tahlillerim', link: 'my-tests' },
-  { label: 'Radyolojik Görüntülerim', link: 'radiologyImages' },
-  { label: 'MY_APPOINTMENTS.label', link: 'my-appointments' },
+  { label: 'patientMenu.myVisits', link: 'my-visits' },
+  { label: 'patientMenu.myPrescriptions', link: 'my-prescriptions' },
+  { label: 'patientMenu.myReports', link: 'my-reports' },
+  { label: 'patientMenu.myDiseases', link: 'my-diseases' },
+  { label: 'patientMenu.myTests', link: 'my-tests' },
+  { label: 'patientMenu.radiologyImages', link: 'radiology-images' },
+  { label: 'patientMenu.myAppointments', link: 'my-appointments' },
 ];
 
 export const doctorMenuItems = [
-  { label: 'Randevular', link: 'my-appointments' },
-  { label: 'Hastalar', link: 'my-patients' },
-  { label: 'Randevu Takvimim', link: 'my-calendar' },
+  { label: 'doctorMenu.appointments', link: 'my-appointments' },
+  { label: 'doctorMenu.myPatients', link: 'my-patients' },
+  { label: 'doctorMenu.myCalendar', link: 'my-calendar' },
 ];
