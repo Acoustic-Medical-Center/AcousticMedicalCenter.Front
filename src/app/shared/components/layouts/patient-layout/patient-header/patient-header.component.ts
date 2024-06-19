@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HostListener, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../../../../../core/browser/services/local-storage.service';
 
 @Component({
   selector: 'app-patient-header',
@@ -19,6 +20,7 @@ export class PatientHeaderComponent {
     private renderer: Renderer2,
     private elRef: ElementRef,
     private translate: TranslateService,
+    private localStorageService: LocalStorageService,
   ) {}
 
   isDropdownOpen = false;
@@ -70,6 +72,8 @@ export class PatientHeaderComponent {
 
   selectLanguage(lang: string): void {
     this.translate.use(lang);
+    this.localStorageService.set('lang', lang);
+
     this.dropdownLanguageOpen = false; // Dili seçtikten sonra dropdown'u kapat
   }
 

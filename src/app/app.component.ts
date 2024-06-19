@@ -6,10 +6,13 @@ import { DoctorLayoutComponent } from './shared/components/layouts/doctor-layout
 import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/admin-layout.component';
 import { AuthService } from './features/auth/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from './core/browser/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+
   imports: [
     CommonModule,
     RouterOutlet,
@@ -22,7 +25,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private localStorageService: LocalStorageService,
+    private translate: TranslateService,
+  ) {}
 
   userType = '';
 
@@ -30,5 +37,8 @@ export class AppComponent {
     this.authService.getUserType().subscribe((userType) => {
       this.userType = userType;
     });
+
+    const lang = this.localStorageService.get<string>('lang') || 'tr';
+    this.translate.use(lang);
   }
 }
