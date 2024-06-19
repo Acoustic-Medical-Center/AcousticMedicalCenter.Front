@@ -18,29 +18,31 @@ export interface IDoctor {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DoctorSettingsService {
   private readonly baseUrl = 'https://localhost:7172/api';
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) {}
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+  ) {}
 
   getUserSettings(userId: string): Observable<any> {
     console.log(`Fetching user settings for ID: ${userId}`);
     return this.http.get<any>(`${this.baseUrl}/user/GetById?UserId=${userId}`);
   }
 
-  updateUserSettings(userId: string, userSettings: IUser): Observable<any> {
-    console.log(`Updating user settings for ID: ${userId}`);
+  updateUserSettings(userSettings: IUser): Observable<any> {
+    console.log(`Updating user settings for ID: `);
     return this.http.put(
-      `${this.baseUrl}/user`, 
+      `${this.baseUrl}/user`,
       {
-        id: userId,
-        ...userSettings
-      }, 
+        ...userSettings,
+      },
       {
-        headers: { 'Content-Type': 'application/json' }
-      }
+        headers: { 'Content-Type': 'application/json' },
+      },
     );
   }
 
@@ -49,17 +51,19 @@ export class DoctorSettingsService {
     return this.http.get<IDoctor>(`${this.baseUrl}/doctors/${doctorId}`);
   }
 
-  updateDoctorSettings(doctorId: string, doctorSettings: IDoctor): Observable<any> {
+  updateDoctorSettings(
+    doctorId: string,
+    doctorSettings: IDoctor,
+  ): Observable<any> {
     console.log(`Updating doctor settings for ID: ${doctorId}`);
     return this.http.put(
-      `${this.baseUrl}/doctors/${doctorId}`, 
+      `${this.baseUrl}/doctors`,
       {
-        id: doctorId,
-        ...doctorSettings
-      }, 
+        ...doctorSettings,
+      },
       {
-        headers: { 'Content-Type': 'application/json' }
-      }
+        headers: { 'Content-Type': 'application/json' },
+      },
     );
   }
 }
