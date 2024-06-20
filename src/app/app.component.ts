@@ -35,7 +35,7 @@ export class AppComponent {
     public loading: LoadingService,
   ) {}
 
-  userType = '';
+  userType = 'Patient';
 
   ngOnInit(): void {
     this.loading.showLoader();
