@@ -57,17 +57,22 @@ export class PatientHeaderComponent {
     this.dropdownLanguageOpen = false;
   }
 
-  toggleDropdownListItem() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-    this.elRef.nativeElement.classList.toggle(
-      'dropdown-open',
-      this.isDropdownOpen,
-    );
+  toggleDropdownListItem(event: Event) {
+    event.stopPropagation();
+    this.isDropdownOpen = false;
+    // this.elRef.nativeElement.classList.toggle(
+    //   'dropdown-open',
+    //   this.isDropdownOpen,
+    // );
   }
 
   toggleLanguageDropdown(event: Event): void {
     event.stopPropagation();
     this.dropdownLanguageOpen = !this.dropdownLanguageOpen;
+  }
+
+  eventStop(event: Event): void {
+    event.stopPropagation();
   }
 
   selectLanguage(lang: string): void {

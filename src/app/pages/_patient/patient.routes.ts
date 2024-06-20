@@ -12,6 +12,7 @@ import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
+import { PatientSettingsComponent } from './patient-settings/patient-settings.component';
 
 export const resolvedMyDiseasesTitle: ResolveFn<string> = async () => {
   const translateService = inject(TranslateService);
@@ -87,6 +88,11 @@ export const patientRoutes: Routes = [
         path: 'my-visits',
         component: MyVisitsComponent,
         title: titleResolver('myVisits'),
+      },
+      {
+        path: 'settings',
+        component: PatientSettingsComponent,
+        title: 'Settings',
       },
     ],
   },
