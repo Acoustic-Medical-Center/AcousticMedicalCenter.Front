@@ -11,12 +11,16 @@ import {
 import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { loadingInterceptor } from './core/loading/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
+    provideHttpClient(
+      withInterceptors([authInterceptor, loadingInterceptor]),
+      withFetch(),
+    ),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'tr',

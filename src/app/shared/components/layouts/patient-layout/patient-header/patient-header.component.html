@@ -20,15 +20,16 @@
           </div>
         </summary>
         <ul
+          *ngIf="isDropdownOpen"
           class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
         >
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="toggleDropdownListItem()" routerLink="profile"
+            <a (click)="toggleDropdownListItem($event)" routerLink="profile"
               >Profile</a
             >
           </li>
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="toggleDropdownListItem()" routerLink="settings"
+            <a (click)="toggleDropdownListItem($event)" routerLink="settings"
               >Settings</a
             >
           </li>
@@ -38,6 +39,29 @@
           <li *ngIf="!dropdownLanguageOpen">
             <a (click)="logout()">Logout</a>
           </li>
+
+          <h1 (click)="eventStop($event)" *ngIf="dropdownLanguageOpen">
+            <button
+              (click)="toggleLanguageDropdown($event)"
+              class="icon-button"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6 ml-2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                />
+              </svg>
+            </button>
+            <span class="ml-4">Language</span>
+          </h1>
           <li *ngIf="dropdownLanguageOpen">
             <a (click)="selectLanguage('en')">
               <span class="fi fi-gb"></span> English
@@ -50,29 +74,6 @@
           </li>
         </ul>
       </div>
-      <!-- burdan -->
-      <!-- <div class="dropdown dropdown-end" id="dropdownMenu">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-          <div class="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-            />
-          </div>
-        </div>
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-        >
-          <li>
-            <a routerLink="profile"> Profile </a>
-          </li>
-          <li><a routerLink="settings">Settings</a></li>
-          <li><a (click)="logout()">Logout</a></li>
-        </ul>
-      </div> -->
-
-      <!-- buraya -->
     </div>
   </div>
 </div>

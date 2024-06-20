@@ -1,3 +1,9 @@
+<!-- <app-loading-spinner *ngIf="loading.isLoading$ | async"></app-loading-spinner> -->
+
+<!-- <app-loading-spinner *ngIf="!controlVar"></app-loading-spinner> -->
+
+<!-- <div *ngIf="userType !== null"> -->
+
 <div [ngSwitch]="userType">
   <app-patient-layout *ngSwitchCase="'Patient'">
     <router-outlet></router-outlet>
@@ -8,7 +14,9 @@
   <app-admin-layout *ngSwitchCase="'Admin'">
     <router-outlet></router-outlet>
   </app-admin-layout>
-  <app-basic-layout *ngSwitchDefault="">
+  <app-basic-layout *ngSwitchDefault>
     <router-outlet></router-outlet>
   </app-basic-layout>
 </div>
+
+<!-- </div> -->
