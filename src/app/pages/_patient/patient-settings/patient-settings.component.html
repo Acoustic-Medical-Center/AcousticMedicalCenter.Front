@@ -1,36 +1,23 @@
+<!-- Örnek tab geçişleri DaisyUI ile -->
 
-<div class="container">
-  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <div>
-        <label for="firstName">First Name:</label>
-        <input id="firstName" formControlName="firstName" />
-      </div>
-      <div>
-        <label for="lastName">Last Name:</label>
-        <input id="lastName" formControlName="lastName" />
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input id="email" formControlName="email" />
-      </div>
-      <div>
-        <label for="phoneNumber">Phone Number:</label>
-        <input id="phoneNumber" formControlName="phoneNumber" />
-      </div>
-      <div>
-        <textarea name="address" id="address" formControlName="address"></textarea>
-      </div>
-      <div>
-        <label for="gender">Gender:</label>
-        <select id="gender" formControlName="gender">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </div>
-      <button type="submit" class="save-button" [disabled]="settingsForm.invalid">Save Settings</button>
-    </div>
-   
-  </form>
-  
+<div class="flex">
+  <button 
+    class="py-2 px-4 bg-gray-200 hover:bg-gray-300 mr-2"
+    (click)="currentTab = 'generalPatient'"
+    [class.bg-gray-300]="currentTab === 'generalPatient'">
+    Genel Ayarlar
+  </button>
+  <button 
+    class="py-2 px-4 bg-gray-200 hover:bg-gray-300"
+    (click)="currentTab = 'settingsPatient'"
+    [class.bg-gray-300]="currentTab === 'settingsPatient'">
+    Özel Ayarlar
+  </button>
+</div>
+
+<div *ngIf="currentTab === 'generalPatient'">
+  <app-patient-general-settings-form></app-patient-general-settings-form>
+</div>
+<div *ngIf="currentTab === 'settingsPatient'">
+  <app-patient-settings-form></app-patient-settings-form>
 </div>

@@ -25,7 +25,7 @@ export class PatientSettingsFormComponent implements OnInit {
     private localStorageService : LocalStorageService
   ){
     this.settingsPatientForm = this.fb.group({
-      blood: ['']
+      bloodType: ['']
     })
   }
 
@@ -43,7 +43,7 @@ export class PatientSettingsFormComponent implements OnInit {
     this.settingsService.getPatientSettings(patientId).subscribe(
       (settings) => {
         const filteredSettings = {
-          blood: settings.blood,
+          bloodType: settings.bloodType,
         };
         this.settingsPatientForm.patchValue(filteredSettings);
       },
@@ -51,6 +51,42 @@ export class PatientSettingsFormComponent implements OnInit {
         console.error('Error fetching doctor settings:', error);
       }
     )
-    console.log('Patient Settings güncellendi');
+  }
+  
+  onSubmit(): void {
+    if (this.settingsPatientForm.valid && this.patientId) {
+      const dirtyValues = this.getDirtyValues(this.settingsPatientForm);
+
+      if (Object.keys(dirtyValues).length > 0) {
+        this.settingsService
+          .updatePatientSettings(this.patientId,dirtyValues)
+          .subscribe(
+            (response) => {
+              console.log('Patient settings updated successfully', response);
+            },
+            (error) => {
+              console.error('Error updating doctor settings:', error);
+            },
+          );
+      } else {
+        console.log('No changes to save.');
+      }
+    } else {
+      console.log('Form geçersiz');
+    }
+  }
+
+  getDirtyValues(form: FormGroup): any {
+    const dirtyValues: any = {};
+
+    Object.keys(form.controls).forEach((key) => {
+      const currentControl = form.get(key);
+
+      if (currentControl && currentControl.dirty) {
+        dirtyValues[key] = currentControl.value;
+      }
+    });
+
+    return dirtyValues;
   }
 }
