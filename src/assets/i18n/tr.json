@@ -19,5 +19,40 @@
     "appointments": "Randevular",
     "myPatients": "Hastalarım",
     "myCalendar": "Randevu Takvimim"
+  },
+  "signupform": {
+    "create_account": "Hesap Oluştur!",
+    "first_name": "Ad",
+    "last_name": "Soyad",
+    "email": "E-posta",
+    "phone_number": "Telefon Numarası",
+    "gender": "Cinsiyet",
+    "male": "Erkek",
+    "female": "Kadın",
+    "prefer_not_to_say": "Belirtmek istemiyorum",
+    "password": "Şifre",
+    "confirm_password": "Şifreyi Onayla",
+    "register_account": "Hesap Kaydet",
+    "forgot_password": "Şifrenizi mi unuttunuz?",
+    "already_have_account": "Zaten bir hesabınız var mı? Giriş Yap!",
+    "first_name_required": "Ad zorunludur",
+    "last_name_required": "Soyad zorunludur",
+    "valid_email_required": "Geçerli bir e-posta zorunludur",
+    "phone_number_required": "Telefon Numarası zorunludur",
+    "gender_required": "Cinsiyet zorunludur",
+    "password_required": "Şifre zorunludur (en az 6 karakter)",
+    "confirm_password_error": "Şifreyi onaylamak zorunludur",
+    "password_mismatch": "Girdiğiniz iki şifre aynı olmalıdır."
+  },
+  "loginform": {
+    "login": "Giriş",
+    "email": "E-posta",
+    "password": "Şifre",
+    "valid_email_required": "Geçerli bir e-posta zorunludur",
+    "password_required": "Şifre zorunludur"
+  },
+  "authRoutes": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol"
   }
 }

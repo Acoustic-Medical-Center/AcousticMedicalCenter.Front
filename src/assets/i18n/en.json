@@ -19,5 +19,39 @@
     "appointments": "Appointments",
     "myPatients": "My Patients",
     "myCalendar": "My Calendar"
+  },
+  "signupform": {
+    "create_account": "Create an Account!",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "prefer_not_to_say": "Prefer not to say",
+    "password": "Password",
+    "confirm_password": "The passwords you entered must match.",
+    "register_account": "Register Account",
+    "forgot_password": "Forgot Password?",
+    "already_have_account": "Already have an account? Login!",
+    "first_name_required": "First Name is required",
+    "last_name_required": "Last Name is required",
+    "valid_email_required": "Valid email is required",
+    "phone_number_required": "Phone Number is required",
+    "gender_required": "Gender is required",
+    "password_required": "Password is required (min 6 characters)",
+    "confirm_password_required": "Confirm Password is required"
+  },
+  "loginform": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "valid_email_required": "Valid email is required",
+    "password_required": "Password is required"
+  },
+  "authRoutes": {
+    "login": "Login",
+    "register": "Sign Up"
   }
 }
