@@ -1,0 +1,151 @@
+<div class="form-container">
+  <h3 class="form-header">{{ "signupform.create_account" | translate }}</h3>
+  <form class="form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <div class="form-group-item">
+        <input
+          class="input"
+          id="firstName"
+          type="text"
+          placeholder="{{ 'signupform.first_name' | translate }}"
+          formControlName="firstName"
+          [ngClass]="{ 'input-error': isControlInvalid('firstName') }"
+        />
+        <div *ngIf="isControlInvalid('firstName')" class="error-text">
+          {{ "signupform.first_name_required" | translate }}
+        </div>
+      </div>
+      <div class="form-group-item-second">
+        <input
+          class="input"
+          id="lastName"
+          type="text"
+          placeholder="{{ 'signupform.last_name' | translate }}"
+          formControlName="lastName"
+          [ngClass]="{ 'input-error': isControlInvalid('lastName') }"
+        />
+        <div *ngIf="isControlInvalid('lastName')" class="error-text">
+          {{ "signupform.last_name_required" | translate }}
+        </div>
+      </div>
+    </div>
+    <div>
+      <input
+        class="input mb-3"
+        id="email"
+        type="email"
+        placeholder="{{ 'signupform.email' | translate }}"
+        formControlName="email"
+        [ngClass]="{ 'input-error': isControlInvalid('email') }"
+      />
+      <div *ngIf="isControlInvalid('email')" class="error-text">
+        {{ "signupform.valid_email_required" | translate }}
+      </div>
+    </div>
+    <div>
+      <div class="form-group-item">
+        <input
+          class="input mb-3"
+          id="phone"
+          type="tel"
+          placeholder="{{ 'signupform.phone_number' | translate }}"
+          formControlName="phoneNumber"
+          [ngClass]="{ 'input-error': isControlInvalid('phoneNumber') }"
+        />
+        <div *ngIf="isControlInvalid('phoneNumber')" class="error-text">
+          {{ "signupform.phone_number_required" | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="flex mb-4">
+      <label class="mr-4 text-gray-700 ml-3 text-sm" for="gender"
+        >{{ "signupform.gender" | translate }}:</label
+      >
+      <div class="flex items-center space-x-5">
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            class="form-radio h-4 w-4"
+            name="gender"
+            value="male"
+            formControlName="gender"
+          />
+          <span class="ml-1 text-xs">{{ "signupform.male" | translate }}</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            class="form-radio h-4 w-4"
+            name="gender"
+            value="female"
+            formControlName="gender"
+          />
+          <span class="ml-1 text-xs">{{
+            "signupform.female" | translate
+          }}</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input
+            type="radio"
+            class="form-radio h-4 w-4"
+            name="gender"
+            value="other"
+            formControlName="gender"
+          />
+          <span class="ml-1 text-xs">{{
+            "signupform.prefer_not_to_say" | translate
+          }}</span>
+        </label>
+      </div>
+      <div *ngIf="isControlInvalid('gender')" class="error-text ml-4">
+        {{ "signupform.gender_required" | translate }}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group-item">
+        <input
+          class="input mb-3"
+          id="password"
+          type="password"
+          placeholder="{{ 'signupform.password' | translate }}"
+          formControlName="password"
+          [ngClass]="{ 'input-error': isControlInvalid('password') }"
+        />
+        <div *ngIf="isControlInvalid('password')" class="error-text">
+          {{ "signupform.password_required" | translate }}
+        </div>
+      </div>
+      <div class="form-group-item-second">
+        <input
+          class="input mb-3"
+          id="c_password"
+          type="password"
+          placeholder="{{ 'signupform.confirm_password' | translate }}"
+          formControlName="confirmPassword"
+          [ngClass]="{
+            'input-error': isPasswordMismatch(),
+          }"
+        />
+        <div *ngIf="isPasswordMismatch()" class="error-text">
+          {{ "signupform.confirm_password" | translate }}
+        </div>
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="button" type="submit">
+        {{ "signupform.register_account" | translate }}
+      </button>
+    </div>
+    <hr class="hr" />
+    <div class="text-center">
+      <a class="link" href="#">{{
+        "signupform.forgot_password" | translate
+      }}</a>
+    </div>
+    <div class="text-center">
+      <a class="link" href="#">{{
+        "signupform.already_have_account" | translate
+      }}</a>
+    </div>
+  </form>
+</div>

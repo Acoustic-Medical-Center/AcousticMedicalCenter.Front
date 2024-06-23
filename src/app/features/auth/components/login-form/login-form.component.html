@@ -1,0 +1,36 @@
+<div class="form-container">
+  <h3 class="form-header">{{ "loginform.login" | translate }}</h3>
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <input
+        class="input mb-3"
+        id="email"
+        type="email"
+        placeholder="{{ 'loginform.email' | translate }}"
+        formControlName="email"
+        [ngClass]="{ 'input-error': isControlInvalid('email') }"
+      />
+      <div *ngIf="isControlInvalid('email')" class="error-text">
+        {{ "loginform.valid_email_required" | translate }}
+      </div>
+    </div>
+    <div>
+      <input
+        class="input mb-3"
+        id="password"
+        type="password"
+        placeholder="{{ 'loginform.password' | translate }}"
+        formControlName="password"
+        [ngClass]="{ 'input-error': isControlInvalid('password') }"
+      />
+      <div *ngIf="isControlInvalid('password')" class="error-text">
+        {{ "loginform.password_required" | translate }}
+      </div>
+    </div>
+    <div class="button-container">
+      <button class="button" type="submit">
+        {{ "loginform.login" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
