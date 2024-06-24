@@ -12,33 +12,67 @@ export interface IUser {
   gender: string;
   address: string;
 }
+export interface IPatient {
+  bloodType: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class PatientSettingsService {
   private baseUrl = 'https://localhost:7172/api/User';
- 
 
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
   ) {}
 
-  getUserSettings(UserId: string): Observable<any> {
-    console.log('id nedir', this.localStorageService.get('Id'));
-    console.log('girdi mi buraya?');
-    return this.http.get<any>(
-      `https://localhost:7172/api/User/GetById?UserId=${UserId}`,
+  getUserSettings(): Observable<any> {
+    return this.http.get<any>(`https://localhost:7172/api/user/settings`);
+  }
+
+  updateUserSettings(userSettings: IUser): Observable<any> {
+    console.log('Güncellendi', this.localStorageService.get('Id'));
+    return this.http.put(
+      `
+      ${this.baseUrl}`,
+      {
+        ...userSettings,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+  }
+  getPatientSettings(patientId: string): Observable<IPatient> {
+    return this.http.get<IPatient>(
+      `https://localhost:7172/api/patient/${patientId}`,
     );
   }
 
-  updateUserSettings(UserId: string, userSettings: IUser): Observable<any> {
-    console.log("Güncellendi", this.localStorageService.get('Id'));
-    return this.http.post(`${this.baseUrl}/Update`, {
-      id: UserId,
-      ...userSettings,
+  updatePatientSettings(
+    patientId: string,
+    patientSettings: IPatient,
+  ): Observable<any> {
+    console.log(`Updating patient settings for Id: ${patientId}`);
+    return this.http.put(
+      `https://localhost:7172/api/patients`,
+      {
+        ...patientSettings,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+  }
+
+  updateBloodType(bloodType: string): Observable<any> {
+    return this.http.put(`https://localhost:7172/api/patient/settings`, {
+      bloodType,
     });
-   
+  }
+
+  getBloodType(): Observable<any> {
+    return this.http.get(`https://localhost:7172/api/patient/settings`);
   }
 }
