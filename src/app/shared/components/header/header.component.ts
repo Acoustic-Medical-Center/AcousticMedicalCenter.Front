@@ -4,7 +4,8 @@ import { AuthService } from '../../../features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { HostListener, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -15,17 +16,19 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   constructor(
     private authService: AuthService,
-    private router: Router,
     private renderer: Renderer2,
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone,
     private elRef: ElementRef,
+    private translate: TranslateService,
+    private localStorageService: LocalStorageService,
   ) {}
 
   isDropdownOpen = false;
   @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
+  dropdownLanguageOpen = false;
 
   private clickListener!: () => void;
+
+  date = Date.now();
 
   ngOnInit() {
     this.clickListener = this.renderer.listen('document', 'click', (e) => {
@@ -36,6 +39,7 @@ export class HeaderComponent {
       ) {
       }
       this.isDropdownOpen = false;
+      this.dropdownLanguageOpen = false;
     });
   }
 
@@ -49,14 +53,32 @@ export class HeaderComponent {
   toggleDropdown(event: Event) {
     event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
+    this.dropdownLanguageOpen = false;
   }
 
-  toggleDropdownListItem() {
-    this.isDropdownOpen = !this.isDropdownOpen;
-    this.elRef.nativeElement.classList.toggle(
-      'dropdown-open',
-      this.isDropdownOpen,
-    );
+  toggleDropdownListItem(event: Event) {
+    event.stopPropagation();
+    this.isDropdownOpen = false;
+    // this.elRef.nativeElement.classList.toggle(
+    //   'dropdown-open',
+    //   this.isDropdownOpen,
+    // );
+  }
+
+  toggleLanguageDropdown(event: Event): void {
+    event.stopPropagation();
+    this.dropdownLanguageOpen = !this.dropdownLanguageOpen;
+  }
+
+  eventStop(event: Event): void {
+    event.stopPropagation();
+  }
+
+  selectLanguage(lang: string): void {
+    this.translate.use(lang);
+    this.localStorageService.set('lang', lang);
+
+    this.dropdownLanguageOpen = false; // Dili seçtikten sonra dropdown'u kapat
   }
 
   logout() {
@@ -66,6 +88,7 @@ export class HeaderComponent {
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(event: KeyboardEvent) {
     this.isDropdownOpen = false;
+    this.dropdownLanguageOpen = false;
     console.log('mahmut');
     console.log(this.isDropdownOpen);
   }
