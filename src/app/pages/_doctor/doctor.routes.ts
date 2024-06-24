@@ -3,6 +3,7 @@ import { MyAppointmentsComponent } from './my-appointments/my-appointments.compo
 import { MyCalendarComponent } from './my-calendar/my-calendar.component';
 import { MyPatientsComponent } from './my-patients/my-patients.component';
 import { isDoctor } from '../../core/guards/auth.guard';
+import { DoctorSettingsComponent } from './doctor-settings/doctor-settings.component';
 
 export const doctorRoutes: Routes = [
   {
@@ -23,6 +24,11 @@ export const doctorRoutes: Routes = [
         path: 'my-patients',
         component: MyPatientsComponent,
         title: 'Patients',
+      },
+      {
+        path: 'settings',
+        component: DoctorSettingsComponent,
+        title: 'Settings',
       },
     ],
   },

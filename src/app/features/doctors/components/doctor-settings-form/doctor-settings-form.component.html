@@ -1,0 +1,74 @@
+<div class="container mx-auto p-4">
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="space-y-4">
+    <div>
+      <label for="experience" class="label">
+        <span class="label-text">Experience (years):</span>
+      </label>
+      <input
+        id="experience"
+        formControlName="experience"
+        type="number"
+        class="input input-bordered w-full"
+      />
+      <div
+        *ngIf="
+          doctorForm.get('experience')?.invalid &&
+          (doctorForm.get('experience')?.dirty ||
+            doctorForm.get('experience')?.touched)
+        "
+        class="error-text"
+      >
+        Experience is required and must be a positive number.
+      </div>
+    </div>
+
+    <div>
+      <label for="biography" class="label">
+        <span class="label-text">Biography:</span>
+      </label>
+      <textarea
+        id="biography"
+        formControlName="biography"
+        class="textarea textarea-bordered w-full"
+      ></textarea>
+      <div
+        *ngIf="
+          doctorForm.get('biography')?.invalid &&
+          (doctorForm.get('biography')?.dirty ||
+            doctorForm.get('biography')?.touched)
+        "
+        class="error-text"
+      >
+        Biography is required.
+      </div>
+    </div>
+
+    <div formArrayName="doctorInterests" *ngIf="doctorInterestsControls">
+      <label class="label">
+        <span class="label-text">Interests:</span>
+      </label>
+      <div
+        *ngFor="let interest of doctorInterestsControls.controls; let i = index"
+        class="flex items-center space-x-2 mb-2"
+      >
+        <input [formControlName]="i" class="input input-bordered w-full" />
+        <button type="button" class="btn btn-error" (click)="removeInterest(i)">
+          Remove
+        </button>
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="addInterest()">
+        Add Interest
+      </button>
+    </div>
+
+    <div class="flex justify-end">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="doctorForm.invalid"
+      >
+        Save Settings
+      </button>
+    </div>
+  </form>
+</div>

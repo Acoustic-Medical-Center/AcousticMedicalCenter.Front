@@ -26,7 +26,7 @@ export class SettingsPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
-    private LocalStorageService : LocalStorageService
+    private LocalStorageService: LocalStorageService,
   ) {
     this.settingsForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -34,7 +34,6 @@ export class SettingsPageComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.minLength(6)]],
       gender: ['', Validators.required],
-      
     });
   }
 
@@ -42,18 +41,15 @@ export class SettingsPageComponent implements OnInit {
     this.userId = this.LocalStorageService.get<string>('Id');
     console.log('Fetched userIdd from LocalStorage', this.userId);
 
-
     if (this.userId) {
       this.loadUserSettings(this.userId);
-    }else{
-      console.log("User id bulunamadı");
+    } else {
+      console.log('User id bulunamadı');
     }
-    
   }
 
-  loadUserSettings(userId:string) {
-    
-    this.settingsService.getUserSettings(userId).subscribe(
+  loadUserSettings(userId: string) {
+    this.settingsService.getUserSettings().subscribe(
       (settings) => {
         const filteredSettings = {
           firstName: settings.user.firstName,
@@ -61,30 +57,28 @@ export class SettingsPageComponent implements OnInit {
           email: settings.user.email,
           phoneNumber: settings.user.phoneNumber,
           gender: settings.gender,
-          addres: settings.address
+          addres: settings.address,
         };
 
         this.settingsForm.patchValue(filteredSettings);
-        console.log('Filtered Settings:', settings); 
+        console.log('Filtered Settings:', settings);
         console.log('settingsFormValue', this.settingsForm.value);
       },
       (error) => {
-        console.error('Error fetching user settings:', error); 
+        console.error('Error fetching user settings:', error);
       },
     );
-    
-    
   }
 
   onSubmit(): void {
     if (this.settingsForm.valid && this.userId) {
       this.settingsService
-        .updateUserSettings(this.userId, this.settingsForm.value)
+        .updateUserSettings(this.settingsForm.value)
         .subscribe((response) => {
           console.log('Settings updated successfully', response);
         });
-    }else{
-      console.error("Form geçersiz");
+    } else {
+      console.error('Form geçersiz');
     }
   }
 }
