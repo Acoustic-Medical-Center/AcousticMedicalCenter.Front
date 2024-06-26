@@ -1,0 +1,10 @@
+<div>
+  <h2>Chat</h2>
+  <div *ngFor="let msg of messages">
+    <strong>{{ msg.user }}:</strong> {{ msg.message }}
+  </div>
+  <input [(ngModel)]="messageInput" type="text" placeholder="Message">
+  <button (click)="sendMessage()" [disabled]="!isConnected">Send to Admin</button>
+  <button (click)="adminSendMessage()" [disabled]="!isConnected">Send to User</button>
+  <p *ngIf="!isConnected">Connecting to chat server...</p>
+</div>

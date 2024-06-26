@@ -6,12 +6,14 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { patientRoutes } from './pages/_patient/patient.routes';
 import { adminRoutes } from './pages/_admin/admin.routes';
 import { doctorRoutes } from './pages/_doctor/doctor.routes';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent, title: 'HomePage' },
 
   // { path: 'settings', component: SettingsComponent, title: 'Settings' },
   // { path: 'profile', component: ProfilePageComponent, title: 'Profile' },
+  { path: 'chat', component: ChatComponent, title: 'Chat Page' },
   ...adminRoutes,
   ...authRoutes,
   ...patientRoutes,
