@@ -12,6 +12,8 @@ import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { loadingInterceptor } from './core/loading/loading.interceptor';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +23,8 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([authInterceptor, loadingInterceptor]),
       withFetch(),
     ),
+    provideAnimations(),
+    provideToastr(),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'tr',

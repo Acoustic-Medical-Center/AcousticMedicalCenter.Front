@@ -24,7 +24,7 @@ import { LoadingService } from './core/loading/loading.service';
     AdminLayoutComponent,
     DoctorLayoutComponent,
     LoadingSpinnerComponent,
-   
+    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { patientRoutes } from './pages/_patient/patient.routes';
 import { adminRoutes } from './pages/_admin/admin.routes';
 import { doctorRoutes } from './pages/_doctor/doctor.routes';
+import { ToastalertComponent } from './shared/components/toastr/toastalert/toastalert.component';
 
 export const routes: Routes = [
   { path: '', component: HomePageComponent, title: 'HomePage' },
@@ -17,4 +18,5 @@ export const routes: Routes = [
   ...patientRoutes,
   ...doctorRoutes,
   { path: '**', redirectTo: 'login' }, // Diğer rotalar için yönlendirme
+  {path: 'toast', component:ToastalertComponent}
 ];
