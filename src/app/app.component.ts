@@ -11,6 +11,7 @@ import { LocalStorageService } from './core/browser/services/local-storage.servi
 import { LoadingSpinnerComponent } from './shared/components/loading/loading-spinner/loading-spinner.component';
 import { LoadingService } from './core/loading/loading.service';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,6 +24,7 @@ import { LoadingService } from './core/loading/loading.service';
     AdminLayoutComponent,
     DoctorLayoutComponent,
     LoadingSpinnerComponent,
+   
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

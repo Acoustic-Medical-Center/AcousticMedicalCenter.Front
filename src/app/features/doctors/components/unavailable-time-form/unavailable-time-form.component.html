@@ -1,0 +1,11 @@
+<div>
+    <h2>Events</h2>
+    <ul>
+      <li *ngFor="let event of events">
+        <strong>{{ event.title }}</strong> - {{ event.date }}
+      </li>
+    </ul>
+  
+    <button (click)="addEvent()">Yeni Event Ekle</button>
+</div>
+  
