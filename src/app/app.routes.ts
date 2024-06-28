@@ -17,4 +17,5 @@ export const routes: Routes = [
   ...patientRoutes,
   ...doctorRoutes,
   { path: '**', redirectTo: 'login' }, // Diğer rotalar için yönlendirme
+
 ];

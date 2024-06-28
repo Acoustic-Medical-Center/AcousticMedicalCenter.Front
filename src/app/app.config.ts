@@ -12,6 +12,8 @@ import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { loadingInterceptor } from './core/loading/loading.interceptor';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,6 +22,15 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([authInterceptor, loadingInterceptor]),
       withFetch(),
+    ),
+    provideAnimations(),
+    provideToastr(
+      {
+        closeButton:true, 
+        positionClass:'toast-top-right',
+        timeOut: 10000,
+        preventDuplicates:true
+      }
     ),
     importProvidersFrom(
       TranslateModule.forRoot({
