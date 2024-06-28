@@ -5,6 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg, EventDragStopArg } from '@fullcalendar/interaction';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-doctor-calendar',
@@ -28,6 +29,8 @@ import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular
 export class DoctorCalendarComponent implements OnInit {
   calendarOptions?: CalendarOptions;
   eventsModel: any;
+  constructor(private toastr: ToastrService){}
+
   @ViewChild('fullcalendar') fullcalendar?: FullCalendarComponent;
 
   ngOnInit() {
@@ -74,7 +77,7 @@ export class DoctorCalendarComponent implements OnInit {
     const resourceId = prompt('Enter the resource ID (e.g., a, b, c)') || undefined;
 
     if (!dateStr || !startTimeStr || !endTimeStr || !resourceId) {
-      alert('Invalid date, time, or resource.');
+      this.toastr.error('Geçersiz tarih, saat, veya kaynak');
       return;
     }
 
@@ -89,9 +92,9 @@ export class DoctorCalendarComponent implements OnInit {
         end: endDateTime,
         resourceId: resourceId
       });
-      alert('Great. Now, update your database...');
+      this.toastr.success('Event Eklendi..');
     } else {
-      alert('Invalid date or time.');
+      this.toastr.warning('Geçersiz tarih veya saat');
     }
   }
 
@@ -101,13 +104,13 @@ export class DoctorCalendarComponent implements OnInit {
 
     const dateStr = prompt('Güncellemek istediğiniz etkinliğin tarihini YYYY-MM-DD formatında girin') || undefined;
     if (!dateStr) {
-      alert('Geçersiz tarih.');
+      this.toastr.error('Geçersiz tarih.');
       return;
     }
 
     const date = new Date(`${dateStr}T00:00:00`);
     if (isNaN(date.valueOf())) {
-      alert('Geçersiz tarih.');
+      this.toastr.error('Geçersiz tarih.');
       return;
     }
 
@@ -120,10 +123,10 @@ export class DoctorCalendarComponent implements OnInit {
       const newTitle = prompt('Yeni başlık girin:', events[0].title) || undefined;
       if (newTitle) {
         events.forEach(event => event.setProp('title', newTitle));
-        alert('Etkinlik(ler) güncellendi.');
+        this.toastr.success('Etkinlik(ler) güncellendi.');
       }
     } else {
-      alert('Belirtilen tarih ile bir etkinlik bulunamadı.');
+      this.toastr.error('Belirtilen tarih ile bir etkinlik bulunamadı.');
     }
   }
 
@@ -133,13 +136,13 @@ export class DoctorCalendarComponent implements OnInit {
 
     const dateStr = prompt('Silmek istediğiniz etkinliğin tarihini YYYY-MM-DD formatında girin') || undefined;
     if (!dateStr) {
-      alert('Geçersiz tarih.');
+      this.toastr.error('Geçersiz tarih.');
       return;
     }
 
     const date = new Date(`${dateStr}T00:00:00`);
     if (isNaN(date.valueOf())) {
-      alert('Geçersiz tarih.');
+      this.toastr.error('Geçersiz tarih.');
       return;
     }
 
@@ -150,9 +153,9 @@ export class DoctorCalendarComponent implements OnInit {
 
     if (events.length > 0) {
       events.forEach(event => event.remove());
-      alert('Etkinlik(ler) silindi.');
+      this.toastr.success('Etkinlik(ler) silindi.');
     } else {
-      alert('Belirtilen tarih ile bir etkinlik bulunamadı.');
+      this.toastr.error('Belirtilen tarih ile bir etkinlik bulunamadı.');
     }
   }
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { PatientSettingsService } from '../../services/patient-settings.service';
 import { LocalStorageService } from '../../../../core/browser/services/local-storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-personal-information-form',
@@ -25,6 +26,7 @@ export class PersonalInformationFormComponent implements OnInit {
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
     private localStorageService: LocalStorageService,
+    private toastr: ToastrService
   ) {
     this.settingsGeneralPatientForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -70,18 +72,20 @@ export class PersonalInformationFormComponent implements OnInit {
       if (Object.keys(dirtyValues).length > 0) {
         this.settingsService.updateUserSettings(dirtyValues).subscribe(
           (response) => {
-            console.log('User settings updated successfully', response);
+            this.toastr.success('User settings updated successfully');
+            console.log(response);
           },
           (error) => {
-            console.error('Error updating user settings:', error);
+            this.toastr.error('Error updating user settings');
+            console.error();
           },
         );
       } else {
-        console.log('No changes to save.');
+        this.toastr.warning('No changes to save.');
       }
     } else {
       console.log();
-      console.log('Form geçersiz');
+      this.toastr.error('Form geçersiz');
     }
   }
 
