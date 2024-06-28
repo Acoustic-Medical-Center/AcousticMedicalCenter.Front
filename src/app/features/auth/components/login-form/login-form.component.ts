@@ -9,6 +9,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
+import 'ngx-toastr/toastr';
 
 @Component({
   selector: 'app-login-form',
@@ -24,6 +26,7 @@ export class LoginFormComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,17 +40,20 @@ export class LoginFormComponent {
 
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('Login successful', response);
+          this.toastr.success('Giriş Başarılı');
+          // console.log('Login successful', response);
           this.router.navigate(['']);
         },
         error: (error) => {
-          console.error('Login failed', error);
+          this.toastr.error('Giriş Başarısız !');
+          // console.error('Login failed', error);
           alert('Login failed! Please try again.');
         },
       });
     } else {
       this.markAllAsTouched();
-      console.log('Form is not valid');
+      this.toastr.warning('Form Geçerli Değil !')
+      // console.log('Form is not valid');
     }
   }
 

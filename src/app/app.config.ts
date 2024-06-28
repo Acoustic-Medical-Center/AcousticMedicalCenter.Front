@@ -24,7 +24,14 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
     ),
     provideAnimations(),
-    provideToastr(),
+    provideToastr(
+      {
+        closeButton:true, 
+        positionClass:'toast-top-right',
+        timeOut: 10000,
+        preventDuplicates:true
+      }
+    ),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'tr',

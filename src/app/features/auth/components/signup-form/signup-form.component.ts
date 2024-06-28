@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { passwordMatchValidator } from './validators/passwordMatchValidator';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup-form',
@@ -25,6 +26,7 @@ export class SignupFormComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private toastr: ToastrService
   ) {
     this.signupForm = this.fb.group(
       {
@@ -47,17 +49,19 @@ export class SignupFormComponent {
 
       this.authService.signup(formValue).subscribe({
         next: (response) => {
-          console.log('Signup successful', response);
+          this.toastr.success('Kayır Başarılı');
+          console.log(response);
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          console.error('Signup failed', error);
-          alert('Registration failed! Please try again.');
+          this.toastr.error('Signup failed');
+          console.log(error);
+          
         },
       });
     } else {
       this.markAllAsTouched();
-      console.log('Form is not valid');
+      this.toastr.warning('Form is not valid');
     }
   }
 
