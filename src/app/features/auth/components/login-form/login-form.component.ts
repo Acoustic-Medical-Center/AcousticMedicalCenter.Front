@@ -41,19 +41,19 @@ export class LoginFormComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           this.toastr.success('Giriş Başarılı');
-          // console.log('Login successful', response);
+          console.log(response);
           this.router.navigate(['']);
         },
         error: (error) => {
           this.toastr.error('Giriş Başarısız !');
-          // console.error('Login failed', error);
-          alert('Login failed! Please try again.');
+          console.error(error);
+          
         },
       });
     } else {
       this.markAllAsTouched();
       this.toastr.warning('Form Geçerli Değil !')
-      // console.log('Form is not valid');
+      
     }
   }
 

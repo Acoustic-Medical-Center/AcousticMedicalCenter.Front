@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { PatientSettingsService } from '../../services/patient-settings.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-patient-settings-form',
@@ -21,6 +22,7 @@ export class PatientSettingsFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
+    private toastr: ToastrService
   ) {
     this.bloodTypeForm = this.fb.group({
       bloodType: ['', Validators.required],
@@ -49,14 +51,16 @@ export class PatientSettingsFormComponent implements OnInit {
 
       this.settingsService.updateBloodType(bloodType).subscribe(
         (response) => {
-          console.log('Blood type updated successfully', response);
+          this.toastr.success('Blood type updated successfully');
+          console.log(response);
         },
         (error) => {
-          console.error('Error updating blood type:', error);
+          this.toastr.error('Error updating blood type');
+          console.error();
         },
       );
     } else {
-      console.log('Form is invalid');
+      this.toastr.warning('Form is invalid');
     }
   }
 }

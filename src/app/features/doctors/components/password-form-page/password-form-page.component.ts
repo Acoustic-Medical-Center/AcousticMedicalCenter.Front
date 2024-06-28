@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Observable } from 'rxjs';
 import { PasswordService } from '../../service/password.service';
 import { error } from 'console';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-password-form-page',
@@ -22,7 +23,8 @@ export class PasswordFormPageComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private toastr: ToastrService
   ){
     this.changePasswordForm = this.fb.group({
       currentPassword: ['', Validators.required],
@@ -48,10 +50,12 @@ export class PasswordFormPageComponent implements OnInit {
 
       this.passwordService.changePassword(currentPassword, newPassword).subscribe(
         response => {
-          console.log('Password change successfly:', response);
+         this.toastr.success('Password change successfly');
+         console.log(response);
         },
         error=> {
-          console.log('Password change failed:', error);
+          this.toastr.error('Password change failed');
+          console.log(error);
         }
       )
     }

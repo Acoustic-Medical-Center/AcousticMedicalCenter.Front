@@ -9,6 +9,7 @@ import {
 import { DoctorSettingsService } from '../../service/doctor-settings.service';
 import { IDoctor } from '../../service/doctor-settings.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-doctor-settings-form',
@@ -23,6 +24,7 @@ export class DoctorSettingsFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private settingsService: DoctorSettingsService,
+    private toastr: ToastrService
   ) {
     this.doctorForm = this.fb.group({
       experience: ['', [Validators.required, Validators.min(0)]],
@@ -45,7 +47,8 @@ export class DoctorSettingsFormComponent implements OnInit {
         this.setDoctorInterests(settings.doctorInterests);
       },
       (error: any) => {
-        console.error('Error fetching doctor settings:', error);
+       this.toastr.error('Error fetching doctor settings:');
+       console.log(error);
       },
     );
   }
@@ -72,14 +75,16 @@ export class DoctorSettingsFormComponent implements OnInit {
       const doctorData: IDoctor = this.doctorForm.value;
       this.settingsService.updateDoctorSettings(doctorData).subscribe(
         (response: any) => {
-          console.log('Doctor settings updated successfully', response);
+         this.toastr.success('Doctor settings updated successfully');
+         console.log(response);
         },
         (error: any) => {
-          console.error('Error updating doctor settings:', error);
+          this.toastr.error('Error updating doctor settings');
+          console.log(error);
         },
       );
     } else {
-      console.log('Form is invalid');
+      this.toastr.warning('Form is invalid');
     }
   }
 

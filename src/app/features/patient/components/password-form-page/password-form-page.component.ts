@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PasswordService } from '../../services/password.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-password-form-page',
@@ -19,7 +20,8 @@ export class PasswordFormPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private toastr: ToastrService
   ){
     this.changePasswordForm = this.fb.group({
       currentPassword: ['', Validators.required],
@@ -45,10 +47,12 @@ export class PasswordFormPageComponent {
 
       this.passwordService.changePassword(currentPassword, newPassword).subscribe(
         response => {
-          console.log('Password change successfly:', response);
+          this.toastr.success('Password change successfly');
+          console.log(response);
         },
         error=> {
-          console.log('Password change failed:', error);
+          this.toastr.error('Password change failed');
+          console.log(error);
         }
       )
     }
