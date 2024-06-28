@@ -45,6 +45,14 @@ export class DoctorCalendarComponent implements OnInit {
         { id: '1', resourceId: 'a', title: 'event 1', start: '2024-06-24T10:00:00', end: '2024-06-24T12:00:00' },
         { id: '2', resourceId: 'b', title: 'event 2', start: '2024-06-25T14:00:00', end: '2024-06-25T16:00:00' }
       ],
+      
+      dateClick: function(info) {
+        alert('Clicked on: ' + info.dateStr);
+        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        alert('Current view: ' + info.view.type);
+        // change the day's background color just for fun
+        info.dayEl.style.backgroundColor = 'red';
+      },
       editable: true,
       customButtons: {
         addEventButton: {
@@ -61,7 +69,7 @@ export class DoctorCalendarComponent implements OnInit {
         center: 'title',
         right: 'dayGridMonth,dayGridWeek,resourceTimeline'
       },
-      dateClick: this.handleDateClick.bind(this),
+      // dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
       eventDragStop: this.handleEventDragStop.bind(this)
     };
