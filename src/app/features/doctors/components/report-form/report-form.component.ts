@@ -15,41 +15,51 @@ import { ToastrService } from 'ngx-toastr';
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportFormComponent implements OnInit{
+export class ReportFormComponent implements OnInit {
   reportForm: FormGroup;
-  @Input() appointmentId: number | undefined;
+  private _appointmentId: number | undefined;
+
+  @Input()
+  set appointmentId(value: number | undefined) {
+    this._appointmentId = value;
+    if (this.reportForm) {
+      this.reportForm.get('appointmentId')?.setValue(this._appointmentId);
+    }
+  }
+
   constructor(
     private fb: FormBuilder,
     private doctorAppointmentsService: DoctorAppointmentsService,
     private toastr: ToastrService
   ) {
     this.reportForm = this.fb.group({
-      appointmentId: ['appointmentId', [Validators.required, Validators.min(0)]],
+      appointmentId: ['', [Validators.required, Validators.min(0)]],
       examinationFindings: ['', Validators.required],
       diagnosis: this.fb.array([], Validators.required),
     });
   }
+
+  ngOnInit() {
+    if (this._appointmentId !== undefined) {
+      this.reportForm.get('appointmentId')?.setValue(this._appointmentId);
+    }
+  }
+
   onSubmit(): void {
     if (this.reportForm.valid) {
       const formData: any = this.reportForm.value;
       this.doctorAppointmentsService.submitReport(formData).subscribe(
         (response: any) => {
-         this.toastr.success(' successfully');
-         console.log(response);
+          this.toastr.success('Report submitted successfully');
+          console.log(response);
         },
         (error: any) => {
-          this.toastr.error('Error');
-          console.log(error);
-        },
+          this.toastr.error('Error submitting report');
+          console.error(error);
+        }
       );
     } else {
       this.toastr.warning('Form is invalid');
-    }
-  }
-  ngOnInit() {
-    console.log('mahmut');
-    if (this.appointmentId !== undefined) {
-      this.reportForm.get('appointmentId')?.setValue(this.appointmentId);
     }
   }
 }
