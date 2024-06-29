@@ -1,0 +1,21 @@
+<swiper-container
+  class="w-[500px] swiper-container mb-4 flex"
+  [slidesPerView]="3"
+  navigation="true"
+  #swiperContainer
+>
+  @for (slide of slides; track $index) {
+    <swiper-slide>
+      <div
+        (click)="getTimeSlot(slide.value)"
+        class="w-20 flex flex-col ml-10 cursor-pointer"
+        [ngClass]="{ 'active-slide': isActiveSlide(slide) }"
+      >
+        <h1>{{ slide.date }}</h1>
+        <p>{{ slide.day }}</p>
+      </div>
+    </swiper-slide>
+  }
+
+  <button></button>
+</swiper-container>
