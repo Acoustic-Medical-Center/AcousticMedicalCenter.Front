@@ -1,0 +1,22 @@
+<app-table [headers]="headers" [items]="appointments">
+    <ng-template #rowTemplate let-item>
+      <tr class="hover:bg-gray-100">
+        <td>{{ item.patientName }} {{ item.patientLastName }}</td>
+        <td>{{ item.status }}</td>
+        <td>{{ item.appointmentTime }}</td>
+        <td>
+          <button (click)="createReport(item.id)">Rapor Oluştur</button>
+        </td>
+      </tr>
+    </ng-template>
+</app-table>
+  
+<dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <app-report-form [appointmentId]="selectedAppointmentId"></app-report-form>
+    </div>
+</dialog>
+  
