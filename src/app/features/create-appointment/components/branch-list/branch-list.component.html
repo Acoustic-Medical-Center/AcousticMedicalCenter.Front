@@ -1,0 +1,19 @@
+<div class="flex flex-wrap">
+  <ng-container *ngFor="let branch of branches">
+    <button
+      class="btn py-2 rounded border transition"
+      [ngClass]="{
+        'bg-blue-500 text-white': branch.id === activeBranchId,
+        'bg-gray-200 text-black': branch.id !== activeBranchId,
+      }"
+      (click)="onSelectBranch(branch.id)"
+      style="flex: 1 1 15%; margin: 5px"
+    >
+      {{ branch.name }}
+    </button>
+  </ng-container>
+</div>
+
+<ng-template #loading>
+  <p>No branches available.</p>
+</ng-template>
