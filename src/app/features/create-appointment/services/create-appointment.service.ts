@@ -52,11 +52,10 @@ export class CreateAppointmentService {
 
   //doktora tıklayınca bugünün tarihi ile ilgili randevuları getirme
   setSelectedDoctorId(id: number) {
-    const today = new Date();
-    const formattedDate = today.toISOString().slice(0, 10);
+    // const today = new Date();
+    // const formattedDate = today.toISOString().slice(0, 10);
     this.selectedDoctorId.next(id);
-    // this.fetchAvailableAppointments(id, formattedDate).subscribe();
-    this.selectedDate.next(formattedDate);
+    // this.selectedDate.next(formattedDate);
   }
 
   //Tarih Gününü ayarla.

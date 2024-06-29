@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { CreateAppointmentService } from '../../services/create-appointment.service';
-import { Observable, catchError, of } from 'rxjs';
+import {
+  Observable,
+  Subscription,
+  catchError,
+  first,
+  of,
+  switchMap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-doctor-list',
@@ -18,22 +25,45 @@ export class DoctorListComponent {
   doctors$ = this.createAppointmentService.doctors$;
   activeDoctorId: number | null = null;
   selectedDate$!: Observable<string>;
+  private subscriptions: Subscription = new Subscription();
+  date!: string;
 
   ngOnInit() {
     console.log('doctors nedir', this.doctors$);
+
+    this.subscriptions.add(
+      this.selectedDate$.subscribe((date) => {
+        this.date = date;
+        console.log('date', this.date);
+      }),
+    );
   }
 
   onSelectDoctor(doctorId: number) {
     this.activeDoctorId = doctorId;
-    const date = new Date().toISOString().split('T')[0];
     this.createAppointmentService.setSelectedDoctorId(doctorId);
 
-    this.createAppointmentService
-      .fetchAvailableAppointments(doctorId, date)
+    // eğer selected date değeri yoksa bugünün tarihini ata.
+    this.createAppointmentService.selectedDate$
       .pipe(
+        first(),
+        switchMap((date) => {
+          if (!date) {
+            const newDate = new Date().toISOString().split('T')[0];
+            this.createAppointmentService.setSelectedDate(newDate);
+            return this.createAppointmentService.selectedDate$.pipe(first());
+          }
+          return of(date);
+        }),
+        switchMap((date) =>
+          this.createAppointmentService.fetchAvailableAppointments(
+            doctorId,
+            date,
+          ),
+        ),
         catchError((error) => {
           console.error('Error fetching appointments:', error);
-          return of([]); // Hata durumunda boş bir array döndürür
+          return of([]);
         }),
       )
       .subscribe((newAppointments) => {
