@@ -1,0 +1,9 @@
+<div *ngIf="hasBranchWithoutDoctor$ | async" class="text-red-500">
+  Randevu saatlerini görebilmek için bir doktor seçiniz.
+</div>
+
+<!-- İçerik -->
+<div *ngIf="hasSelection$ | async">
+  <app-date-slider></app-date-slider>
+  <app-time-slots></app-time-slots>
+</div>
