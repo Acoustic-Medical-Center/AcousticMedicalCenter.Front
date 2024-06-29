@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from './core/browser/services/local-storage.service';
 import { LoadingSpinnerComponent } from './shared/components/loading/loading-spinner/loading-spinner.component';
 import { LoadingService } from './core/loading/loading.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,7 @@ import { LoadingService } from './core/loading/loading.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppComponent {
   constructor(
