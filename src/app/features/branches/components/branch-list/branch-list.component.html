@@ -1,0 +1,20 @@
+<div
+  class="btn"
+  *ngFor="let branch of branches"
+  (click)="onSelectBranch(branch.id)"
+>
+  {{ branch.name }}
+</div>
+
+<ng-template #loading>
+  <p>No branches available.</p>
+</ng-template>
+
+<ul *ngIf="doctors$ | async as doctors; else loading1">
+  <li *ngFor="let doctor of doctors">
+    {{ doctor.firstName }} {{ doctor.lastName }}
+  </li>
+</ul>
+<ng-template #loading1>
+  <p>Loading doctors...</p>
+</ng-template>
