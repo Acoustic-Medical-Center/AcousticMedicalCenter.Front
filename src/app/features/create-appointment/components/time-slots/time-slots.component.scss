@@ -1,0 +1,38 @@
+/* time-slots.component.scss */
+.time-slot {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border-radius: 3px;
+  border: solid 2px #6eaf0c;
+  background-color: #fff;
+  padding: 10px;
+  font-weight: 300;
+  font-size: 15px;
+  width: 80px;
+  margin: 3px;
+}
+
+.appointment-time-list {
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.radio {
+  display: none;
+}
+
+.bg-active {
+  @apply bg-blue-200 border border-blue-400 text-blue-800;
+}
+
+.bg-available {
+  @apply bg-green-200 border border-green-400 text-green-800;
+}
+
+.bg-taken {
+  @apply bg-gray-200 border border-gray-400 text-gray-800 cursor-not-allowed;
+}

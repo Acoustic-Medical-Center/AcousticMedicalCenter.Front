@@ -1,0 +1,30 @@
+<ul class="grid grid-cols-5 gap-2">
+  <ng-container *ngFor="let time of timeSlots; let i = index">
+    <li
+      [ngClass]="{
+        'bg-available': !isTaken(time) && !isActive(time),
+        'bg-taken': isTaken(time),
+        'bg-active': !isTaken(time) && isActive(time),
+      }"
+      class="text-center rounded shadow"
+      (click)="!isTaken(time) && selectDateTime(time)"
+    >
+      <div class="p-2">
+        <label>
+          <p>{{ time }}</p>
+          <input
+            type="radio"
+            name="timeSlot"
+            [value]="time"
+            [disabled]="isTaken(time)"
+            class="hidden"
+          />
+        </label>
+      </div>
+    </li>
+  </ng-container>
+</ul>
+
+<ng-template #loading>
+  <p>Loading appointments...</p>
+</ng-template>
