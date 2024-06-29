@@ -1,0 +1,28 @@
+.swiper-container {
+  .swiper-button-next,
+  .swiper-button-prev {
+    background-color: rgba(0, 0, 0, 0.5); /* Buton arka plan rengi */
+    color: #fff; /* Buton simge rengi */
+    border-radius: 50%; /* Butonları daire şeklinde yap */
+    width: 40px; /* Buton genişliği */
+    height: 40px; /* Buton yüksekliği */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    font-size: 20px; /* Buton simge boyutu */
+  }
+}
+
+/* Aktif slide stilini belirleyin */
+.active-slide {
+  background-color: #ffeb3b; /* Örnek: Sarı arka plan */
+  border: 2px solid #f57c00; /* Örnek: Turuncu kenarlık */
+  color: #000; /* Örnek: Siyah yazı rengi */
+}
