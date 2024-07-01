@@ -6,7 +6,7 @@
         'bg-taken': isTaken(time),
         'bg-active': !isTaken(time) && isActive(time),
       }"
-      class="text-center rounded shadow"
+      class="text-center rounded shadow "
       (click)="!isTaken(time) && selectDateTime(time)"
     >
       <div class="p-2">
