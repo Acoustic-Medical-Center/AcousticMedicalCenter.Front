@@ -1,0 +1,53 @@
+<div class="max-w-2xl mx-auto p-4">
+    <form [formGroup]="reportForm" (ngSubmit)="onSubmit()" class="space-y-4 bg-white p-6 rounded-lg shadow-md">
+      <div class="flex flex-col">
+        <label for="appointmentId" class="mb-2 font-medium text-gray-700">Appointment ID</label>
+        <input
+          readonly 
+          [disabled]="true"
+          id="appointmentId"
+          type="text"
+          formControlName="appointmentId"
+          class="px-4 py-2 border border-gray-300 rounded-lg pointer-events-none"
+        />
+        <div *ngIf="reportForm.get('appointmentId')?.invalid && reportForm.get('appointmentId')?.touched" class="text-red-600">
+          Appointment ID is required and must be a positive number.
+        </div>
+      </div>
+  
+      <div class="flex flex-col">
+        <label for="examinationFindings" class="mb-2 font-medium text-gray-700">Examination Findings</label>
+        <textarea
+          id="examinationFindings"
+          formControlName="examinationFindings"
+          class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+        <div *ngIf="reportForm.get('examinationFindings')?.invalid && reportForm.get('examinationFindings')?.touched" class="text-red-600">
+          Examination Findings are required.
+        </div>
+      </div>
+  
+      <div class="flex flex-col">
+        <label for="diagnosis" class="mb-2 font-medium text-gray-700">Diagnosis</label>
+        <input
+          id="diagnosis"
+          formControlName="diagnosis"
+          class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <div *ngIf="reportForm.get('diagnosis')?.invalid && reportForm.get('diagnosis')?.touched" class="text-red-600">
+          Diagnosis is required.
+        </div>
+      </div>
+  
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          [disabled]="reportForm.invalid"
+          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+        >
+          Oluştur
+        </button>
+      </div>
+    </form>
+  </div>
+  

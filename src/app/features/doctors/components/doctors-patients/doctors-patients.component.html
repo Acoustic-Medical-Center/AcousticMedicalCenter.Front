@@ -1,0 +1,23 @@
+<app-table [headers]="headers" [items]="patients">
+    <ng-template #rowTemplate let-item>
+      <tr class="hover:bg-gray-100">
+        <td>{{ item.email }}</td>
+        <td>{{ item.firstName }} {{ item.lastName }}</td>
+        <td>{{item.phoneNumber}}</td>
+        <td>
+            <button (click)="showDetails(item.id)">Details</button>
+        </td>
+      </tr>
+      
+    </ng-template>
+</app-table>
+ 
+<dialog id="patientDetailsModal" class="modal" [open]="isModalOpen">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" (click)="closeDetailsModal()">✕</button>
+      </form>
+      <app-patient-details-modal></app-patient-details-modal>
+    </div>
+ </dialog>
+  
