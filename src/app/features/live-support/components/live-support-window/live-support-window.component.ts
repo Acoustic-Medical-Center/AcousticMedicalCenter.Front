@@ -26,6 +26,7 @@ export class LiveSupportWindowComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.localStorageService.get('name') || 'User1';
+    this.room = this.localStorageService.get('currentRoom') || '';
     this.loadMessages();
     this.chatService.startConnection();
     this.chatService.addTransferChatDataListener((user, message) => {
@@ -41,6 +42,7 @@ export class LiveSupportWindowComponent implements OnInit {
         console.log(`Joined room: ${this.room}`);
         this.isRoomJoined = true; // Odaya katılım başarılı, chat penceresini aç,
         console.log(this.isRoomJoined);
+        this.localStorageService.set('currentRoom', this.room);
         this.loadMessages(); // Her odaya özgü mesajları yükleyin
       } catch (err: any) {
         console.error('Error joining room:', err);

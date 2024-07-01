@@ -14,10 +14,12 @@ export class LiveSupportService {
   }
 
   public startConnection(): void {
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch((err) => console.log('Error while starting connection: ' + err));
+    if (this.hubConnection.state === signalR.HubConnectionState.Disconnected) {
+      this.hubConnection
+        .start()
+        .then(() => console.log('Connection started'))
+        .catch((err) => console.log('Error while starting connection: ' + err));
+    }
   }
 
   public addTransferChatDataListener(
