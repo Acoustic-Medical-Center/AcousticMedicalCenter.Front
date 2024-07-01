@@ -20,13 +20,16 @@
   <button
     (click)="onPageChange(currentPage - 1)"
     [disabled]="currentPage === 1"
+    class="bg-orange-600 hover:bg-orange-700"
   >
     Previous
   </button>
   <span>Page {{ currentPage }}</span>
+  
   <button
     (click)="onPageChange(currentPage + 1)"
     [disabled]="appointments.length < pageSize"
+    class="bg-orange-600 hover:bg-orange-700"
   >
     Next
   </button>
