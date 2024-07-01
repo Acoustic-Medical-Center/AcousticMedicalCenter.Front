@@ -28,6 +28,7 @@
     "@fullcalendar/interaction": "^6.1.14",
     "@fullcalendar/resource": "^6.1.14",
     "@fullcalendar/resource-timeline": "^6.1.14",
+    "@microsoft/signalr": "^8.0.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "date-fns": "^3.6.0",
