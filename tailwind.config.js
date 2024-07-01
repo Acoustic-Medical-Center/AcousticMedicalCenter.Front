@@ -17,7 +17,22 @@ module.exports = {
   plugins: [require("daisyui")],
   daisyui: {
     styled: true,
-    themes: ["light"],
+    themes: [
+      {
+        mytheme: {
+          primary: "#FFC107", // Turuncu
+          secondary: "#ff9999", // Light Red
+          accent: "#ffcccc", // Very Light Red
+          neutral: "#f3f4f6", // Açık Gri
+          "base-100": "#ffffff", // Beyaz
+          info: "#ff6666", // Medium Light Red
+          success: "#ff3333", // Medium Red
+          warning: "#ffcccb", // Very Light Red
+          error: "#ff0000", // Red
+        },
+      },
+      "light",
+    ],
     base: true,
     utils: true,
     logs: true,
