@@ -1,0 +1,44 @@
+<app-table [headers]="headers" [items]="appointments">
+  <ng-template #rowTemplate let-item>
+    <tr class="hover:bg-gray-100">
+      <td>
+        Prof. Dr. {{ item.firstName | titlecase }}
+        {{ item.lastName | titlecase }}
+      </td>
+      <td>{{ item.appointmentTime | date: "EEEE, d MMMM y" }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <button (click)="showDetails(item.id)" class="btn btn-ghost btn-xs">
+          Detaylar
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</app-table>
+
+<div class="pagination">
+  <button
+    (click)="onPageChange(currentPage - 1)"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+  <span>Page {{ currentPage }}</span>
+  <button
+    (click)="onPageChange(currentPage + 1)"
+    [disabled]="appointments.length < pageSize"
+  >
+    Next
+  </button>
+</div>
+
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <app-past-appointment-details [appointmentId]="selectedAppointmentId" />
+  </div>
+</dialog>

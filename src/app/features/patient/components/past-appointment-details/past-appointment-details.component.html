@@ -1,0 +1,25 @@
+<div role="tablist" class="tabs tabs-bordered">
+  <input
+    type="radio"
+    name="my_tabs_2"
+    role="tab"
+    class="tab"
+    aria-label="Rapor"
+    checked="checked"
+  />
+  <div role="tabpanel" class="tab-content p-10">
+    {{ appointmentId }}
+    <app-appointment-report [appointmentId]="appointmentId" />
+  </div>
+
+  <input
+    type="radio"
+    name="my_tabs_2"
+    role="tab"
+    class="tab"
+    aria-label="Reçete"
+  />
+  <div role="tabpanel" class="tab-content p-10">
+    <app-appointment-prescriptions />
+  </div>
+</div>

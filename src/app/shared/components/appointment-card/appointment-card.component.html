@@ -1,0 +1,63 @@
+<div class="flex items-center p-4 bg-neutral shadow rounded-lg relative">
+  <img
+    class="object-cover w-16 h-24 mb-12 rounded-full"
+    [src]="appointment.imageUrl"
+    alt="Profile Image"
+  />
+  <div class="ml-4">
+    <h2 class="text-xl text-gray-800 font-semibold mb-4">
+      <span class="text-gray-600 font-bold">Hekim:</span>
+      Prof. Dr. {{ appointment.firstName | titlecase }}
+      {{ appointment.lastName | titlecase }}
+      {{ appointment.id }}
+    </h2>
+    <p class="text-gray-600">
+      <i class="fas fa-stethoscope mr-2"></i>
+      <span class="text-gray-600 font-bold">Klinik Adı:</span>
+    </p>
+    <p class="ml-6">{{ appointment.doctorSpecialization | titlecase }}</p>
+
+    <p class="text-gray-600">
+      <i class="fas fa-calendar-alt mr-2"></i>
+      <span class="text-gray-600 font-bold">Randevu Tarihi:</span>
+    </p>
+    <p class="ml-6">
+      {{ appointment.appointmentTime | titlecase | date: "EEEE, d MMMM y" }}
+    </p>
+
+    <p class="text-gray-600">
+      <i class="fas fa-clock mr-2"></i>
+      <span class="text-gray-600 font-bold">Randevu Saati:</span>
+      {{ appointment.appointmentTime | titlecase | date: "HH:mm" }}
+    </p>
+  </div>
+
+  <div
+    class="absolute bottom-4 right-4"
+    *ngIf="appointment.status === 'Scheduled'"
+  >
+    <button
+      class="hidden md:block px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+      (click)="onCancelClick()"
+    >
+      İptal Et
+    </button>
+    <button
+      class="block md:hidden px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700"
+      (click)="onCancelClick()"
+    >
+      X
+    </button>
+  </div>
+  <div
+    class="absolute bottom-4 right-4"
+    *ngIf="appointment.status === 'Canceled'"
+  >
+    <button
+      class="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
+      disabled
+    >
+      İptal Edildi
+    </button>
+  </div>
+</div>

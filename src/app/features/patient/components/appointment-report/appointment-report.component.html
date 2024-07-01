@@ -1,0 +1,30 @@
+<div *ngIf="report" class="bg-white shadow-md rounded-lg p-6 mb-4">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800">Randevu Raporu</h2>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-gray-700">Doktor Adı:</p>
+    <p class="text-gray-600">{{ report.doctorName }}</p>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-gray-700">Uzmanlık Alanı:</p>
+    <p class="text-gray-600">{{ report.doctorSpecialization }}</p>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-gray-700">Tanı:</p>
+    <p class="text-gray-600">{{ report.diagnosis }}</p>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-gray-700">Muayene Bulguları:</p>
+    <p class="text-gray-600">{{ report.examinationFindings }}</p>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-gray-700">Oluşturulma Tarihi:</p>
+    <p class="text-gray-600">{{ report.createdDate | date: "dd.MM.yyyy" }}</p>
+  </div>
+</div>
+
+<div *ngIf="!report" class="text-gray-500">Rapor Verisi Girilmemiş</div>

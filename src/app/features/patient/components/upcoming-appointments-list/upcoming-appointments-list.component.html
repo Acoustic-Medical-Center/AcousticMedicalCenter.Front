@@ -1,0 +1,8 @@
+<div class="space-y-4">
+  <div *ngFor="let appointment of appointments">
+    <app-appointment-card
+      (cancelAppointment)="onAppointmentCancel($event)"
+      [appointment]="appointment"
+    ></app-appointment-card>
+  </div>
+</div>

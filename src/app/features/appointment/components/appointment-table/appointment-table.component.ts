@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { HorizontalCardComponent } from '../../../../shared/components/horizontal-card/horizontal-card.component';
+import { AppointmentCardComponent } from '../../../../shared/components/appointment-card/appointment-card.component';
 import { AppointmentService } from '../../services/appointment.service';
 
 @Component({
   selector: 'app-appointment-table',
   standalone: true,
-  imports: [CommonModule, HorizontalCardComponent],
+  imports: [CommonModule, AppointmentCardComponent],
   templateUrl: './appointment-table.component.html',
   styleUrl: './appointment-table.component.scss',
 })
@@ -16,7 +16,7 @@ export class AppointmentTableComponent {
   constructor(private appointmentService: AppointmentService) {}
 
   loadAppointments() {
-    this.appointmentService.getAllAppointmentsByPatient().subscribe({
+    this.appointmentService.getAllUpcomingAppointmentsByPatient().subscribe({
       next: (data) => this.handleUpdateResponse(data),
       error: (error) => this.handleError(error),
       complete: () => console.log('Observable completed'),
