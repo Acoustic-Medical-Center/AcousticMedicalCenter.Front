@@ -1,0 +1,35 @@
+<app-table [headers]="headers" [items]="appointments">
+  <ng-template #rowTemplate let-item>
+    <tr class="hover:bg-gray-100">
+      <td>{{ item.patientName }} {{ item.patientLastName }}</td>
+      <td>{{ item.status }}</td>
+      <td>{{ item.appointmentTime }}</td>
+      <td>
+        <button (click)="openReportModal(item.id)">Rapor Oluştur</button>
+      </td>
+      <td>
+        <button (click)="openPrescriptionModal(item.id)">Reçete Oluştur</button>
+      </td>
+    </tr>
+  </ng-template>
+</app-table>
+
+<!-- Modal for Report Form -->
+<dialog id="reportModal" class="modal" [open]="isReportModalOpen">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" (click)="closeReportModal()">✕</button>
+    </form>
+    <app-report-form *ngIf="isReportModalOpen" [appointmentId]="selectedAppointmentId"></app-report-form>
+  </div>
+</dialog>
+
+<!-- Modal for Prescription Form -->
+<dialog id="prescriptionModal" class="modal" [open]="isPrescriptionModalOpen">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" (click)="closePrescriptionModal()">✕</button>
+    </form>
+    <app-prescription-form *ngIf="isPrescriptionModalOpen" [appointmentId]="selectedAppointmentId"></app-prescription-form>
+  </div>
+</dialog>
