@@ -1,10 +1,10 @@
 <div *ngIf="doctors$ | async as doctors; else loading">
   @if (doctors.length > 0) {
-    <ul class="w-[300px]">
+    <ul class=" doctor-list">
       <li
         *ngFor="let doctor of doctors"
         (click)="onSelectDoctor(doctor.id)"
-        class="flex items-center p-2 border-b-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-gray-700"
+        class="doctor-item flex items-center p-2 border-b-2 border-gray-300 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-gray-700"
         [ngClass]="{
           'bg-blue-500 text-white': doctor.id === activeDoctorId,
           'bg-gray-200 text-black': doctor.id !== activeDoctorId,
