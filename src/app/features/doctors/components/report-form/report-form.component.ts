@@ -35,7 +35,7 @@ export class ReportFormComponent implements OnInit {
     this.reportForm = this.fb.group({
       appointmentId: ['', [Validators.required, Validators.min(0)]],
       examinationFindings: ['', Validators.required],
-      diagnosis: this.fb.array([], Validators.required),
+      diagnosis: ['', Validators.required],
     });
   }
 

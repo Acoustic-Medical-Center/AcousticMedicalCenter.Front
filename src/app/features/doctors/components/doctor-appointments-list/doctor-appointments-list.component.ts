@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { DoctorAppointmentsService } from '../../service/doctor-appointments.service';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { ReportFormComponent } from '../report-form/report-form.component';
+import { PrescriptionFormComponent } from '../prescription-form/prescription-form.component';
 
 @Component({
   selector: 'app-doctor-appointments-list',
@@ -10,7 +11,8 @@ import { ReportFormComponent } from '../report-form/report-form.component';
   imports: [
     CommonModule,
     TableComponent,
-    ReportFormComponent
+    ReportFormComponent,
+    PrescriptionFormComponent
   ],
   templateUrl: './doctor-appointments-list.component.html',
   styles: ``,
@@ -24,6 +26,8 @@ export class DoctorAppointmentsListComponent implements OnInit {
   ];
   appointments: any[] = [];
   selectedAppointmentId: any;
+  isReportModalOpen = false;
+  isPrescriptionModalOpen = false;
   constructor(
     private appointmentsService: DoctorAppointmentsService,
     private cdr: ChangeDetectorRef
@@ -39,13 +43,27 @@ export class DoctorAppointmentsListComponent implements OnInit {
     );
   }
 
-  createReport(appointmentId: string) {
+  openReportModal(appointmentId: string) {
     this.selectedAppointmentId = appointmentId;
-    const modal = document.getElementById('my_modal_3') as HTMLDialogElement;
-    if (modal) {
-      modal.showModal();
-    }
+    this.isReportModalOpen = true;
   }
 
+  closeReportModal() {
+    this.isReportModalOpen = false;
+    // Optionally clear selectedAppointmentId if needed
+    // this.selectedAppointmentId = null;
+  }
+
+  openPrescriptionModal(appointmentId: string) {
+    this.selectedAppointmentId = appointmentId;
+    this.isPrescriptionModalOpen = true;
+  }
+
+  closePrescriptionModal() {
+    this.isPrescriptionModalOpen = false;
+    // Optionally clear selectedAppointmentId if needed
+    // this.selectedAppointmentId = null;
+  }
+  
   
 }

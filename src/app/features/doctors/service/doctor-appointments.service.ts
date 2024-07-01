@@ -22,4 +22,7 @@ export class DoctorAppointmentsService {
   submitReport(reportData: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/reports`,reportData);
   }
+  submitPrescription(prescriptionData: any): Observable<any>{
+    return this.http.post<any>(`https://localhost:7172/prescriptions`,prescriptionData)
+  }
 }
