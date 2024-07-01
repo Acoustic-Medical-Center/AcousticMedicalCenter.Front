@@ -25,7 +25,7 @@
     Previous
   </button>
   <span>Page {{ currentPage }}</span>
-  <span>{{currentPage + 1}}</span>
+  
   <button
     (click)="onPageChange(currentPage + 1)"
     [disabled]="appointments.length < pageSize"
