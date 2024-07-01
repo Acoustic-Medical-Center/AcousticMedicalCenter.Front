@@ -13,13 +13,17 @@ export class LiveSupportService {
       .build();
   }
 
-  public startConnection(): void {
+  public startConnection(): Promise<void> {
     if (this.hubConnection.state === signalR.HubConnectionState.Disconnected) {
-      this.hubConnection
+      return this.hubConnection
         .start()
         .then(() => console.log('Connection started'))
-        .catch((err) => console.log('Error while starting connection: ' + err));
+        .catch((err) => {
+          console.log('Error while starting connection: ' + err);
+          throw err; // Hata durumunu handle edebilmek için hatayı yeniden fırlat
+        });
     }
+    return Promise.resolve(); // Eğer bağlantı zaten kurulmuşsa Promise çözümlenir
   }
 
   public addTransferChatDataListener(
