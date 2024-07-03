@@ -1,5 +1,5 @@
 <div
-  class="fixed bottom-40 right-4 w-96 h-96 bg-white border border-gray-300 rounded-lg shadow-lg p-4"
+  class="fixed bottom-52 right-4 w-96 h-96 bg-white border border-gray-300 rounded-lg shadow-lg p-4"
 >
   <h2 class="text-lg font-bold mb-2">Canlı Destek</h2>
   <button
@@ -9,16 +9,23 @@
     Sohbeti Temizle
   </button>
   <input
+    disabled=""
     type="text"
     [(ngModel)]="room"
     placeholder="Oda Adı"
     class="mb-2 px-3 py-2 border border-gray-300 rounded-lg"
   />
   <button
-    (click)="joinRoom()"
+    (click)="createRoom()"
     class="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
   >
-    Odaya Katıl
+    Yeni Oda Oluştur
+  </button>
+  <button
+    (click)="leaveRoom()"
+    class="mb-4 ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+  >
+    Odadan Çık
   </button>
   <div class="flex flex-col h-full mt-4">
     <div class="flex-1 overflow-y-auto">

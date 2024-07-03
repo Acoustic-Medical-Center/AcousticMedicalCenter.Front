@@ -7,9 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LiveSupportService {
   private hubConnection: signalR.HubConnection;
+  private baseUrl: string = ' https://localhost:7172/chatHub';
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`https://localhost:7172/chatHub`)
+      .withUrl(this.baseUrl)
       .build();
   }
 
@@ -17,7 +18,13 @@ export class LiveSupportService {
     if (this.hubConnection.state === signalR.HubConnectionState.Disconnected) {
       return this.hubConnection
         .start()
-        .then(() => console.log('Connection started'))
+        .then(() => {
+          console.log('Connection started');
+          this.hubConnection.on('RoomCreated', (room: string) => {
+            // Oda oluşturma olayını bileşenlere iletin
+            this.onRoomCreated(room);
+          });
+        })
         .catch((err) => {
           console.log('Error while starting connection: ' + err);
           throw err; // Hata durumunu handle edebilmek için hatayı yeniden fırlat
@@ -26,10 +33,27 @@ export class LiveSupportService {
     return Promise.resolve(); // Eğer bağlantı zaten kurulmuşsa Promise çözümlenir
   }
 
+  public onRoomCreated(room: string): void {
+    // Oda oluşturma olayını dinleyen bileşenler için bir metod
+    console.log(`New room created: ${room}`);
+  }
+
   public addTransferChatDataListener(
     callback: (user: string, message: string) => void,
   ): void {
     this.hubConnection.on('ReceiveMessage', callback);
+  }
+
+  public addRoomMessageListener(
+    room: string,
+    callback: (user: string, message: string) => void,
+  ): void {
+    this.hubConnection.on('ReceiveMessage', (user, message, receivedRoom) => {
+      if (receivedRoom === room) {
+        console.log('geliyor mu hiç bişi?');
+        callback(user, message);
+      }
+    });
   }
 
   public sendMessage(user: string, message: string, room: string): void {
@@ -38,15 +62,27 @@ export class LiveSupportService {
       .catch((err) => console.error(err));
   }
 
-  public joinRoom(room: string): void {
+  public joinRoom(room: string, user: string): void {
     this.hubConnection
-      .invoke('JoinRoom', room)
+      .invoke('JoinRoom', room, user)
       .catch((err) => console.error(err));
   }
 
-  public leaveRoom(room: string): void {
-    this.hubConnection
-      .invoke('LeaveRoom', room)
-      .catch((err) => console.error(err));
+  public leaveRoom(room: string): Promise<void> {
+    if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
+      return this.hubConnection.invoke('LeaveRoom', room);
+    }
+    return Promise.reject('Cannot leave room. Connection is not established.');
+  }
+
+  public createRoom(room: string): Promise<void> {
+    if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
+      return this.hubConnection.invoke('CreateRoom', room);
+    }
+    return Promise.reject('Cannot create room. Connection is not established.');
+  }
+
+  public removeRoomMessageListener(): void {
+    this.hubConnection.off('ReceiveMessage');
   }
 }

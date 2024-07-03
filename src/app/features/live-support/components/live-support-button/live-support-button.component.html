@@ -20,4 +20,7 @@
     Canlı Destek
   </button>
 </div>
-<app-live-support-window *ngIf="isChatVisible"></app-live-support-window>
+<app-live-support-window
+  *ngIf="isChatVisible"
+  (leaveRoomEvent)="toggleChat()"
+></app-live-support-window>

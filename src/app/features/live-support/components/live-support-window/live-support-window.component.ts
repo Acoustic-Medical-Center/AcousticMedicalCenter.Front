@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LiveSupportService } from '../../services/live-support.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,9 +12,11 @@ import { LocalStorageService } from '../../../../core/browser/services/local-sto
   styleUrl: './live-support-window.component.scss',
 })
 export class LiveSupportWindowComponent implements OnInit {
+  @Output() leaveRoomEvent = new EventEmitter<void>();
   public messages: { user: string; message: string }[] = [];
   public currentMessage: string = '';
   public user: string = '';
+  public userId: string = '';
   public room: string = ''; // Varsayılan olarak boş, kullanıcı belirleyecek
   public isRoomJoined: boolean = false; // Oda katılım durumu
 
@@ -26,6 +28,7 @@ export class LiveSupportWindowComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.localStorageService.get('name') || 'User1';
     this.room = this.localStorageService.get('currentRoom') || '';
+    this.userId = this.localStorageService.get('id') || 'undefined';
     this.chatService
       .startConnection()
       .then(() => {
@@ -47,7 +50,7 @@ export class LiveSupportWindowComponent implements OnInit {
   async joinRoom(): Promise<void> {
     if (this.room) {
       try {
-        await this.chatService.joinRoom(this.room);
+        await this.chatService.joinRoom(this.room, this.user);
         console.log(`Joined room: ${this.room}`);
         this.isRoomJoined = true; // Odaya katılım başarılı, chat penceresini aç
         this.localStorageService.set('currentRoom', this.room); // Oda bilgisini sakla
@@ -60,12 +63,47 @@ export class LiveSupportWindowComponent implements OnInit {
     }
   }
 
+  async createRoom(): Promise<void> {
+    const newRoom = `${this.user} (${this.userId})`;
+    if (newRoom) {
+      try {
+        await this.chatService.createRoom(newRoom);
+        await this.chatService.joinRoom(newRoom, this.user);
+        this.room = newRoom;
+        this.localStorageService.set('currentRoom', this.room);
+        this.isRoomJoined = true;
+        this.messages = [];
+
+        console.log(`Created and joined room: ${newRoom}`);
+      } catch (err: any) {
+        console.error('Error creating room:', err);
+      }
+    }
+  }
+
   sendMessage(): void {
     if (this.room) {
       this.chatService.sendMessage(this.user, this.currentMessage, this.room);
       this.currentMessage = ''; // Mesaj gönderildikten sonra input'u temizle
     } else {
       console.error('Oda adı belirtilmedi.');
+    }
+  }
+
+  async leaveRoom(): Promise<void> {
+    if (this.room) {
+      try {
+        await this.chatService.leaveRoom(this.room);
+        this.chatService.removeRoomMessageListener();
+        console.log(`Left room: ${this.room}`);
+        this.isRoomJoined = false;
+        this.room = '';
+        this.messages = [];
+        this.localStorageService.remove('currentRoom');
+        this.leaveRoomEvent.emit();
+      } catch (err: any) {
+        console.error('Error leaving room:', err);
+      }
     }
   }
 
