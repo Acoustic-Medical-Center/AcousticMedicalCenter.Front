@@ -19,6 +19,7 @@ export class LiveSupportWindowComponent implements OnInit {
   public userId: string = '';
   public room: string = ''; // Varsayılan olarak boş, kullanıcı belirleyecek
   public isRoomJoined: boolean = false; // Oda katılım durumu
+  public typingUsers: Set<string> = new Set<string>();
 
   constructor(
     private chatService: LiveSupportService,
@@ -36,9 +37,13 @@ export class LiveSupportWindowComponent implements OnInit {
           this.messages.push({ user, message });
           this.saveMessages();
         });
-        // this.chatService.addTransferOpeningMessageListener((user, message) => {
-        //   this.messages.push({ user, message });
-        // });
+        this.chatService.addTypingListener((user) => {
+          this.typingUsers.add(user);
+        });
+
+        this.chatService.addStopTypingListener((user) => {
+          this.typingUsers.delete(user);
+        });
         if (this.room) {
           this.joinRoom();
         }
@@ -85,9 +90,19 @@ export class LiveSupportWindowComponent implements OnInit {
     if (this.room) {
       this.chatService.sendMessage(this.user, this.currentMessage, this.room);
       this.currentMessage = ''; // Mesaj gönderildikten sonra input'u temizle
+      this.chatService.stopTyping(this.user, this.room);
     } else {
       console.error('Oda adı belirtilmedi.');
     }
+  }
+  onTyping(): void {
+    this.chatService.startTyping(this.user, this.room);
+    console.log('yazıyor muyum?');
+  }
+
+  onStopTyping(): void {
+    this.chatService.stopTyping(this.user, this.room);
+    console.log('durdum mu?');
   }
 
   async leaveRoom(): Promise<void> {

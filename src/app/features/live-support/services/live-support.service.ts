@@ -85,4 +85,29 @@ export class LiveSupportService {
   public removeRoomMessageListener(): void {
     this.hubConnection.off('ReceiveMessage');
   }
+
+  public addTypingListener(callback: (user: string) => void): void {
+    console.log('Typing Dinleniyor mu');
+    this.hubConnection.on('UserTyping', callback);
+  }
+
+  public addStopTypingListener(callback: (user: string) => void): void {
+    this.hubConnection.on('UserStoppedTyping', callback);
+  }
+
+  public startTyping(user: string, room: string): void {
+    if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
+      this.hubConnection
+        .invoke('StartTyping', user, room)
+        .catch((err) => console.error(err));
+    }
+  }
+
+  public stopTyping(user: string, room: string): void {
+    if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
+      this.hubConnection
+        .invoke('StopTyping', user, room)
+        .catch((err) => console.error(err));
+    }
+  }
 }

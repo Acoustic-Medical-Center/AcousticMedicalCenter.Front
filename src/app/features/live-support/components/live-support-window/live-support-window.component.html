@@ -32,10 +32,15 @@
       <div *ngFor="let msg of messages">
         <strong>{{ msg.user }}:</strong> {{ msg.message }}
       </div>
+      <div *ngFor="let user of typingUsers">
+        <em>{{ user }} yazıyor...</em>
+      </div>
     </div>
     <input
       type="text"
       [(ngModel)]="currentMessage"
+      (keyup)="onTyping()"
+      (blur)="onStopTyping()"
       (keyup.enter)="sendMessage()"
       placeholder="Mesajınızı yazın..."
       class="px-3 py-2 border border-gray-300 rounded-lg"
