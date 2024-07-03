@@ -30,32 +30,33 @@ export class LiveSupportWindowComponent implements OnInit {
     this.user = this.localStorageService.get('name') || 'User1';
     this.room = this.localStorageService.get('currentRoom') || '';
     this.userId = this.localStorageService.get('id') || 'undefined';
-    this.chatService
-      .startConnection()
-      .then(() => {
-        this.chatService.addTransferChatDataListener((user, message) => {
-          this.messages.push({ user, message });
-          this.saveMessages();
-        });
-        this.chatService.addTypingListener((user) => {
-          this.typingUsers.add(user);
-        });
+    if (this.room) {
+      this.loadMessages();
+    }
+  }
 
-        this.chatService.addStopTypingListener((user) => {
-          this.typingUsers.delete(user);
-        });
-        if (this.room && !this.isRoomJoined) {
-          this.joinRoom();
-        } else {
-          this.loadMessages();
-        }
-      })
-      .catch((err) => console.error('Error starting connection:', err));
+  async startConnection(): Promise<void> {
+    try {
+      await this.chatService.startConnection();
+      this.chatService.addTransferChatDataListener((user, message) => {
+        this.messages.push({ user, message });
+        this.saveMessages();
+      });
+      this.chatService.addTypingListener((user) => {
+        this.typingUsers.add(user);
+      });
+      this.chatService.addStopTypingListener((user) => {
+        this.typingUsers.delete(user);
+      });
+    } catch (err) {
+      console.error('Error starting connection:', err);
+    }
   }
 
   async joinRoom(): Promise<void> {
     if (this.room && !this.isRoomJoined) {
       try {
+        await this.startConnection();
         await this.chatService.joinRoom(this.room, this.user);
         console.log(`Joined room: ${this.room}`);
         this.isRoomJoined = true; // Odaya katılım başarılı, chat penceresini aç
@@ -68,10 +69,12 @@ export class LiveSupportWindowComponent implements OnInit {
       console.error('Oda adı belirtilmedi veya zaten katıldınız.');
     }
   }
+
   async createRoom(): Promise<void> {
     const newRoom = `${this.user} (${this.userId})`;
     if (newRoom) {
       try {
+        await this.startConnection();
         await this.chatService.createRoom(newRoom);
         await this.chatService.joinRoom(newRoom, this.user);
         this.room = newRoom;
@@ -95,6 +98,7 @@ export class LiveSupportWindowComponent implements OnInit {
       console.error('Oda adı belirtilmedi.');
     }
   }
+
   onTyping(): void {
     this.chatService.startTyping(this.user, this.room);
   }

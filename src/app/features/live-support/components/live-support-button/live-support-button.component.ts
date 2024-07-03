@@ -14,6 +14,5 @@ export class LiveSupportButtonComponent {
 
   toggleChat() {
     this.isChatVisible = !this.isChatVisible;
-    console.log(this.isChatVisible);
   }
 }
