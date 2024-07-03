@@ -3,10 +3,12 @@
     <li *ngFor="let item of menuItems" class="my-2">
       <a
         *ngIf="item.link"
-        class="block p-2 rounded hover:bg-gray-300"
+        class="p-2 rounded hover:bg-gray-300 flex"
         [routerLink]="item.link"
         routerLinkActive="bg-gray-300"
         [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span class="material-icons mr-2">{{ item.icon }}</span
         >{{ item.label | translate }}</a
       >
     </li>
