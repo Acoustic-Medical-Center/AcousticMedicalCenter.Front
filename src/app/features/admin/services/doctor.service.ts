@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment.development';
 import { LocalStorageService } from '../../../core/browser/services/local-storage.service';
 
 export interface IUser {
+  userId: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -48,6 +49,7 @@ export class DoctorService {
   getUserSettings(id: any): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/user/GetById?UserId=${id}`);
   }
+  
   updateDoctorSettings(doctorSettings: IDoctor): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put(`${this.baseUrl}/admin/doctors`, doctorSettings, {
@@ -57,15 +59,12 @@ export class DoctorService {
 
   updateUserSettings(userSettings: IUser): Observable<any> {
     console.log('Güncellendi', this.localStorageService.get('Id'));
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
     return this.http.put(
-      `
-      ${this.baseUrl}/user`,
-      {
-        ...userSettings,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
+      `${this.baseUrl}/admin/user`,
+      userSettings,
+      { headers, responseType: 'text' }
     );
   }
 }
