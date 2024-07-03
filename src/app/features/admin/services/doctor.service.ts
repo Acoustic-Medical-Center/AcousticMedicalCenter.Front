@@ -67,4 +67,8 @@ export class DoctorService {
       { headers, responseType: 'text' }
     );
   }
+
+  deleteDoctor(doctorId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/admin/doctors/${doctorId}`);
+  }
 }
