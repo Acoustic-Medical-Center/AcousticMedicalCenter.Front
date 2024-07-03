@@ -12,6 +12,7 @@ export interface IUser {
 }
 
 export interface IDoctor {
+  id: number;
   experience: number;
   biography: string;
   doctorInterests: string[];

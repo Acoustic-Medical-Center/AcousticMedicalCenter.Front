@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { DoctorListComponent } from '../../../features/admin/components/doctors/doctor-list/doctor-list.component';
 
 @Component({
   selector: 'app-doctors',
   standalone: true,
-  imports: [],
+  imports: [DoctorListComponent],
   templateUrl: './doctors.component.html',
   styleUrl: './doctors.component.scss'
 })

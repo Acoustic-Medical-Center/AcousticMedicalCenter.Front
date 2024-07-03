@@ -1,0 +1,30 @@
+<div role="tablist" class="tabs tabs-lifted">
+  <input
+    type="radio"
+    name="my_tabs_2"
+    role="tab"
+    class="tab"
+    aria-label="Kişisel Bilgiler"
+    checked="checked"
+  />
+  <div
+    role="tabpanel"
+    class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+  >
+    <app-personal-form [doctorId]="doctorId"></app-personal-form>
+  </div>
+
+  <input
+    type="radio"
+    name="my_tabs_2"
+    role="tab"
+    class="tab"
+    aria-label="Doktor Bilgileri"
+  />
+  <div
+    role="tabpanel"
+    class="tab-content bg-base-100 border-base-300 rounded-box p-6"
+  >
+    <app-doctor-settings-form [doctorId]="doctorId"></app-doctor-settings-form>
+  </div>
+</div>
