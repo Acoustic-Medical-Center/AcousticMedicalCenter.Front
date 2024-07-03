@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  DoctorService } from '../../../services/doctor.service';
+import {  DoctorService, IDoctor } from '../../../services/doctor.service';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { DoctorEditFormComponent } from '../doctor-edit-form/doctor-edit-form.component';
@@ -22,8 +22,10 @@ export class DoctorListComponent implements OnInit {
     'Doktor',
   ];
   doctors: any[] = [];
-  selectedDoctorId: any;
+  doctor: IDoctor | undefined;
+  selectedDoctorId: any | null = null;
   isDoctorDetailsModal = false;
+  
 
   constructor(private doctorService: DoctorService ) {}
 
@@ -41,11 +43,18 @@ export class DoctorListComponent implements OnInit {
       }
     );
   }
-
-  showDetails(doctorId: number){
-    console.log('Doctor ID:', doctorId);  // Bu satırı ekleyin
-    this.selectedDoctorId = doctorId;
-    this.isDoctorDetailsModal = true;
+ 
+  showDetails(doctorId: number): void {
+  
+    this.doctorService.getDoctorById(doctorId).subscribe(
+      (doctor: IDoctor) => {
+        this.selectedDoctorId = doctor;
+        this.isDoctorDetailsModal = true;
+      },
+      (error) => {
+        console.log('Doktor detayları getirilirken hata oluştu.', error);
+      }
+    );
   }
   closeDoctorDetailsModal() {
     this.isDoctorDetailsModal = false;

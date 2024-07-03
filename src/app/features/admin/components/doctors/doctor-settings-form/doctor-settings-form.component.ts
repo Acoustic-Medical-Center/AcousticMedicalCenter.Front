@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DoctorService } from '../../../services/doctor.service';
 import { ToastrService } from 'ngx-toastr';
@@ -15,16 +15,23 @@ import { IDoctor } from '../../../../doctors/service/doctor-settings.service';
   templateUrl: './doctor-settings-form.component.html',
   styleUrl: './doctor-settings-form.component.scss'
 })
-export class DoctorSettingsFormComponent {
+export class DoctorSettingsFormComponent implements OnInit {
   doctorFormSettings: FormGroup;
-  doctorId:any ='';
-
+  doctorId:any | null ='';
+  @Input()
+  set selectedDoctorId(value: number | undefined) {
+    this.doctorId = value;
+    if (this.doctorFormSettings) {
+      this.doctorFormSettings.get('appointmentId')?.setValue(this.doctorId);
+    }
+  }
  constructor(
   private fb: FormBuilder,
   private service: DoctorService,
   private toastr: ToastrService
  ){
     this.doctorFormSettings = this.fb.group({
+      
       experience: ['', [Validators.required, Validators.min(0)]],
       biography: ['', Validators.required],
       doctorInterests: this.fb.array([], Validators.required),
@@ -36,21 +43,22 @@ export class DoctorSettingsFormComponent {
 
   loadDoctorSettings(): void {
     this.service.getDoctorById(this.doctorId).subscribe(
-      (settings: IDoctor) =>{
+      
+      (settings: IDoctor) => {
         this.doctorFormSettings.patchValue({
-          id: [null, Validators.required],
-          experience: [null, Validators.required],
-          biography: [''],
-          doctorInterests: this.fb.array([]) 
+          experience: settings.experience,
+          biography: settings.biography,
+          doctorInterests: settings.doctorInterests
         });
-        this.setDoctorInterests(settings.doctorInterests);
       },
-      (error:any) => {
+     
+      (error: any) => {
         this.toastr.error('Error fetching doctor settings');
         console.log(error);
       }
-    )
+    );
   }
+  
   setDoctorInterests(interests: string[]): void {
     const interestsArray = this.doctorFormSettings.get('doctorInterests') as FormArray;
     interests.forEach((interest) => {
@@ -60,7 +68,7 @@ export class DoctorSettingsFormComponent {
 
   onSubmit(): void {
     if (this.doctorFormSettings.valid) {
-      const doctorData = this.doctorFormSettings.value;
+      const doctorData: IDoctor = this.doctorFormSettings.value;
 
       this.service.updateDoctorSettings(doctorData).subscribe(
         (response: any) => {

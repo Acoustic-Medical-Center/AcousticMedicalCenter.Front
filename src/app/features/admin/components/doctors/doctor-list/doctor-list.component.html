@@ -1,10 +1,11 @@
+<!-- doctor-list.component.html -->
 <app-table [headers]="headers" [items]="doctors">
   <ng-template #rowTemplate let-item>
     <tr class="hover:bg-gray-100">
       <td>{{ item.experience }}</td>
       <td>{{ item.firstName }} {{ item.lastName }}</td>
       <td>
-        <button class="btn btn-ghost btn-xs" (click)="showDetails(item.id)">details</button>
+        <button class="btn btn-ghost btn-xs" (click)="showDetails(item.id)">Detaylar</button>
       </td>
     </tr>
   </ng-template>
@@ -15,6 +16,6 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" (click)="closeDoctorDetailsModal()">✕</button>
     </form>
-    <app-doctor-edit-form></app-doctor-edit-form>
+    <app-doctor-edit-form [doctorId]="selectedDoctorId"></app-doctor-edit-form>
   </div>
 </dialog>

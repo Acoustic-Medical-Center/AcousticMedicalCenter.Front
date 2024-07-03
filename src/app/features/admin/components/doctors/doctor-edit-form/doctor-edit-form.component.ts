@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ToastrService } from 'ngx-toastr';
 import {  DoctorService } from '../../../services/doctor.service';
 import { DoctorSettingsFormComponent } from '../doctor-settings-form/doctor-settings-form.component';
+import { PersonalFormComponent } from '../personal-form/personal-form.component';
 
 
 @Component({
@@ -10,17 +11,18 @@ import { DoctorSettingsFormComponent } from '../doctor-settings-form/doctor-sett
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    DoctorSettingsFormComponent
+    DoctorSettingsFormComponent,
+    PersonalFormComponent
   ],
   templateUrl: './doctor-edit-form.component.html',
   styleUrl: './doctor-edit-form.component.scss'
 })
 export class DoctorEditFormComponent {
   doctorDetailsForm: FormGroup;
-  private _doctorId: number | undefined;
+  private _doctorId: string | null = null;
 
   @Input()
-  set doctorId(value: number | undefined){
+  set doctorId(value: string | null){
     this._doctorId= value;
     if (this.doctorDetailsForm) {
       this.doctorDetailsForm.patchValue({doctorId: this._doctorId});
