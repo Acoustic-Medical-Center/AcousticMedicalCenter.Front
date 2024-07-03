@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DoctorService, IDoctor } from '../../../services/doctor.service';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { DoctorEditFormComponent } from '../doctor-edit-form/doctor-edit-form.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-doctor-list',
@@ -16,8 +17,11 @@ export class DoctorListComponent implements OnInit {
   doctors: any[] = [];
   doctor: IDoctor | undefined;
   selectedDoctorId: any | null = null;
+  selectedDoctorName: string | null='';
 
-  constructor(private doctorService: DoctorService) {}
+  @Input() doctorId: number | null = null;
+
+  constructor(private doctorService: DoctorService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getDoctors();
@@ -40,6 +44,43 @@ export class DoctorListComponent implements OnInit {
     ) as HTMLDialogElement;
     if (modal) {
       modal.showModal();
+    }
+  }
+  confirmDeleteDoctor(doctorId: number): void {
+    // Find the selected doctor
+    const selectedDoctor = this.doctors.find(d => d.id === doctorId);
+    if (selectedDoctor) {
+      this.selectedDoctorId = doctorId;
+      this.selectedDoctorName = `${selectedDoctor.firstName} ${selectedDoctor.lastName}`;
+      const modal = document.getElementById('deleteDoctorModal') as HTMLDialogElement;
+      if (modal) {
+        modal.showModal();
+      }
+    }
+  }
+
+  deleteDoctor(doctorId: number): void {
+    this.doctorService.deleteDoctor(doctorId).subscribe(
+      () => {
+        this.toastr.success('Doctor deleted successfully.');
+        // İsteği başarıyla aldıktan sonra yapılacak işlemler, örneğin doktorları yeniden yükleme
+        this.getDoctors();
+        
+      },
+      (error) => {
+       this.toastr.error('Doctor deleted wrong')     
+      }
+    );
+  }
+
+  closeModal(): void {
+    const modal = document.getElementById('doctorDetailsModal') as HTMLDialogElement;
+    if (modal) {
+      modal.close();
+    }
+    const deleteModal = document.getElementById('deleteDoctorModal') as HTMLDialogElement;
+    if (deleteModal) {
+      deleteModal.close();
     }
   }
 }
