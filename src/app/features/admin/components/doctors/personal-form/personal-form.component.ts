@@ -23,7 +23,7 @@ export class PersonalFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private personalService: DoctorService,
+    private doctorService: DoctorService,
     private toastr: ToastrService,
   ) {
     this.settingsPersonalForm = this.fb.group({
@@ -43,7 +43,7 @@ export class PersonalFormComponent {
   }
 
   loadPersonalSettings() {
-    this.personalService.getUserSettings(this.doctorId).subscribe(
+    this.doctorService.getUserSettings(this.doctorId).subscribe(
       (settings) => {
         console.log('User Settings: ', settings);
 
@@ -77,7 +77,7 @@ export class PersonalFormComponent {
           ...dirtyValues
         };
 
-        this.personalService.updateUserSettings(payload).subscribe(
+        this.doctorService.updateUserSettings(payload).subscribe(
           (response) => {
             this.toastr.success('Kullanıcı ayarları başarıyla güncellendi');
             console.log(response);
