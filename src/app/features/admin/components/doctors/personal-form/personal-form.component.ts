@@ -72,24 +72,29 @@ export class PersonalFormComponent {
       const dirtyValues = this.getDirtyValues(this.settingsPersonalForm);
 
       if (Object.keys(dirtyValues).length > 0) {
-        this.personalService.updateUserSettings(dirtyValues).subscribe(
+        const payload = {
+          userId: this.doctorId,
+          ...dirtyValues
+        };
+
+        this.personalService.updateUserSettings(payload).subscribe(
           (response) => {
-            this.toastr.success('User settings updated successfully');
+            this.toastr.success('Kullanıcı ayarları başarıyla güncellendi');
             console.log(response);
           },
           (error) => {
-            this.toastr.error('Error updating user settings');
+            this.toastr.error('Kullanıcı ayarları güncellenirken hata oluştu');
             console.log(error);
           },
         );
       } else {
-        this.toastr.warning('No changes to save.');
+        this.toastr.warning('Kaydedilecek değişiklik yok.');
       }
     } else {
-      console.log();
       this.toastr.error('Form geçersiz');
     }
   }
+
   getDirtyValues(form: FormGroup): any {
     const dirtyValues: any = {};
 
