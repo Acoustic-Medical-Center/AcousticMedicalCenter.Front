@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DoctorService } from '../../../services/doctor.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,17 +14,18 @@ import { ToastrService } from 'ngx-toastr';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './personal-form.component.html',
-  styleUrl: './personal-form.component.scss'
+  styleUrl: './personal-form.component.scss',
 })
 export class PersonalFormComponent {
   settingsPersonalForm: FormGroup;
-  userId: string | null = '';
+
+  @Input() doctorId!: number | null;
 
   constructor(
     private fb: FormBuilder,
     private personalService: DoctorService,
-    private toastr: ToastrService
-  ){
+    private toastr: ToastrService,
+  ) {
     this.settingsPersonalForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -29,25 +35,24 @@ export class PersonalFormComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.loadPersonalSettings();
-    console.log('merhaba')
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['doctorId'] && this.doctorId !== null) {
+      this.loadPersonalSettings();
+      console.log('mahmut');
+    }
   }
 
   loadPersonalSettings() {
-    const id = this.userId;
-    console.log("userİd", this.userId);
-    this.personalService.getUserSettings(id).subscribe(
-    
+    this.personalService.getUserSettings(this.doctorId).subscribe(
       (settings) => {
         console.log('User Settings: ', settings);
 
         const filteredSettings = {
-          firstName: settings.firstName || '',
-          lastName: settings.lastName || '',
-          email: settings.email || '',
-          phoneNumber: settings.phoneNumber || '',
-          gender: settings.gender || '',
+          firstName: settings.user.firstName || '',
+          lastName: settings.user.lastName || '',
+          email: settings.user.email || '',
+          phoneNumber: settings.user.phoneNumber || '',
+          gender: settings.user.gender || '',
         };
         this.settingsPersonalForm.patchValue(filteredSettings);
         console.log(
@@ -56,8 +61,8 @@ export class PersonalFormComponent {
         );
       },
       (error) => {
-       this.toastr.error('Error fetching user settings');
-       console.log(error);
+        this.toastr.error('Error fetching user settings');
+        console.log(error);
       },
     );
   }

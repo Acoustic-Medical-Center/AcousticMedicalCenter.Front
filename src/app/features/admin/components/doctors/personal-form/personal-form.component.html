@@ -1,84 +1,83 @@
 <div class="container mx-auto p-4">
-    <form
-      [formGroup]="settingsPersonalForm"
-      (ngSubmit)="onSubmit()"
-      class="space-y-4"
-    >
-      <div class="form-group space-y-4">
-        <div>
-          <label for="firstName" class="label">
-            <span class="label-text">First Name:</span>
-          </label>
-          <input
-            id="firstName"
-            formControlName="firstName"
-            class="input input-bordered w-full"
-          />
-        </div>
-        <div>
-          <label for="lastName" class="label">
-            <span class="label-text">Last Name:</span>
-          </label>
-          <input
-            id="lastName"
-            formControlName="lastName"
-            class="input input-bordered w-full"
-          />
-        </div>
-        <div>
-          <label for="email" class="label">
-            <span class="label-text">Email:</span>
-          </label>
-          <input
-            id="email"
-            formControlName="email"
-            class="input input-bordered w-full"
-          />
-        </div>
-        <div>
-          <label for="phoneNumber" class="label">
-            <span class="label-text">Phone Number:</span>
-          </label>
-          <input
-            id="phoneNumber"
-            formControlName="phoneNumber"
-            class="input input-bordered w-full"
-          />
-        </div>
-        <div>
-          <label for="address" class="label">
-            <span class="label-text">Address:</span>
-          </label>
-          <textarea
-            id="address"
-            formControlName="address"
-            class="textarea textarea-bordered w-full"
-          ></textarea>
-        </div>
-        <div>
-          <label for="gender" class="label">
-            <span class="label-text">Gender:</span>
-          </label>
-          <select
-            id="gender"
-            formControlName="gender"
-            class="select select-bordered w-full"
-          >
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="flex justify-end">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            [disabled]="settingsPersonalForm.invalid"
-          >
-            Save Settings
-          </button>
-        </div>
+  <form
+    [formGroup]="settingsPersonalForm"
+    (ngSubmit)="onSubmit()"
+    class="space-y-4"
+  >
+    <div class="form-group space-y-4">
+      <div>
+        <label for="firstName" class="label">
+          <span class="label-text">First Name:</span>
+        </label>
+        <input
+          id="firstName"
+          formControlName="firstName"
+          class="input input-bordered w-full"
+        />
       </div>
-    </form>
-  </div>
-  
+      <div>
+        <label for="lastName" class="label">
+          <span class="label-text">Last Name:</span>
+        </label>
+        <input
+          id="lastName"
+          formControlName="lastName"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div>
+        <label for="email" class="label">
+          <span class="label-text">Email:</span>
+        </label>
+        <input
+          id="email"
+          formControlName="email"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <div>
+        <label for="phoneNumber" class="label">
+          <span class="label-text">Phone Number:</span>
+        </label>
+        <input
+          id="phoneNumber"
+          formControlName="phoneNumber"
+          class="input input-bordered w-full"
+        />
+      </div>
+      <!-- <div>
+        <label for="address" class="label">
+          <span class="label-text">Address:</span>
+        </label>
+        <textarea
+          id="address"
+          formControlName="address"
+          class="textarea textarea-bordered w-full"
+        ></textarea>
+      </div> -->
+      <div>
+        <label for="gender" class="label">
+          <span class="label-text">Gender:</span>
+        </label>
+        <select
+          id="gender"
+          formControlName="gender"
+          class="select select-bordered w-full"
+        >
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="settingsPersonalForm.invalid"
+        >
+          Save Settings
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

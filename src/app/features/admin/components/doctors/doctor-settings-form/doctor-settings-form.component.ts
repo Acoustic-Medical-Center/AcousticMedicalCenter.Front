@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DoctorService } from '../../../services/doctor.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDoctor } from '../../../../doctors/service/doctor-settings.service';
@@ -8,56 +14,49 @@ import { IDoctor } from '../../../../doctors/service/doctor-settings.service';
 @Component({
   selector: 'app-doctor-settings-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './doctor-settings-form.component.html',
-  styleUrl: './doctor-settings-form.component.scss'
+  styleUrl: './doctor-settings-form.component.scss',
 })
-export class DoctorSettingsFormComponent implements OnInit {
+export class DoctorSettingsFormComponent {
   doctorFormSettings: FormGroup;
-  doctorId:any | null ='';
- 
- constructor(
-  private fb: FormBuilder,
-  private service: DoctorService,
-  private toastr: ToastrService
- ){
+
+  @Input() doctorId!: any | null;
+
+  constructor(
+    private fb: FormBuilder,
+    private service: DoctorService,
+    private toastr: ToastrService,
+  ) {
     this.doctorFormSettings = this.fb.group({
-      
+      doctorId: ['', Validators.required],
       experience: ['', [Validators.required, Validators.min(0)]],
       biography: ['', Validators.required],
-      doctorInterests: this.fb.array([], Validators.required),
     });
   }
-  ngOnInit(): void {
-    this.loadDoctorSettings();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['doctorId'] && this.doctorId !== null) {
+      this.doctorFormSettings.patchValue({ doctorId: this.doctorId });
+      this.loadDoctorSettings();
+    }
   }
 
   loadDoctorSettings(): void {
     this.service.getDoctorById(this.doctorId).subscribe(
-      
       (settings: IDoctor) => {
         this.doctorFormSettings.patchValue({
           experience: settings.experience,
           biography: settings.biography,
-          doctorInterests: settings.doctorInterests
         });
+        console.log('doctorFormSettings Value', this.doctorFormSettings.value);
       },
-     
+
       (error: any) => {
         this.toastr.error('Error fetching doctor settings');
         console.log(error);
-      }
+      },
     );
-  }
-  
-  setDoctorInterests(interests: string[]): void {
-    const interestsArray = this.doctorFormSettings.get('doctorInterests') as FormArray;
-    interests.forEach((interest) => {
-      interestsArray.push(this.fb.control(interest, Validators.required));
-    });
   }
 
   onSubmit(): void {
@@ -72,7 +71,7 @@ export class DoctorSettingsFormComponent implements OnInit {
         (error: any) => {
           this.toastr.error('Error updating doctor settings');
           console.error('Error:', error);
-        }
+        },
       );
     } else {
       this.toastr.warning('Form is invalid');
