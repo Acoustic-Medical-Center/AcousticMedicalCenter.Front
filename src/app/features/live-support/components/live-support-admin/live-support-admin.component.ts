@@ -18,6 +18,7 @@ export class LiveSupportAdminComponent implements OnInit {
   public user: string = 'Admin'; // Varsayılan kullanıcı adı (admin)
   public currentMessage: string = ''; // Gönderilecek mesaj
   public messages: { user: string; message: string }[] = [];
+  public typingUsers: Set<string> = new Set<string>(); // Yazıyor durumundaki kullanıcılar
 
   constructor(
     private liveSupportService: LiveSupportService,
@@ -34,18 +35,17 @@ export class LiveSupportAdminComponent implements OnInit {
         this.newRooms.push(room);
         this.saveRooms();
       };
-      // this.liveSupportService.addRoomMessageListener(
-      //   this.room,
-      //   (user, message) => {
-      //     this.messages.push({ user, message });
-      //     this.saveMessages();
-      //   },
-      // );
       this.liveSupportService.addTransferChatDataListener((user, message) => {
         if (this.room) {
           this.messages.push({ user, message });
           this.saveMessages();
         }
+      });
+      this.liveSupportService.addTypingListener((user) => {
+        this.typingUsers.add(user);
+      });
+      this.liveSupportService.addStopTypingListener((user) => {
+        this.typingUsers.delete(user);
       });
     });
   }
@@ -67,6 +67,25 @@ export class LiveSupportAdminComponent implements OnInit {
     }
   }
 
+  async leaveRoom(room: string): Promise<void> {
+    if (room) {
+      try {
+        await this.liveSupportService.leaveRoom(room);
+        console.log(`Left room: ${room}`);
+        if (this.room === room) {
+          this.isRoomJoined = false;
+          this.room = '';
+          this.messages = [];
+        }
+        this.removeRoomFromLocalStorage(room);
+        this.newRooms = this.newRooms.filter((r) => r !== room);
+        this.saveRooms();
+      } catch (err: any) {
+        console.error('Error leaving room:', err);
+      }
+    }
+  }
+
   sendMessage(): void {
     if (this.room && this.user) {
       this.liveSupportService.sendMessage(
@@ -74,12 +93,19 @@ export class LiveSupportAdminComponent implements OnInit {
         this.currentMessage,
         this.room,
       );
-      // this.messages.push({ user: this.user, message: this.currentMessage });
       this.currentMessage = ''; // Mesaj gönderildikten sonra input'u temizle
-      // this.saveMessages(); // Mesajları kaydet
+      this.liveSupportService.stopTyping(this.user, this.room);
     } else {
       console.error('Oda veya kullanıcı adı belirtilmedi.');
     }
+  }
+
+  onTyping(): void {
+    this.liveSupportService.startTyping(this.user, this.room);
+  }
+
+  onStopTyping(): void {
+    this.liveSupportService.stopTyping(this.user, this.room);
   }
 
   private saveRooms(): void {
@@ -108,5 +134,9 @@ export class LiveSupportAdminComponent implements OnInit {
         this.messages = savedMessages;
       }
     }
+  }
+
+  private removeRoomFromLocalStorage(room: string): void {
+    this.localStorageService.remove('chatMessages_' + room);
   }
 }

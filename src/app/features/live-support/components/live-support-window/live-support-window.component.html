@@ -1,49 +1,61 @@
 <div
-  class="fixed bottom-52 right-4 w-96 h-96 bg-white border border-gray-300 rounded-lg shadow-lg p-4"
+  class="fixed bottom-16 right-4 w-96 h-96 bg-white border border-gray-300 rounded-lg shadow-lg p-4"
 >
   <h2 class="text-lg font-bold mb-2">Canlı Destek</h2>
-  <button
+  <!-- <button
     (click)="clearMessages()"
     class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded"
   >
     Sohbeti Temizle
-  </button>
-  <input
+  </button> -->
+  <!-- <input
     disabled=""
     type="text"
     [(ngModel)]="room"
     placeholder="Oda Adı"
     class="mb-2 px-3 py-2 border border-gray-300 rounded-lg"
-  />
-  <button
-    (click)="createRoom()"
-    class="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
-  >
-    Yeni Oda Oluştur
-  </button>
-  <button
-    (click)="leaveRoom()"
-    class="mb-4 ml-2 bg-blue-500 text-white px-4 py-2 rounded"
-  >
-    Odadan Çık
-  </button>
-  <div class="flex flex-col h-full mt-4">
-    <div class="flex-1 overflow-y-auto">
-      <div *ngFor="let msg of messages">
-        <strong>{{ msg.user }}:</strong> {{ msg.message }}
+  /> -->
+  <div *ngIf="!isRoomJoined">
+    <button
+      (click)="createRoom()"
+      class="bottom-4 right-4 absolute bg-blue-500 text-white px-4 py-2 rounded"
+    >
+      Canlı Desteğe Bağlan
+    </button>
+  </div>
+  <div *ngIf="isRoomJoined">
+    <button
+      (click)="leaveRoom()"
+      class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded"
+    >
+      Odadan Çık
+    </button>
+    <div class="flex flex-col h-full mt-4">
+      <div class="flex-1 overflow-y-auto">
+        <div *ngFor="let msg of messages" class="message">
+          <strong>{{ msg.user }}:</strong> {{ msg.message }}
+        </div>
+        <div *ngFor="let user of typingUsers">
+          <em>{{ user }} yazıyor<span class="typing-indicator"></span></em>
+        </div>
       </div>
-      <div *ngFor="let user of typingUsers">
-        <em>{{ user }} yazıyor...</em>
+      <div class="send-message">
+        <input
+          type="text"
+          [(ngModel)]="currentMessage"
+          (keyup)="onTyping()"
+          (blur)="onStopTyping()"
+          (keyup.enter)="sendMessage()"
+          placeholder="Mesajınızı yazın..."
+          class="absolute bottom-4 px-2 py-2 w-2/3 border border-gray-300 rounded-lg"
+        />
+        <button
+          (click)="sendMessage()"
+          class="absolute bottom-4 right-6 px-2 py-2 bg-blue-500 text-white rounded"
+        >
+          Gönder
+        </button>
       </div>
     </div>
-    <input
-      type="text"
-      [(ngModel)]="currentMessage"
-      (keyup)="onTyping()"
-      (blur)="onStopTyping()"
-      (keyup.enter)="sendMessage()"
-      placeholder="Mesajınızı yazın..."
-      class="px-3 py-2 border border-gray-300 rounded-lg"
-    />
   </div>
 </div>

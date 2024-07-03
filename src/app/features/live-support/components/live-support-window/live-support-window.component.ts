@@ -44,16 +44,17 @@ export class LiveSupportWindowComponent implements OnInit {
         this.chatService.addStopTypingListener((user) => {
           this.typingUsers.delete(user);
         });
-        if (this.room) {
+        if (this.room && !this.isRoomJoined) {
           this.joinRoom();
+        } else {
+          this.loadMessages();
         }
-        this.loadMessages();
       })
       .catch((err) => console.error('Error starting connection:', err));
   }
 
   async joinRoom(): Promise<void> {
-    if (this.room) {
+    if (this.room && !this.isRoomJoined) {
       try {
         await this.chatService.joinRoom(this.room, this.user);
         console.log(`Joined room: ${this.room}`);
@@ -64,10 +65,9 @@ export class LiveSupportWindowComponent implements OnInit {
         console.error('Error joining room:', err);
       }
     } else {
-      console.error('Oda adı belirtilmedi.');
+      console.error('Oda adı belirtilmedi veya zaten katıldınız.');
     }
   }
-
   async createRoom(): Promise<void> {
     const newRoom = `${this.user} (${this.userId})`;
     if (newRoom) {
@@ -97,12 +97,10 @@ export class LiveSupportWindowComponent implements OnInit {
   }
   onTyping(): void {
     this.chatService.startTyping(this.user, this.room);
-    console.log('yazıyor muyum?');
   }
 
   onStopTyping(): void {
     this.chatService.stopTyping(this.user, this.room);
-    console.log('durdum mu?');
   }
 
   async leaveRoom(): Promise<void> {
