@@ -18,13 +18,7 @@ import { IDoctor } from '../../../../doctors/service/doctor-settings.service';
 export class DoctorSettingsFormComponent implements OnInit {
   doctorFormSettings: FormGroup;
   doctorId:any | null ='';
-  @Input()
-  set selectedDoctorId(value: number | undefined) {
-    this.doctorId = value;
-    if (this.doctorFormSettings) {
-      this.doctorFormSettings.get('appointmentId')?.setValue(this.doctorId);
-    }
-  }
+ 
  constructor(
   private fb: FormBuilder,
   private service: DoctorService,

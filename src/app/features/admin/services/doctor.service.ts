@@ -36,7 +36,7 @@ export class DoctorService {
   
   getAllDoctors(): Observable<IDoctor[]> {
     return this.http.get<DoctorResponse>(`${this.baseUrl}/doctors`).pipe(
-      map(response => response.doctors) // response içinden doctors array'ini al
+      map(response => response.doctors) 
     );
   }
 
