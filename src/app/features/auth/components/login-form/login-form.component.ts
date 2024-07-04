@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import 'ngx-toastr/toastr';
@@ -15,7 +15,7 @@ import 'ngx-toastr/toastr';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
+  imports: [ReactiveFormsModule, RouterModule, CommonModule, TranslateModule],
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })

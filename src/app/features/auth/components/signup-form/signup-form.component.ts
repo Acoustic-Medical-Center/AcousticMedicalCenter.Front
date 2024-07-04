@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { passwordMatchValidator } from './validators/passwordMatchValidator';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-signup-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule, TranslateModule],
   templateUrl: './signup-form.component.html',
   styleUrls: ['./signup-form.component.scss'],
 })
@@ -26,7 +26,7 @@ export class SignupFormComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.signupForm = this.fb.group(
       {
@@ -56,7 +56,6 @@ export class SignupFormComponent {
         error: (error) => {
           this.toastr.error('Signup failed');
           console.log(error);
-          
         },
       });
     } else {
