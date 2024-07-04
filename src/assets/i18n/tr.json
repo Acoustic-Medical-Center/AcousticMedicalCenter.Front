@@ -65,5 +65,11 @@
   },
   "liveSupport": {
     "button": "Canlı Destek"
+  },
+  "basicHeader": {
+    "faq": "Sıkça Sorulan Sorular",
+    "contact": "İletişim",
+    "login": "Giriş Yap",
+    "signup": "Kayıt Ol"
   }
 }

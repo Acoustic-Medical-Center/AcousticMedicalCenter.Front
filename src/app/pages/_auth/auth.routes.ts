@@ -28,6 +28,12 @@ export const titleResolver = (path: string): ResolveFn<string> => {
 
 export const authRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+    canMatch: [hasNoRole],
+  },
+  {
     path: 'login',
     component: LoginPageComponent,
     title: titleResolver('login'),

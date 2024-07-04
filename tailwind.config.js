@@ -3,6 +3,10 @@ module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
+      colors: {
+        headerHover: "#7ea1be",
+        textColor: "#6b7280",
+      },
       keyframes: {
         "slide-in": {
           "0%": { transform: "translate(10%, 30%)", opacity: 0 },
@@ -29,6 +33,8 @@ module.exports = {
           success: "#ff3333", // Medium Red
           warning: "#ffcccb", // Very Light Red
           error: "#ff0000", // Red
+          headerHover: "#7ea1be",
+          textColor: "#6b7280",
         },
       },
       "light",

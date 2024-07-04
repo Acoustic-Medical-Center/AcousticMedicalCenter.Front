@@ -8,7 +8,7 @@ import { adminRoutes } from './pages/_admin/admin.routes';
 import { doctorRoutes } from './pages/_doctor/doctor.routes';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent, title: 'HomePage' },
+  // { path: '', component: HomePageComponent, title: 'HomePage' },
 
   // { path: 'settings', component: SettingsComponent, title: 'Settings' },
   // { path: 'profile', component: ProfilePageComponent, title: 'Profile' },
@@ -17,5 +17,4 @@ export const routes: Routes = [
   ...patientRoutes,
   ...doctorRoutes,
   { path: '**', redirectTo: 'login' }, // Diğer rotalar için yönlendirme
-
 ];

@@ -1,50 +1,64 @@
-<nav class="bg-gray-800 fixed w-full">
+<nav class="bg-white border-b-gray-500 border-2 fixed w-full">
   <div class="max-w-[1500px] mx-auto px-2 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16">
       <div
         class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
       >
         <div class="flex-shrink-0 text-white text-lg font-semibold">
-          <a routerLink="/">AMC</a>
+          <a routerLink="/login">
+            <img
+              src="assets/images/logo/header-logo-aqua.svg"
+              alt="AMC Logo"
+              class="h-12 w-12 text-white"
+            />
+          </a>
         </div>
         <div class="hidden sm:block sm:ml-6">
-          <div class="flex space-x-4">
-            <a
-              routerLink="/"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Home</a
-            >
-            <a
-              routerLink="/faq"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Sıkça Sorulan Sorular</a
-            >
-            <a
-              routerLink="/login"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Login</a
-            >
-            <a
-              routerLink="/signup"
-              class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >Signup</a
-            >
-          </div>
+          <div class="flex space-x-4"></div>
         </div>
       </div>
       <div class="flex items-center space-x-2">
-        <button
-          (click)="switchLanguage('en')"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+        <a
+          routerLink="/faq"
+          class="text-gray-500 hover:bg-headerHover hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >{{ "basicHeader.faq" | translate }}</a
         >
-          English
-        </button>
-        <button
-          (click)="switchLanguage('tr')"
-          class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+        <a
+          routerLink="/contact"
+          class="text-gray-500 hover:bg-headerHover hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >{{ "basicHeader.contact" | translate }}</a
         >
-          Türkçe
-        </button>
+        <a
+          routerLink="/login"
+          class="text-gray-500 hover:bg-headerHover hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >{{ "basicHeader.login" | translate }}</a
+        >
+        <a
+          routerLink="/signup"
+          class="text-gray-500 hover:bg-headerHover hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+          >{{ "basicHeader.signup" | translate }}</a
+        >
+        <details class="dropdown dropdown-end">
+          <summary
+            class="btn bg-headerHover hover:text-headerHover text-white m-1 px-3 py-2 rounded-md text-sm font-medium"
+          >
+            <span class="material-icons">language</span>
+          </summary>
+          <ul
+            class="menu dropdown-content bg-base-100 rounded-box z-[1] w-32 p-2 shadow"
+          >
+            <li>
+              <a href="javascript:void(0);" (click)="switchLanguage('en')"
+                >English</a
+              >
+            </li>
+            <li>
+              <a href="javascript:void(0);" (click)="switchLanguage('tr')"
+                >Türkçe</a
+              >
+            </li>
+          </ul>
+        </details>
       </div>
     </div>
   </div>

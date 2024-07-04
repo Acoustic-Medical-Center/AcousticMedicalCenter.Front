@@ -65,5 +65,11 @@
   },
   "liveSupport": {
     "button": "Live Support"
+  },
+  "basicHeader": {
+    "faq": "FAQ",
+    "contact": "Contact",
+    "login": "Log In",
+    "signup": "Sign Up"
   }
 }
