@@ -1,48 +1,44 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { DoctorService } from '../../../services/doctor.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PatientService } from '../../../services/patient.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-personal-form',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './personal-form.component.html',
-  styleUrl: './personal-form.component.scss',
+  styleUrl: './personal-form.component.scss'
 })
 export class PersonalFormComponent {
+
   settingsPersonalForm: FormGroup;
 
-  @Input() doctorId!: number | null;
+  @Input() patientId!: number | null;
 
   constructor(
     private fb: FormBuilder,
-    private doctorService: DoctorService,
-    private toastr: ToastrService,
-  ) {
+    private patientService : PatientService,
+    private toastr: ToastrService
+  ){
     this.settingsPersonalForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.minLength(6)]],
       gender: [''],
-    });
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['doctorId'] && this.doctorId !== null) {
+    if (changes['patientId'] && this.patientId !== null) {
       this.loadPersonalSettings();
     }
   }
 
   loadPersonalSettings() {
-    this.doctorService.getUserSettings(this.doctorId).subscribe(
+    this.patientService.getUserSettings(this.patientId).subscribe(
       (settings) => {
         console.log('User Settings: ', settings);
 
@@ -72,11 +68,11 @@ export class PersonalFormComponent {
 
       if (Object.keys(dirtyValues).length > 0) {
         const payload = {
-          userId: this.doctorId,
+          userId: this.patientId,
           ...dirtyValues
         };
 
-        this.doctorService.updateUserSettings(payload).subscribe(
+        this.patientService.updateUserSettings(payload).subscribe(
           (response) => {
             this.toastr.success('Kullanıcı ayarları başarıyla güncellendi');
             console.log(response);
@@ -93,7 +89,6 @@ export class PersonalFormComponent {
       this.toastr.error('Form geçersiz');
     }
   }
-
   getDirtyValues(form: FormGroup): any {
     const dirtyValues: any = {};
 

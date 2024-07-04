@@ -1,12 +1,4 @@
 import { Component, Input } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { DoctorService } from '../../../services/doctor.service';
 import { DoctorSettingsFormComponent } from '../doctor-settings-form/doctor-settings-form.component';
 import { PersonalFormComponent } from '../personal-form/personal-form.component';
 
