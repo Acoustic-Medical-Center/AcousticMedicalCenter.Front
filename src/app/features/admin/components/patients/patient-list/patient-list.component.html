@@ -1,0 +1,50 @@
+<app-table [headers]="headers" [items]="patients">
+    <ng-template #rowTemplate let-item>
+      <tr class="hover:bg-gray-100">
+        <td>{{ item.firstName }} {{ item.lastName }}</td>
+        <td>{{ item.email }}</td>
+        
+        <td>
+          <button class="btn btn-ghost btn-xs" (click)="showDetails(item.id)">
+            Detaylar
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-square bg-gray-700 border-gray-800 deleteButton" (click)="confirmDeletePatient(item.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+</app-table>
+
+<!-- Modal for Doctor Details -->
+<dialog id="patientDetailModal" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" >
+        ✕
+      </button>
+    </form>
+   <app-patient-edit-form [patientId]="selectedPatientId"></app-patient-edit-form>
+  </div>
+</dialog>
+
+<!-- Modal for Doctor Delete Confirmation -->
+<dialog id="deletePatientModal" class="modal">
+  <div class="modal-box">
+    <p class="text-lg">Doktor : {{selectedPatientName}}</p>
+    <p class="text-lg">Bu doktoru silmek istiyor musunuz?</p>
+ 
+    <div class="mt-4 flex justify-end">
+      <!-- <button class="btn btn-sm btn-circle btn-danger mr-2" (click)="deletePatient(selectedPatientId)">
+        Yes
+      </button>
+      <button class="btn btn-sm btn-circle btn-ghost" (click)="closeModal()">
+        No
+      </button> -->
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,41 @@
+<div class="container mx-auto p-4">
+    <form
+      [formGroup]="patientFormSettings"
+      (ngSubmit)="onSubmit()"
+      class="space-y-4"
+    >
+      <div>
+        <label for="experience" class="label">
+          <span class="label-text">Blood type:</span>
+        </label>
+        <input
+          id="bloodType"
+          formControlName="bloodType"
+          type="text"
+          class="input input-bordered w-full"
+        />
+        <div
+          *ngIf="
+            patientFormSettings.get('bloodType')?.invalid &&
+            (patientFormSettings.get('bloodType')?.dirty ||
+            patientFormSettings.get('bloodType')?.touched)
+          "
+          class="error-text"
+        >
+          Blood Type is required and must be a positive number.
+        </div>
+      </div>
+
+  
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="patientFormSettings.invalid"
+        >
+          Save Settings
+        </button>
+      </div>
+    </form>
+  </div>
+  
