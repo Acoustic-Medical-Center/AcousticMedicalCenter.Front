@@ -3,17 +3,29 @@
     <li *ngFor="let item of menuItems" class="my-2">
       <a
         *ngIf="item.link"
-        class="p-2 rounded hover:bg-gray-300 flex"
+        class="p-2 rounded flex"
         [routerLink]="item.link"
-        routerLinkActive="bg-gray-300"
+        routerLinkActive="bg-headerHover text-white"
         [routerLinkActiveOptions]="{ exact: true }"
       >
-        <span class="material-icons mr-2">{{ item.icon }}</span
-        >{{ item.label | translate }}</a
-      >
+        <span
+          class="material-icons mr-2"
+          [ngClass]="{
+            'text-white': isActive(item.link),
+            'text-headerHover': !isActive(item.link),
+          }"
+        >
+          {{ item.icon }}
+        </span>
+        <p
+          [ngClass]="{
+            'text-white': isActive(item.link),
+            'text-black': !isActive(item.link),
+          }"
+        >
+          {{ item.label | translate }}
+        </p>
+      </a>
     </li>
-    <!-- <li class="my-2">
-      <a class="block p-2 rounded bg-red-500" href="">Randevu Al</a>
-    </li> -->
   </ul>
 </nav>

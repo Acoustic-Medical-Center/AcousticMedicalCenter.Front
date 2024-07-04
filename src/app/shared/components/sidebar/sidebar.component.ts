@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { IsActiveMatchOptions, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -11,5 +11,16 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
+  constructor(private router: Router) {}
   @Input() menuItems!: any[];
+
+  isActive(link: string): boolean {
+    const matchOptions: IsActiveMatchOptions = {
+      paths: 'exact',
+      queryParams: 'ignored',
+      matrixParams: 'ignored',
+      fragment: 'ignored',
+    };
+    return this.router.isActive(link, matchOptions);
+  }
 }

@@ -1,11 +1,13 @@
 <div class="hidden h-screen bg-gray-200 md:flex">
-  <div class="flex flex-col fixed w-64 bg-white shadow-lg h-screen">
+  <div
+    class="flex flex-col fixed w-64 bg-white border-r-2 border-headerHover shadow-lg h-screen"
+  >
     <app-sidebar [menuItems]="patientMenuItems"></app-sidebar>
     <ul>
       <li class="mx-4">
         <a
           routerLink="create-appointment"
-          class="block p-2 rounded bg-red-500"
+          class="block p-2 rounded bg-secondary"
           href=""
           >{{ "patientMenu.createAppointment" | translate }}</a
         >
