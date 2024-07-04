@@ -13,7 +13,7 @@ import { LocalStorageService } from '../../../../core/browser/services/local-sto
 })
 export class LiveSupportWindowComponent implements OnInit {
   @Output() leaveRoomEvent = new EventEmitter<void>();
-  public messages: { user: string; message: string }[] = [];
+  public messages: { user: string; message: string; time: string }[] = [];
   public currentMessage: string = '';
   public user: string = '';
   public userId: string = '';
@@ -39,7 +39,13 @@ export class LiveSupportWindowComponent implements OnInit {
     try {
       await this.chatService.startConnection();
       this.chatService.addTransferChatDataListener((user, message) => {
-        this.messages.push({ user, message });
+        const currentTime = new Date();
+        const formattedTime = currentTime.toLocaleTimeString('tr-TR', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        });
+        this.messages.push({ user, message, time: formattedTime });
         this.saveMessages();
       });
       this.chatService.addTypingListener((user) => {
@@ -94,6 +100,7 @@ export class LiveSupportWindowComponent implements OnInit {
       this.chatService.sendMessage(this.user, this.currentMessage, this.room);
       this.currentMessage = ''; // Mesaj gönderildikten sonra input'u temizle
       this.chatService.stopTyping(this.user, this.room);
+      this.saveMessages();
     } else {
       console.error('Oda adı belirtilmedi.');
     }
@@ -110,7 +117,7 @@ export class LiveSupportWindowComponent implements OnInit {
   async leaveRoom(): Promise<void> {
     if (this.room) {
       try {
-        await this.chatService.leaveRoom(this.room);
+        await this.chatService.leaveRoom(this.room, this.user);
         this.chatService.removeRoomMessageListener();
         console.log(`Left room: ${this.room}`);
         this.isRoomJoined = false;

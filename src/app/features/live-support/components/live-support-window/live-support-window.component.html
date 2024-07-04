@@ -33,7 +33,10 @@
     <div class="flex flex-col h-full mt-4">
       <div class="flex-1 overflow-y-auto">
         <div *ngFor="let msg of messages" class="message">
-          <strong>{{ msg.user }}:</strong> {{ msg.message }}
+          <strong>{{ msg.user }}</strong>
+          <small class="ml-2">Bugün: {{ msg.time }}</small> <br />{{
+            msg.message
+          }}
         </div>
         <div *ngFor="let user of typingUsers">
           <em>{{ user }} yazıyor<span class="typing-indicator"></span></em>

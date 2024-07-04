@@ -70,7 +70,7 @@ export class LiveSupportAdminComponent implements OnInit {
   async leaveRoom(room: string): Promise<void> {
     if (room) {
       try {
-        await this.liveSupportService.leaveRoom(room);
+        await this.liveSupportService.leaveRoom(room, this.user);
         console.log(`Left room: ${room}`);
         if (this.room === room) {
           this.isRoomJoined = false;

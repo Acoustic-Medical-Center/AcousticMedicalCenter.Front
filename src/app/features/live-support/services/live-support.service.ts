@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class LiveSupportService {
+  public _isRoomJoined: boolean = false;
   private hubConnection: signalR.HubConnection;
   private baseUrl: string = ' https://localhost:7172/chatHub';
   constructor() {
@@ -68,9 +69,9 @@ export class LiveSupportService {
       .catch((err) => console.error(err));
   }
 
-  public leaveRoom(room: string): Promise<void> {
+  public leaveRoom(room: string, user: string): Promise<void> {
     if (this.hubConnection.state === signalR.HubConnectionState.Connected) {
-      return this.hubConnection.invoke('LeaveRoom', room);
+      return this.hubConnection.invoke('LeaveRoom', room, user);
     }
     return Promise.reject('Cannot leave room. Connection is not established.');
   }
@@ -109,5 +110,9 @@ export class LiveSupportService {
         .invoke('StopTyping', user, room)
         .catch((err) => console.error(err));
     }
+  }
+
+  setIsRoomJoined(value: boolean): void {
+    this._isRoomJoined = value;
   }
 }
