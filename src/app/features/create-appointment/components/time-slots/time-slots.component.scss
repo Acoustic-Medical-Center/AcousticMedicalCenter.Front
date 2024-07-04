@@ -5,7 +5,7 @@
   position: relative;
   border-radius: 3px;
   border: solid 2px #6eaf0c;
-  background: #fff ;
+  background: #fff;
   padding: 10px;
   font-weight: 300;
   font-size: 15px;
@@ -25,7 +25,7 @@
 .radio {
   display: none;
 }
-label{
+label {
   cursor: pointer;
 }
 .bg-active {
@@ -33,9 +33,9 @@ label{
 }
 
 .bg-available {
-  @apply bg-white border border-green-500 text-green-800;
+  @apply bg-white border border-green-500   hover:bg-green-600 hover:text-white;
 }
 
 .bg-taken {
-  @apply bg-gray-200 border border-gray-400 text-gray-800 cursor-not-allowed;
+  @apply bg-gray-200 border border-gray-400 text-gray-800 pointer-events-none;
 }

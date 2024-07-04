@@ -7,9 +7,12 @@
       <li class="mx-4">
         <a
           routerLink="create-appointment"
-          class="block p-2 rounded bg-secondary"
+          class="p-2 rounded bg-secondary flex items-center"
           href=""
-          >{{ "patientMenu.createAppointment" | translate }}</a
+          ><span class="material-icons text-white">add_circle</span>
+          <p class="ml-2 text-white">
+            {{ "patientMenu.createAppointment" | translate }}
+          </p></a
         >
       </li>
     </ul>

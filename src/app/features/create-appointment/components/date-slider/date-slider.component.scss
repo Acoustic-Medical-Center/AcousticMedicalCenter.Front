@@ -12,21 +12,22 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-   
   }
 
   .swiper-button-next::after,
   .swiper-button-prev::after {
     font-size: 20px; /* Buton simge boyutu */
   }
-  h1, p{
+  h1,
+  p {
     text-align: center;
   }
 }
 
 /* Aktif slide stilini belirleyin */
 .active-slide {
-  border-bottom: 2px solid red; /* Örnek: Turuncu kenarlık */
+  border-bottom: 4px solid #ff3333; /* Örnek: Turuncu kenarlık */
   color: #000; /* Örnek: Siyah yazı rengi */
   border-radius: 2px;
+  font-weight: 900;
 }
