@@ -29,7 +29,7 @@
     "gender": "Cinsiyet",
     "male": "Erkek",
     "female": "Kadın",
-    "prefer_not_to_say": "Belirtmek istemiyorum",
+    "prefer_not_to_say": "Diğer",
     "password": "Şifre",
     "confirm_password": "Şifreyi Onayla",
     "register_account": "Hesap Kaydet",
@@ -46,10 +46,10 @@
   },
   "loginform": {
     "login": "Giriş",
-    "email": "E-posta",
-    "password": "Şifre",
-    "valid_email_required": "Geçerli bir e-posta zorunludur",
-    "password_required": "Şifre zorunludur"
+    "email": "E-posta*",
+    "password": "Şifre*",
+    "valid_email_required": "Geçerli bir e-posta zorunludur*",
+    "password_required": "Şifre zorunludur*"
   },
   "authRoutes": {
     "login": "Giriş Yap",

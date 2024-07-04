@@ -26,7 +26,7 @@ export class LoginFormComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -47,13 +47,11 @@ export class LoginFormComponent {
         error: (error) => {
           this.toastr.error('Giriş Başarısız !');
           console.error(error);
-          
         },
       });
     } else {
       this.markAllAsTouched();
-      this.toastr.warning('Form Geçerli Değil !')
-      
+      this.toastr.warning('Form Geçerli Değil !');
     }
   }
 

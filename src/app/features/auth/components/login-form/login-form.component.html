@@ -1,29 +1,43 @@
 <div class="form-container">
   <h3 class="form-header">{{ "loginform.login" | translate }}</h3>
   <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
+    <div class="relative mb-4">
       <input
-        class="input mb-3"
+        class="input w-full pr-10"
         id="email"
         type="email"
         placeholder="{{ 'loginform.email' | translate }}"
         formControlName="email"
         [ngClass]="{ 'input-error': isControlInvalid('email') }"
       />
-      <div *ngIf="isControlInvalid('email')" class="error-text">
+      <span
+        class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300"
+        >email</span
+      >
+      <div
+        *ngIf="isControlInvalid('email')"
+        class="error-text absolute left-0 bottom-0 transform translate-y-full text-red-500"
+      >
         {{ "loginform.valid_email_required" | translate }}
       </div>
     </div>
-    <div>
+    <div class="relative mb-4">
       <input
-        class="input mb-3"
+        class="input w-full pr-10"
         id="password"
         type="password"
         placeholder="{{ 'loginform.password' | translate }}"
         formControlName="password"
         [ngClass]="{ 'input-error': isControlInvalid('password') }"
       />
-      <div *ngIf="isControlInvalid('password')" class="error-text">
+      <span
+        class="material-icons absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-300"
+        >lock</span
+      >
+      <div
+        *ngIf="isControlInvalid('password')"
+        class="error-text absolute left-0 bottom-0 transform translate-y-full text-red-500"
+      >
         {{ "loginform.password_required" | translate }}
       </div>
     </div>

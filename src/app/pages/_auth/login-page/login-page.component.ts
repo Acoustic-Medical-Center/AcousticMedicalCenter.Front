@@ -5,11 +5,17 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { LoginFormComponent } from '../../../features/auth/components/login-form/login-form.component';
+import { HeroComponent } from '../../../features/auth/components/hero/hero.component';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, LoginFormComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    LoginFormComponent,
+    HeroComponent,
+  ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
 })

@@ -1,14 +1,14 @@
 /* styles.css */
 .form-container {
-  @apply w-full sm:w-10/12 md:w-7/12 lg:w-6/12 xl:w-4/12 2xl:w-4/12 mx-auto bg-white p-5 rounded-lg lg:rounded-l-none;
+  @apply w-4/5 mx-auto  bg-white p-5 rounded-lg lg:rounded-l-none border-4 border-gray-200;
 }
 
 .form-header {
-  @apply pt-4 text-2xl p-5;
+  @apply px-8 text-2xl text-gray-400;
 }
 
 .form {
-  @apply px-8 pt-6 pb-8 mb-4 bg-white rounded;
+  @apply px-8 pt-4 pb-8 mb-4 bg-white rounded;
 }
 
 .form-group {

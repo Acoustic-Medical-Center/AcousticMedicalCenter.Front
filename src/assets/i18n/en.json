@@ -29,9 +29,9 @@
     "gender": "Gender",
     "male": "Male",
     "female": "Female",
-    "prefer_not_to_say": "Prefer not to say",
+    "prefer_not_to_say": "Other",
     "password": "Password",
-    "confirm_password": "The passwords you entered must match.",
+    "confirm_password": "Confirm Password",
     "register_account": "Register Account",
     "forgot_password": "Forgot Password?",
     "already_have_account": "Already have an account? Login!",
@@ -45,8 +45,8 @@
   },
   "loginform": {
     "login": "Login",
-    "email": "Email",
-    "password": "Password",
+    "email": "Email*",
+    "password": "Password*",
     "valid_email_required": "Valid email is required",
     "password_required": "Password is required"
   },

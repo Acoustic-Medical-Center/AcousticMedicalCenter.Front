@@ -8,11 +8,17 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../features/auth/services/auth.service';
 import { SignupFormComponent } from '../../../features/auth/components/signup-form/signup-form.component';
+import { HeroComponent } from '../../../features/auth/components/hero/hero.component';
 
 @Component({
   selector: 'app-signup-page',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SignupFormComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    SignupFormComponent,
+    HeroComponent,
+  ],
   templateUrl: './signup-page.component.html',
   styleUrl: './signup-page.component.scss',
 })
