@@ -50,10 +50,20 @@
     "email": "E-posta*",
     "password": "Şifre*",
     "valid_email_required": "Geçerli bir e-posta zorunludur*",
-    "password_required": "Şifre zorunludur*"
+    "password_required": "Şifre zorunludur*",
+    "signup": "Kayıt Ol!",
+    "no_account": "Hesabınız yok mu ?"
   },
   "authRoutes": {
     "login": "Giriş Yap",
     "register": "Kayıt Ol"
+  },
+  "hero": {
+    "heading1": "Acoustic Medical Center ile",
+    "heading2": "Kolay Randevu",
+    "description": "Hastane ve Tıp Merkezlerimizdeki doktorlarımızı görüntüleyip; takvimden istediğiniz tarih ve saati seçerek hızlı randevu alabilirsiniz."
+  },
+  "liveSupport": {
+    "button": "Canlı Destek"
   }
 }

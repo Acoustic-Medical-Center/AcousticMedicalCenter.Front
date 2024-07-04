@@ -50,11 +50,20 @@
     "password": "Password*",
     "valid_email_required": "Valid email is required",
     "password_required": "Password is required",
-    "signup": "Sign Up",
+    "signup": "Sign Up!",
     "no_account": "Don't you have an account?"
   },
   "authRoutes": {
     "login": "Login",
     "register": "Sign Up"
+  },
+
+  "hero": {
+    "heading1": "With Acoustic Medical Center",
+    "heading2": "Book an Appointment",
+    "description": "You can view our doctors in our hospitals and medical centers; you can make a quick appointment by selecting the date and time you want from the calendar."
+  },
+  "liveSupport": {
+    "button": "Live Support"
   }
 }
