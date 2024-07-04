@@ -21,7 +21,7 @@ module.exports = {
       {
         mytheme: {
           primary: "#FFC107", // Turuncu
-          secondary: "#ff9999", // Light Red
+          secondary: "#ff3333", // Light Red
           accent: "#ffcccc", // Very Light Red
           neutral: "#f3f4f6", // Açık Gri
           "base-100": "#ffffff", // Beyaz

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { LiveSupportService } from '../../services/live-support.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,6 +19,7 @@ import { LocalStorageService } from '../../../../core/browser/services/local-sto
   styleUrl: './live-support-window.component.scss',
 })
 export class LiveSupportWindowComponent implements OnInit {
+  @ViewChild('messageContainer') private messageContainer!: ElementRef;
   @Output() leaveRoomEvent = new EventEmitter<void>();
   public messages: { user: string; message: string; time: string }[] = [];
   public currentMessage: string = '';
@@ -32,6 +40,19 @@ export class LiveSupportWindowComponent implements OnInit {
     this.userId = this.localStorageService.get('id') || 'undefined';
     if (this.room) {
       this.loadMessages();
+    }
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    try {
+      this.messageContainer.nativeElement.scrollTop =
+        this.messageContainer.nativeElement.scrollHeight;
+    } catch (err) {
+      console.error('Error scrolling to bottom:', err);
     }
   }
 
