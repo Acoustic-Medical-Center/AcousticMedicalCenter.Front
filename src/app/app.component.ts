@@ -11,7 +11,7 @@ import { LocalStorageService } from './core/browser/services/local-storage.servi
 import { LoadingSpinnerComponent } from './shared/components/loading/loading-spinner/loading-spinner.component';
 import { LoadingService } from './core/loading/loading.service';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { LiveSupportButtonComponent } from './features/live-support/components/live-support-button/live-support-button.component';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +25,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     AdminLayoutComponent,
     DoctorLayoutComponent,
     LoadingSpinnerComponent,
-    
+    LiveSupportButtonComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

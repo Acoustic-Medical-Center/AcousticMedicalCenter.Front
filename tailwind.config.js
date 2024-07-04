@@ -4,13 +4,13 @@ module.exports = {
   theme: {
     extend: {
       keyframes: {
-        "fade-in": {
-          "0%": { opacity: 0 },
-          "100%": { opacity: 1 },
+        "slide-in": {
+          "0%": { transform: "translate(10%, 30%)", opacity: 0 },
+          "100%": { transform: "translate(0, 0)", opacity: 1 },
         },
       },
       animation: {
-        "fade-in": "fade-in 0.5s ease-in-out",
+        "slide-in": "slide-in 0.5s ease-in-out",
       },
     },
   },
@@ -21,7 +21,7 @@ module.exports = {
       {
         mytheme: {
           primary: "#FFC107", // Turuncu
-          secondary: "#ff9999", // Light Red
+          secondary: "#ff3333", // Light Red
           accent: "#ffcccc", // Very Light Red
           neutral: "#f3f4f6", // Açık Gri
           "base-100": "#ffffff", // Beyaz

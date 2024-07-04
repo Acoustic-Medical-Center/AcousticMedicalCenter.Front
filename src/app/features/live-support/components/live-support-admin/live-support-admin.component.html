@@ -1,0 +1,41 @@
+<h1>Odalar:</h1>
+
+<div *ngFor="let room of newRooms" class="room-notification">
+  Yeni Oda Oluşturuldu: {{ room }}
+  <button (click)="joinRoom(room)">Odaya Katıl</button>
+  <button
+    (click)="leaveRoom(room)"
+    class="ml-2 bg-red-500 text-white px-2 py-1 rounded"
+  >
+    Odayı Sil ve Çık
+  </button>
+</div>
+
+<div *ngIf="isRoomJoined">
+  <h2>{{ room }} Odasına Bağlandı</h2>
+  <div class="chat-messages">
+    <div *ngFor="let msg of messages" class="message">
+      <strong>{{ msg.user }}:</strong> {{ msg.message }}
+    </div>
+    <div *ngFor="let user of typingUsers">
+      <em>{{ user }} yazıyor...</em>
+    </div>
+  </div>
+  <div class="send-message">
+    <input
+      type="text"
+      [(ngModel)]="currentMessage"
+      (keyup)="onTyping()"
+      (blur)="onStopTyping()"
+      (keyup.enter)="sendMessage()"
+      placeholder="Mesajınızı yazın..."
+      class="px-3 py-2 border border-gray-300 rounded-lg"
+    />
+    <button
+      (click)="sendMessage()"
+      class="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+    >
+      Gönder
+    </button>
+  </div>
+</div>
