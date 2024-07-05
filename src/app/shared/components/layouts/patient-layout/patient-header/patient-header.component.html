@@ -1,10 +1,9 @@
-<div class="navbar z-50 sticky top-0 bg-purple-100 border-b-2 border-black">
+<div class="navbar z-50 sticky top-0 bg-white border-b-2 border-headerHover">
   <div class="container mx-auto">
     <div class="flex-1">
       <a routerLink="" class="btn btn-ghost text-xl">AMC</a>
     </div>
     <div class="flex-none">
-      <div class="dropdown">{{ isDropdownOpen }}</div>
       <div
         (click)="toggleDropdown($event)"
         class="dropdown dropdown-end"
@@ -24,20 +23,28 @@
           class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
         >
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="toggleDropdownListItem($event)" routerLink="profile"
-              >Profile</a
-            >
+            <a (click)="toggleDropdownListItem($event)" routerLink="profile">
+              <span class="material-icons">person</span>
+              {{ "navbar.profile" | translate }}
+            </a>
           </li>
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="toggleDropdownListItem($event)" routerLink="settings"
-              >Settings</a
-            >
+            <a (click)="toggleDropdownListItem($event)" routerLink="settings">
+              <span class="material-icons">settings</span>
+              {{ "navbar.settings" | translate }}
+            </a>
           </li>
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="toggleLanguageDropdown($event)">Language</a>
+            <a (click)="toggleLanguageDropdown($event)">
+              <span class="material-icons">language</span>
+              {{ "navbar.language" | translate }}
+            </a>
           </li>
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="logout()">Logout</a>
+            <a (click)="logout()">
+              <span class="material-icons">logout</span>
+              {{ "navbar.logout" | translate }}
+            </a>
           </li>
 
           <h1 (click)="eventStop($event)" *ngIf="dropdownLanguageOpen">
@@ -60,16 +67,16 @@
                 />
               </svg>
             </button>
-            <span class="ml-4">Language</span>
+            <span class="ml-4">{{ "navbar.language" | translate }}</span>
           </h1>
           <li *ngIf="dropdownLanguageOpen">
             <a (click)="selectLanguage('en')">
-              <span class="fi fi-gb"></span> English
+              <span class="fi fi-gb"></span> {{ "navbar.english" | translate }}
             </a>
           </li>
           <li *ngIf="dropdownLanguageOpen">
             <a (click)="selectLanguage('tr')">
-              <span class="fi fi-tr"></span> Türkçe
+              <span class="fi fi-tr"></span> {{ "navbar.turkish" | translate }}
             </a>
           </li>
         </ul>

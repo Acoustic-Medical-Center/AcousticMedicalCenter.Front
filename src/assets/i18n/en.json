@@ -71,5 +71,13 @@
     "contact": "Contact",
     "login": "Log In",
     "signup": "Sign Up"
+  },
+  "navbar": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "language": "Language",
+    "logout": "Logout",
+    "english": "English",
+    "turkish": "Turkish"
   }
 }

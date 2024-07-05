@@ -4,13 +4,13 @@ import { AuthService } from '../../../../../features/auth/services/auth.service'
 import { Router } from '@angular/router';
 import { HostListener, ChangeDetectorRef, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from '../../../../../core/browser/services/local-storage.service';
 
 @Component({
   selector: 'app-patient-header',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, TranslateModule],
   templateUrl: './patient-header.component.html',
   styleUrl: './patient-header.component.scss',
 })

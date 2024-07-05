@@ -71,5 +71,13 @@
     "contact": "İletişim",
     "login": "Giriş Yap",
     "signup": "Kayıt Ol"
+  },
+  "navbar": {
+    "profile": "Profil",
+    "settings": "Ayarlar",
+    "language": "Dil",
+    "logout": "Çıkış Yap",
+    "english": "İngilizce",
+    "turkish": "Türkçe"
   }
 }
