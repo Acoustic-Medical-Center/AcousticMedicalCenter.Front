@@ -1,0 +1,53 @@
+/* Basit stil örnekleri */
+.form-div {
+    margin-bottom: 10px;
+    
+}
+
+input, textarea {
+width: 100%;
+padding: 8px;
+margin: 5px 0;
+box-sizing: border-box;
+border: 1px solid rgb(187, 187, 187);
+border-radius: 2px ;
+}
+
+button {
+padding: 10px 15px;
+background-color: #45a049;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+}
+
+button:hover {
+background-color:  #467947;
+}
+
+h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px)
+    
+}
+  
+form {
+    width: 100%;
+    max-width: 700px;
+    padding: 20px;
+    background-color: gainsboro;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+  
