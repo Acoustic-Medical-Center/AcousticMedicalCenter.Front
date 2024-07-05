@@ -1,0 +1,16 @@
+<!-- src/app/faq/faq.component.html -->
+<div class="faq-container">
+    <h2 class="text-2xl font-bold mb-4">Sıkça Sorulan Sorular</h2>
+
+    <ng-container *ngFor="let faq of faqs; let i = index">
+        <div class="collapse collapse-plus bg-blue-300 text-black mb-4">
+            <input type="radio" [name]="'my-accordion-3'" [id]="'accordion-' + i" [checked]="i === 0" />
+            <div class="collapse-title text-xl font-medium">
+                {{ faq.question }}
+            </div>
+            <div class="collapse-content">
+                <p>{{ faq.answer }}</p>
+            </div>
+        </div>
+    </ng-container>
+</div>
