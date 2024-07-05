@@ -1,0 +1,41 @@
+<app-table [headers]="headers" [items]="appointments">
+    <ng-template #rowTemplate let-item>
+      <tr class="hover:bg-gray-100">
+        <td>{{ item.userName }} {{ item.userLastName }}</td>
+        <td>{{ item.patientEmail}}</td>
+        <td>{{ item.patientGender }}</td>
+        <td>{{item.appointmentTime}}</td>
+        <td>{{item.patientPhoneNumber}}</td>
+        <td>{{item.doctorName}} {{item.doctorLastName}}</td>
+        <td>
+          <button class="btn btn-square bg-gray-700 border-gray-800 deleteButton" (click)="confirmDeleteAppointment(item.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </app-table>
+  
+  <dialog id="deleteAppointmentModal" class="modal">
+    <div class="modal-box relative">
+      <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700" (click)="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <p class="text-lg">Randevu: {{selectedAppointment}}</p>
+      <p class="text-lg">Bu randevuyu silmek istiyor musunuz?</p>
+      <div class="mt-4 flex justify-end">
+        <button class="btn btn-sm btn-circle btn-danger mr-2" (click)="deleteAppointment(selectedAppointmentId)">
+          Yes
+        </button>
+        <button class="btn btn-sm btn-circle btn-ghost" (click)="closeModal()">
+          No
+        </button>
+      </div>
+    </div>
+  </dialog>
+  
+  

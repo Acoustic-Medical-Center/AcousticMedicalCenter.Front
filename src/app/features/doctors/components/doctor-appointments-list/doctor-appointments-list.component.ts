@@ -15,7 +15,7 @@ import { PrescriptionFormComponent } from '../prescription-form/prescription-for
     PrescriptionFormComponent
   ],
   templateUrl: './doctor-appointments-list.component.html',
-  styles: ``,
+  styleUrl: './doctor-appointments-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DoctorAppointmentsListComponent implements OnInit { 

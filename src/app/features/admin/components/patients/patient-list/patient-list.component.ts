@@ -38,8 +38,8 @@ export class PatientListComponent implements OnInit{
     }
    )
   }
-  showDetails(patientId: number) {
-    console.log(patientId); // id'nin doğru geldiğini kontrol etmek için
+  showDetailsPatients(patientId: number) {
+    console.log(patientId); 
     this.selectedPatientId = patientId;
     
     const modal = document.getElementById(
@@ -51,7 +51,6 @@ export class PatientListComponent implements OnInit{
   }
 
   confirmDeletePatient(patientId: number): void {
-    // Find the selected doctor
     const selectedPatient = this.patients.find(p => p.id === patientId);
     if (selectedPatient) {
       this.selectedPatientId = patientId;
@@ -63,19 +62,28 @@ export class PatientListComponent implements OnInit{
     }
   }
 
-  // deletePatient(patientId: number): void {
-  //   this.patientService.deletePatient(patientId).subscribe(
-  //     () => {
-  //       this.toastr.success('Doctor deleted successfully.');
-  //       // İsteği başarıyla aldıktan sonra yapılacak işlemler, örneğin doktorları yeniden yükleme
-  //       this.getPatients();
+  deletePatient(patientId: number): void {
+    this.patientService.deletePatient(patientId).subscribe(
+      () => {
+        this.toastr.success('Patient deleted successfully.');
+        this.getPatients();
         
-  //     },
-  //     (error) => {
-  //      this.toastr.error('Doctor deleted wrong')   
-  //      console.log(error);  
-  //     }
-  //   );
-  // }
+      },
+      (error) => {
+       this.toastr.error('Patient deleted wrong')   
+       console.log(error);  
+      }
+    );
+  }
+  closeModal(): void {
+    const modal = document.getElementById('patientDetailModal') as HTMLDialogElement;
+    if (modal) {
+      modal.close();
+    }
+    const deleteModal = document.getElementById('deletePatientModal') as HTMLDialogElement;
+    if (deleteModal) {
+      deleteModal.close();
+    }
+  }
 
 }
