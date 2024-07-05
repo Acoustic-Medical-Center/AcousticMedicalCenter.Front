@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: calc(100vh - 60px);
+    padding-top: 60px; 
+    box-sizing: border-box; 
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 20px; 
+    padding: 20px;
+    background-color: #ffffff; 
+    border-radius: 8px; 
+}
