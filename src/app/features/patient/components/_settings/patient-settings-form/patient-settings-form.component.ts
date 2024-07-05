@@ -5,7 +5,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PatientSettingsService } from '../../services/patient-settings.service';
+import { PatientSettingsService } from '../../../services/patient-settings.service';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
@@ -22,7 +22,7 @@ export class PatientSettingsFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.bloodTypeForm = this.fb.group({
       bloodType: ['', Validators.required],

@@ -4,11 +4,12 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import { TableComponent } from '../../../../shared/components/table/table.component';
+import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { CommonModule } from '@angular/common';
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../../services/patient.service';
 import { PastAppointmentDetailsComponent } from '../past-appointment-details/past-appointment-details.component';
-import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { PaginationComponent } from '../../../../../shared/components/pagination/pagination.component';
+import { EnumTranslationService } from '../../../services/enum-translation.service';
 
 @Component({
   selector: 'app-past-appointments-table',
@@ -36,6 +37,7 @@ export class PastAppointmentsTableComponent implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private patientService: PatientService,
+    private enumTranslationService: EnumTranslationService,
   ) {}
 
   ngOnInit() {
@@ -46,32 +48,19 @@ export class PastAppointmentsTableComponent implements OnInit {
     this.patientService
       .getAllPastAppointmentsByPatient(this.currentPage, this.pageSize)
       .subscribe((data) => {
-        this.appointments = data;
-        this.totalItems = data.totalItems; // Toplam öğe sayısını güncelleyin
-        this.updateDisplayedAppointments();
+        this.appointments = data.items;
+        this.totalItems = data.totalCount; // Toplam öğe sayısını güncelleyin
         this.cdr.markForCheck();
       });
   }
 
-  updateDisplayedAppointments() {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.displayedAppointments = this.appointments.slice(startIndex, endIndex);
-
-    // Eğer gösterilecek öğe sayısı 8'den azsa boş satır ekle
-    if (this.displayedAppointments.length < this.pageSize) {
-      const emptyRows = Array(
-        this.pageSize - this.displayedAppointments.length,
-      ).fill({});
-      this.displayedAppointments = [
-        ...this.displayedAppointments,
-        ...emptyRows,
-      ];
-    }
+  getTranslatedStatus(status: string): string {
+    return this.enumTranslationService.translateAppointmentStatus(status);
   }
 
   onPageChange(newPage: number) {
     this.currentPage = newPage;
+    console.log('this currentPage', this.currentPage);
     this.loadAppointments();
   }
 

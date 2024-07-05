@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppointmentTableComponent } from '../../../features/appointment/components/appointment-table/appointment-table.component';
-import { PastAppointmentsTableComponent } from '../../../features/patient/components/past-appointments-table/past-appointments-table.component';
+import { PastAppointmentsTableComponent } from '../../../features/patient/components/_myAppointments/past-appointments-table/past-appointments-table.component';
 import { CommonModule } from '@angular/common';
-import { UpcomingAppointmentsListComponent } from '../../../features/patient/components/upcoming-appointments-list/upcoming-appointments-list.component';
+import { UpcomingAppointmentsListComponent } from '../../../features/patient/components/_myAppointments/upcoming-appointments-list/upcoming-appointments-list.component';
 
 @Component({
   selector: 'app-my-appointments',

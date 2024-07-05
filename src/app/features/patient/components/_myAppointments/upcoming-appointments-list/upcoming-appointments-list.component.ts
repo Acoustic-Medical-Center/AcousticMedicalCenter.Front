@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PatientService } from '../../services/patient.service';
-import { AppointmentCardComponent } from '../../../../shared/components/appointment-card/appointment-card.component';
+import { PatientService } from '../../../services/patient.service';
+import { AppointmentCardComponent } from '../../../../../shared/components/appointment-card/appointment-card.component';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
@@ -48,7 +48,7 @@ export class UpcomingAppointmentsListComponent {
   }
 
   handleUpdateResponse(data: any) {
-    this.appointments = data;
+    this.appointments = data.items;
     console.log('Appointments:', this.appointments);
   }
 

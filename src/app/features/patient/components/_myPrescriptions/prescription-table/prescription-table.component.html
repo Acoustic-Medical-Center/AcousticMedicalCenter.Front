@@ -1,0 +1,37 @@
+<app-table [headers]="headers" [items]="prescriptions">
+  <ng-template #rowTemplate let-item>
+    <tr class="hover:bg-gray-100">
+      <td>{{ item.id }}</td>
+      <td>{{ item.createdDate | date: "dd/MM/yyyy" }}</td>
+
+      <td>{{ item.doctorName }}</td>
+      <td>{{ item.medicationDetails }}</td>
+      <td>{{ item.dosageInstructions }}</td>
+      <td>
+        <button (click)="showDetails(item.id)" class="btn btn-ghost btn-xs">
+          Detaylar
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</app-table>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [pageSize]="pageSize"
+  [totalItems]="totalItems"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
+
+<dialog id="prescriptionModal" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <app-prescription-detail
+      [prescriptionId]="selectedPrescriptionId"
+    ></app-prescription-detail>
+  </div>
+</dialog>

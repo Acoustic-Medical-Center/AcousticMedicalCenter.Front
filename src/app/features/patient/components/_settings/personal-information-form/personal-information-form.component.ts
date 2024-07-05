@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { PatientSettingsService } from '../../services/patient-settings.service';
-import { LocalStorageService } from '../../../../core/browser/services/local-storage.service';
+import { PatientSettingsService } from '../../../services/patient-settings.service';
+import { LocalStorageService } from '../../../../../core/browser/services/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -26,7 +26,7 @@ export class PersonalInformationFormComponent implements OnInit {
     private fb: FormBuilder,
     private settingsService: PatientSettingsService,
     private localStorageService: LocalStorageService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.settingsGeneralPatientForm = this.fb.group({
       firstName: ['', Validators.required],

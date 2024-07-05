@@ -6,7 +6,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { PatientService } from '../../services/patient.service';
+import { PatientService } from '../../../services/patient.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

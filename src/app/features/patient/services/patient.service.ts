@@ -31,7 +31,7 @@ export class PatientService {
   }
 
   getReportByAppointmentId(id: any): Observable<any> {
-    return this.http.get(`${this.baseUrl}/reports/${id}`);
+    return this.http.get(`${this.baseUrl}/patient/reports/${id}`);
   }
 
   getAllUpcomingAppointmentsByPatient(): Observable<any> {
@@ -43,5 +43,27 @@ export class PatientService {
   cancelAppointmentById(id: any): Observable<any> {
     console.log('calisti mi ?');
     return this.http.put(`${this.baseUrl}/appointmentCancel/${id}`, {});
+  }
+
+  getAllReports(): Observable<any> {
+    return this.http.get('https://localhost:7172/api/patient/reports');
+  }
+
+  getReportById(id: any): Observable<any> {
+    return this.http.get(`https://localhost:7172/api/patient/reports/${id}`);
+  }
+
+  getAllPrescriptions(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/patient/prescriptions`, {
+      params: {
+        page: page.toString(),
+        pageSize: pageSize.toString(),
+      },
+    });
+  }
+  getPrescriptionById(id: any): Observable<any> {
+    return this.http.get(
+      `https://localhost:7172/api/patient/prescriptions/${id}`,
+    );
   }
 }

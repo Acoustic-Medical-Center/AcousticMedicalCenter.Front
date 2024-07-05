@@ -1,1 +1,33 @@
-<app-doctor-appointments-list></app-doctor-appointments-list>
+<!-- <app-doctor-appointments-list></app-doctor-appointments-list> -->
+
+<div role="tablist" class="tabs tabs-bordered">
+  <input
+    type="radio"
+    name="my_tabs_1"
+    role="tab"
+    class="tab"
+    aria-label="Yaklaşan Randevular"
+    [checked]="selectedTab === 'upcoming'"
+    (change)="onTabChange('upcoming')"
+  />
+  <div
+    role="tabpanel"
+    class="tab-content p-10"
+    *ngIf="selectedTab === 'upcoming'"
+  >
+    <app-upcoming-appointment-list />
+  </div>
+
+  <input
+    type="radio"
+    name="my_tabs_1"
+    role="tab"
+    class="tab"
+    aria-label="Geçmiş Randevular"
+    [checked]="selectedTab === 'past'"
+    (change)="onTabChange('past')"
+  />
+  <div role="tabpanel" class="tab-content p-10" *ngIf="selectedTab === 'past'">
+    <app-past-appoinment-list />
+  </div>
+</div>

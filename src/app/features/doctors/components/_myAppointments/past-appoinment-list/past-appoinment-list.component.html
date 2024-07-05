@@ -1,0 +1,127 @@
+<app-table [headers]="headers" [items]="appointments">
+  <ng-template #rowTemplate let-item>
+    <tr class="hover:bg-gray-100">
+      <td>
+        {{ item.patientName | titlecase }}
+        {{ item.patientLastName | titlecase }}
+      </td>
+
+      <td *ngIf="item.appointmentTime; else emptyCell">
+        {{ item.appointmentTime | date: "EEEE, d MMMM y, HH:mm" }}
+      </td>
+      <ng-template>
+        <td></td>
+      </ng-template>
+      <td *ngIf="item.status; else emptyCell">
+        {{ getTranslatedStatus(item.status) }}
+      </td>
+      <ng-template>
+        <td></td>
+      </ng-template>
+      <td class="flex space-x-2">
+        <button
+          (click)="openReportModal(item.id)"
+          class="btn btn-ghost btn-xs hover:bg-gray-200"
+        >
+          <span class="material-icons">description</span>
+          Rapor Oluştur
+        </button>
+        <button
+          (click)="openPrescriptionModal(item.id)"
+          class="btn btn-ghost btn-xs hover:bg-gray-200"
+        >
+          <span class="material-icons">local_hospital</span>
+          Reçete Oluştur
+        </button>
+        <button
+          (click)="openCancelModal(item.id)"
+          class="btn btn-ghost btn-xs hover:bg-gray-200"
+        >
+          <span class="material-icons">cancel</span>
+          Randevuyu İptal Et
+        </button>
+        <button
+          (click)="openCompleteModal(item.id)"
+          class="btn btn-ghost btn-xs hover:bg-gray-200"
+        >
+          <span class="material-icons">check_circle</span>
+          Randevuyu Tamamla
+        </button>
+      </td>
+      <ng-template #emptyCell>
+        <td></td>
+      </ng-template>
+    </tr>
+  </ng-template>
+</app-table>
+
+<app-pagination
+  [currentPage]="currentPage"
+  [pageSize]="pageSize"
+  [totalItems]="totalItems"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
+
+<!-- Modal for Report Form -->
+<dialog id="reportModal" class="modal" [open]="isReportModalOpen">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        (click)="closeReportModal()"
+      >
+        ✕
+      </button>
+    </form>
+    <app-report-form
+      *ngIf="isReportModalOpen"
+      [appointmentId]="selectedAppointmentId"
+    ></app-report-form>
+  </div>
+</dialog>
+
+<!-- Modal for Prescription Form -->
+<dialog id="prescriptionModal" class="modal" [open]="isPrescriptionModalOpen">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+        (click)="closePrescriptionModal()"
+      >
+        ✕
+      </button>
+    </form>
+    <app-prescription-form
+      *ngIf="isPrescriptionModalOpen"
+      [appointmentId]="selectedAppointmentId"
+    ></app-prescription-form>
+  </div>
+</dialog>
+
+<!-- Modal for Cancel Appointment Confirmation -->
+<dialog id="cancelModal" class="modal" [open]="isCancelModalOpen">
+  <div class="modal-box">
+    <p>Randevuyu iptal etmek istediğinizden emin misiniz?</p>
+    <div class="modal-action">
+      <button class="btn btn-error" (click)="cancelAppointment()">
+        İptal Et
+      </button>
+      <button class="btn btn-ghost" (click)="closeCancelModal()">Kapat</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Modal for Complete Appointment Confirmation -->
+<dialog id="completeModal" class="modal" [open]="isCompleteModalOpen">
+  <div class="modal-box">
+    <p>Randevuyu tamamlamak istediğinizden emin misiniz?</p>
+    <div class="modal-action">
+      <button class="btn btn-success" (click)="completeAppointment()">
+        Tamamla
+      </button>
+      <button class="btn btn-ghost" (click)="closeCompleteModal()">
+        Kapat
+      </button>
+    </div>
+  </div>
+</dialog>

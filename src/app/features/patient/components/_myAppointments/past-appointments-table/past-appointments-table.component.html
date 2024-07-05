@@ -1,4 +1,4 @@
-<app-table [headers]="headers" [items]="displayedAppointments">
+<app-table [headers]="headers" [items]="appointments">
   <ng-template #rowTemplate let-item>
     <tr class="hover:bg-gray-100">
       <td *ngIf="item.firstName && item.lastName; else emptyCell">
@@ -9,12 +9,14 @@
         <td></td>
       </ng-template>
       <td *ngIf="item.appointmentTime; else emptyCell">
-        {{ item.appointmentTime | date: "EEEE, d MMMM y" }}
+        {{ item.appointmentTime | date: "EEEE, d MMMM y, HH:mm" }}
       </td>
       <ng-template #emptyCell>
         <td></td>
       </ng-template>
-      <td *ngIf="item.status; else emptyCell">{{ item.status }}</td>
+      <td *ngIf="item.status; else emptyCell">
+        {{ getTranslatedStatus(item.status) }}
+      </td>
       <ng-template #emptyCell>
         <td></td>
       </ng-template>
