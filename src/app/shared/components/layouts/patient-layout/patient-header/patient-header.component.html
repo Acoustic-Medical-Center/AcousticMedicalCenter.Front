@@ -41,17 +41,18 @@
             </a>
           </li>
           <li *ngIf="!dropdownLanguageOpen">
-            <a (click)="logout()">
-              <span class="material-icons">logout</span>
-              {{ "navbar.logout" | translate }}
-            </a>
-          </li>
-          <li *ngIf="!dropdownLanguageOpen">
             <a  routerLink="/contact">
               <span class="material-icons">contacts</span>
               {{ "navbar.contact" | translate }}
             </a>
           </li>
+          <li *ngIf="!dropdownLanguageOpen">
+            <a (click)="logout()">
+              <span class="material-icons">logout</span>
+              {{ "navbar.logout" | translate }}
+            </a>
+          </li>
+          
           <h1 (click)="eventStop($event)" *ngIf="dropdownLanguageOpen">
             <button
               (click)="toggleLanguageDropdown($event)"
