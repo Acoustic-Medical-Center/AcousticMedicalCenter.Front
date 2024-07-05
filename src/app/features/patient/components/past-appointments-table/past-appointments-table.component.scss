@@ -1,22 +1,3 @@
-.pagination {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
-    margin: 30px;
-}
-
-.pagination button {
-    padding: 8px 16px;
-    color: #fff;
-    border: none;
-    border-radius: 999px; /* Yuvarlak düğme köşeleri */
-    transition: background-color 0.3s;
-    cursor: pointer;
-}
-
-.pagination span {
-    font-weight: bold;
-    line-height: 2.5;
-    margin-top: 6px;
+tr {
+  height: 3rem; /* Satır yüksekliğini sabitleyin */
 }

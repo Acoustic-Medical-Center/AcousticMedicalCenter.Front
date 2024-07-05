@@ -1,39 +1,41 @@
-<app-table [headers]="headers" [items]="appointments">
+<app-table [headers]="headers" [items]="displayedAppointments">
   <ng-template #rowTemplate let-item>
     <tr class="hover:bg-gray-100">
-      <td>
+      <td *ngIf="item.firstName && item.lastName; else emptyCell">
         Prof. Dr. {{ item.firstName | titlecase }}
         {{ item.lastName | titlecase }}
       </td>
-      <td>{{ item.appointmentTime | date: "EEEE, d MMMM y" }}</td>
-      <td>{{ item.status }}</td>
-      <td>
+      <ng-template #emptyCell>
+        <td></td>
+      </ng-template>
+      <td *ngIf="item.appointmentTime; else emptyCell">
+        {{ item.appointmentTime | date: "EEEE, d MMMM y" }}
+      </td>
+      <ng-template #emptyCell>
+        <td></td>
+      </ng-template>
+      <td *ngIf="item.status; else emptyCell">{{ item.status }}</td>
+      <ng-template #emptyCell>
+        <td></td>
+      </ng-template>
+      <td *ngIf="item.id; else emptyCell">
         <button (click)="showDetails(item.id)" class="btn btn-ghost btn-xs">
           Detaylar
         </button>
       </td>
+      <ng-template #emptyCell>
+        <td></td>
+      </ng-template>
     </tr>
   </ng-template>
 </app-table>
 
-<div class="pagination">
-  <button
-    (click)="onPageChange(currentPage - 1)"
-    [disabled]="currentPage === 1"
-    class="bg-orange-600 hover:bg-orange-700"
-  >
-    Previous
-  </button>
-  <span>Page {{ currentPage }}</span>
-  
-  <button
-    (click)="onPageChange(currentPage + 1)"
-    [disabled]="appointments.length < pageSize"
-    class="bg-orange-600 hover:bg-orange-700"
-  >
-    Next
-  </button>
-</div>
+<app-pagination
+  [currentPage]="currentPage"
+  [pageSize]="pageSize"
+  [totalItems]="totalItems"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
 
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box">
