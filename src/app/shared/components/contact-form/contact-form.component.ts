@@ -30,6 +30,6 @@ export class ContactFormComponent {
   }
 
   sendMessage(){
-    this.toastr.success('Mail gönderilmiştir');
+    this.toastr.success('Mail Gönderildi');
   }
 }
