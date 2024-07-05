@@ -1,4 +1,4 @@
-<app-table [headers]="headers" [items]="doctors">
+<app-table [headers]="headers" [items]="doctors | sort:'experience'">
   <ng-template #rowTemplate let-item>
     <tr class="hover:bg-gray-100">
       <td>{{ item.experience }}</td>

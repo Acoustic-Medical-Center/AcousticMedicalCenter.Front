@@ -13,6 +13,7 @@ export interface IUser {
   address: string;
 }
 export interface IPatient {
+  id: number;
   bloodType: string;
 }
 @Injectable({
@@ -30,11 +31,14 @@ export class PatientService {
     return this.http.get<any[]>(`${this.baseUrl}/admin/patients`);
   }
 
+  getPatientById(patientId: string):Observable<IPatient>{
+    return this.http.get<any>(`${this.baseUrl}/doctor/patients/${patientId}`);
+  }
   getUserSettings(id: any): Observable<any>{
     return this.http.get<any>(`${this.baseUrl}/user/GetById?UserId=${id}`);
   }
   updateUserSettings(userSettings: IUser): Observable<any> {
-    console.log('Güncellendi', this.localStorageService.get('Id'));
+
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.put(
@@ -43,8 +47,14 @@ export class PatientService {
       { headers, responseType: 'text' }
     );
   }
-  //getPatientById
-  // deletePatient()
-  //updatePatientSettings
+  updatePatientSettings(patient:IPatient): Observable<any>{
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put(`${this.baseUrl}/admin/patient`,patient,{ headers, responseType: 'json' });
+  }
+  
+  deletePatient(patientId: number):Observable<any>{
+    return this.http.delete(`${this.baseUrl}/admin/patients/${patientId}`);
+  }
+  
  
 }

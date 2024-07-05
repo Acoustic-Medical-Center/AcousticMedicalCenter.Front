@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { DoctorEditFormComponent } from '../doctor-edit-form/doctor-edit-form.component';
 import { ToastrService } from 'ngx-toastr';
+import { SortPipe } from '../../../sort.pipe';
 
 @Component({
   selector: 'app-doctor-list',
   standalone: true,
-  imports: [CommonModule, TableComponent, DoctorEditFormComponent],
+  imports: [CommonModule, TableComponent, DoctorEditFormComponent, SortPipe],
   templateUrl: './doctor-list.component.html',
   styleUrls: ['./doctor-list.component.scss'],
 })
@@ -47,7 +48,6 @@ export class DoctorListComponent implements OnInit {
     }
   }
   confirmDeleteDoctor(doctorId: number): void {
-    // Find the selected doctor
     const selectedDoctor = this.doctors.find(d => d.id === doctorId);
     if (selectedDoctor) {
       this.selectedDoctorId = doctorId;
@@ -63,7 +63,6 @@ export class DoctorListComponent implements OnInit {
     this.doctorService.deleteDoctor(doctorId).subscribe(
       () => {
         this.toastr.success('Doctor deleted successfully.');
-        // İsteği başarıyla aldıktan sonra yapılacak işlemler, örneğin doktorları yeniden yükleme
         this.getDoctors();
         
       },

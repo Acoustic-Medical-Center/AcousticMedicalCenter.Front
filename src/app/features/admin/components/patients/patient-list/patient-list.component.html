@@ -5,7 +5,7 @@
         <td>{{ item.email }}</td>
         
         <td>
-          <button class="btn btn-ghost btn-xs" (click)="showDetails(item.id)">
+          <button class="btn btn-ghost btn-xs" (click)="showDetailsPatients(item.id)">
             Detaylar
           </button>
         </td>
@@ -35,16 +35,16 @@
 <!-- Modal for Doctor Delete Confirmation -->
 <dialog id="deletePatientModal" class="modal">
   <div class="modal-box">
-    <p class="text-lg">Doktor : {{selectedPatientName}}</p>
-    <p class="text-lg">Bu doktoru silmek istiyor musunuz?</p>
+    <p class="text-lg">Hasta : {{selectedPatientName}}</p>
+    <p class="text-lg">Bu hastayı silmek istiyor musunuz?</p>
  
     <div class="mt-4 flex justify-end">
-      <!-- <button class="btn btn-sm btn-circle btn-danger mr-2" (click)="deletePatient(selectedPatientId)">
+      <button class="btn btn-sm btn-circle btn-danger mr-2" (click)="deletePatient(selectedPatientId)">
         Yes
       </button>
       <button class="btn btn-sm btn-circle btn-ghost" (click)="closeModal()">
         No
-      </button> -->
+      </button>
     </div>
   </div>
 </dialog>
