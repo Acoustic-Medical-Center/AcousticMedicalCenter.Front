@@ -1,11 +1,13 @@
 <!-- debug-box.component.html -->
-<!-- <p>Selected Branch ID: {{ selectedBranchId }}</p> -->
+<p>Selected Branch ID: {{ selectedBranchId }}</p>
 
 <p>Selected Branch ID: {{ selectedBranch$v2 | async }}</p>
 
 <p>Selected Doctor ID: {{ selectedDoctorId$ | async }}</p>
 
 <p>Selected Date: {{ selectedDate | async }}</p>
+
+<button class="btn" (click)="resetAll()">Reset All</button>
 
 <ul *ngIf="appointments$ | async as appointments; else loading">
   <li *ngFor="let appointment of appointments">

@@ -117,4 +117,11 @@ export class CreateAppointmentService {
       return null;
     }
   }
+
+  resetValues(): void {
+    this.selectedBranchId.next(null);
+    this.selectedDoctorId.next(null);
+    this.selectedDate.next(new Date().toISOString());
+    console.log(new Date().toISOString());
+  }
 }

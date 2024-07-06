@@ -31,7 +31,13 @@ export class DebugBoxComponent implements OnDestroy {
 
   selectedDate = this.appointmentService.selectedDate$;
 
+  resetAll(): void {
+    this.appointmentService.resetValues();
+  }
+
   ngOnDestroy(): void {
+    console.log('debugbox bu component yok oluyor mu?');
+    this.selectedBranchId = 3;
     // Aboneliği yok etmek için
     if (this.subscription) {
       this.subscription.unsubscribe();

@@ -16,16 +16,21 @@ export class CreateAppointmentButtonComponent {
     private router: Router,
   ) {}
 
+  resetAll(): void {
+    this.createAppointmentService.resetValues();
+  }
+
   submitAppointment() {
-    this.createAppointmentService.createAppointment()?.subscribe(
-      (response) => {
+    this.createAppointmentService.createAppointment()?.subscribe({
+      next: () => {
         this.toastr.success('Randevu başarıyla oluşturuldu', 'Başarılı');
+        this.resetAll();
         this.router.navigate(['/my-appointments']);
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error('Randevu oluşturulurken bir hata oluştu', 'Hata');
         console.error('Error creating appointment', error);
       },
-    );
+    });
   }
 }
