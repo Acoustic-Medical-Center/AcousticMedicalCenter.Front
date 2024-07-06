@@ -14,15 +14,18 @@ import { SortPipe } from '../../../sort.pipe';
   styleUrls: ['./doctor-list.component.scss'],
 })
 export class DoctorListComponent implements OnInit {
-  headers: string[] = ['Deneyim', 'Doktor'];
+  headers: string[] = ['ID', 'Doktor', 'Klinik Adı', 'Deneyim', 'Aksiyonlar'];
   doctors: any[] = [];
   doctor: IDoctor | undefined;
   selectedDoctorId: any | null = null;
-  selectedDoctorName: string | null='';
+  selectedDoctorName: string | null = '';
 
   @Input() doctorId: number | null = null;
 
-  constructor(private doctorService: DoctorService, private toastr: ToastrService) {}
+  constructor(
+    private doctorService: DoctorService,
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.getDoctors();
@@ -48,11 +51,13 @@ export class DoctorListComponent implements OnInit {
     }
   }
   confirmDeleteDoctor(doctorId: number): void {
-    const selectedDoctor = this.doctors.find(d => d.id === doctorId);
+    const selectedDoctor = this.doctors.find((d) => d.id === doctorId);
     if (selectedDoctor) {
       this.selectedDoctorId = doctorId;
       this.selectedDoctorName = `${selectedDoctor.firstName} ${selectedDoctor.lastName}`;
-      const modal = document.getElementById('deleteDoctorModal') as HTMLDialogElement;
+      const modal = document.getElementById(
+        'deleteDoctorModal',
+      ) as HTMLDialogElement;
       if (modal) {
         modal.showModal();
       }
@@ -64,20 +69,23 @@ export class DoctorListComponent implements OnInit {
       () => {
         this.toastr.success('Doctor deleted successfully.');
         this.getDoctors();
-        
       },
       (error) => {
-       this.toastr.error('Doctor deleted wrong')     
-      }
+        this.toastr.error('Doctor deleted wrong');
+      },
     );
   }
 
   closeModal(): void {
-    const modal = document.getElementById('doctorDetailsModal') as HTMLDialogElement;
+    const modal = document.getElementById(
+      'doctorDetailsModal',
+    ) as HTMLDialogElement;
     if (modal) {
       modal.close();
     }
-    const deleteModal = document.getElementById('deleteDoctorModal') as HTMLDialogElement;
+    const deleteModal = document.getElementById(
+      'deleteDoctorModal',
+    ) as HTMLDialogElement;
     if (deleteModal) {
       deleteModal.close();
     }

@@ -20,20 +20,23 @@ export interface IAppointment {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentService {
+  baseURl = environment.apiUrl;
+  constructor(private http: HttpClient) {}
 
-  baseURl = environment.apiUrl; 
-  constructor(
-    private http: HttpClient,
-  ) { }
-
-  getAllAppointments(): Observable<any>{
-    return this.http.get<any>(`${this.baseURl}/admin/appointments`);
+  getAllAppointments(page: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(`${this.baseURl}/admin/appointments`, {
+      params: {
+        Page: page.toString(),
+        PageSize: pageSize.toString(),
+      },
+    });
   }
-  deleteAppointment(appointmentId: any): Observable<any>{
-    return this.http.delete(`${this.baseURl}/admin/appointments/${appointmentId}`);
+  deleteAppointment(appointmentId: any): Observable<any> {
+    return this.http.delete(
+      `${this.baseURl}/admin/appointments/${appointmentId}`,
+    );
   }
-  
 }

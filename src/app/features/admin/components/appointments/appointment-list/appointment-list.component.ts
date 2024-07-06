@@ -3,13 +3,14 @@ import { AppointmentService } from '../../../services/appointment.service';
 import { ToastrService } from 'ngx-toastr';
 import { TableComponent } from '../../../../../shared/components/table/table.component';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from '../../../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-appointment-list',
   standalone: true,
-  imports: [CommonModule,TableComponent],
+  imports: [CommonModule, TableComponent, PaginationComponent],
   templateUrl: './appointment-list.component.html',
-  styleUrl: './appointment-list.component.scss'
+  styleUrl: './appointment-list.component.scss',
 })
 export class AppointmentListComponent implements OnInit {
   headers: string[] = [
@@ -18,32 +19,44 @@ export class AppointmentListComponent implements OnInit {
     'Cinsiyet',
     'Tarih',
     'Telefon',
-    'Doktor'
+    'Doktor',
   ];
   appointments: any[] = [];
   selectedAppointmentId: any | null = null;
   selectedAppointment: string | null = '';
+  currentPage: number = 1;
+  pageSize: number = 12;
+  totalItems: number = 0;
 
   @Input() appointmentId: number | null = null;
 
   constructor(
     private appointmentService: AppointmentService,
-    private toastr: ToastrService
-  ){}
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.getAppointments();
   }
 
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log('this currentPage', this.currentPage);
+    this.getAppointments();
+  }
+
   getAppointments(): void {
-   this.appointmentService.getAllAppointments().subscribe(
-    (data: any[]) => {
-      this.appointments = data;
-    },
-    (error) => {
-      console.log('Randevular getirilirken hata oluştu');
-    }
-   );
+    this.appointmentService
+      .getAllAppointments(this.currentPage, this.pageSize)
+      .subscribe(
+        (data: any) => {
+          this.appointments = data.items;
+          this.totalItems = data.totalCount;
+        },
+        (error) => {
+          console.log('Randevular getirilirken hata oluştu');
+        },
+      );
   }
 
   showDetails(appointmentId: number) {
@@ -58,11 +71,15 @@ export class AppointmentListComponent implements OnInit {
 
   confirmDeleteAppointment(appointmentId: number): void {
     // Find the selected doctor
-    const selectedAppointment = this.appointments.find(d => d.id === appointmentId);
+    const selectedAppointment = this.appointments.find(
+      (d) => d.id === appointmentId,
+    );
     if (selectedAppointment) {
       this.selectedAppointmentId = appointmentId;
       this.selectedAppointment = `${selectedAppointment.userName} ${selectedAppointment.userLastName}`;
-      const modal = document.getElementById('deleteAppointmentModal') as HTMLDialogElement;
+      const modal = document.getElementById(
+        'deleteAppointmentModal',
+      ) as HTMLDialogElement;
       if (modal) {
         modal.showModal();
       }
@@ -75,17 +92,21 @@ export class AppointmentListComponent implements OnInit {
         this.getAppointments();
       },
       (error) => {
-       this.toastr.error('Appointment deleted wrong')     
-      }
+        this.toastr.error('Appointment deleted wrong');
+      },
     );
   }
 
   closeModal(): void {
-    const modal = document.getElementById('appointmentDetailsModal') as HTMLDialogElement;
+    const modal = document.getElementById(
+      'appointmentDetailsModal',
+    ) as HTMLDialogElement;
     if (modal) {
       modal.close();
     }
-    const deleteModal = document.getElementById('deleteAppointmentModal') as HTMLDialogElement;
+    const deleteModal = document.getElementById(
+      'deleteAppointmentModal',
+    ) as HTMLDialogElement;
     if (deleteModal) {
       deleteModal.close();
     }

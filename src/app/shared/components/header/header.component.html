@@ -1,10 +1,14 @@
-<div class="navbar z-50 sticky top-0 bg-purple-100 border-b-2 border-black">
+<div class="navbar z-50 sticky top-0 bg-white border-b-2 border-headerHover">
   <div class="container mx-auto">
     <div class="flex-1">
-      <a routerLink="" class="btn btn-ghost text-xl">AMC</a>
+      <a routerLink="" class="btn btn-ghost text-xl">
+        <img
+          src="assets/images/logo/header-logo-aqua.svg"
+          alt="AMC Logo"
+          class="h-12 w-12 text-white"
+      /></a>
     </div>
     <div class="flex-none">
-      <div class="dropdown">{{ isDropdownOpen }}</div>
       <div
         (click)="toggleDropdown($event)"
         class="dropdown dropdown-end"
@@ -71,7 +75,7 @@
             <a (click)="selectLanguage('tr')">
               <span class="fi fi-tr"></span> Türkçe
             </a>
-          </li>         
+          </li>
         </ul>
       </div>
     </div>
