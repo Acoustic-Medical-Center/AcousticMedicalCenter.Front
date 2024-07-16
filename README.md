@@ -1,28 +1,33 @@
-### todos
+# Acoustic Medical Center Appointment System 🏥
 
-- [x] Randevularım tablosu oluştur.
-- [x] Randevularım servis yaz. Appointments get by ıd ?
+Welcome to the Acoustic Medical Center Appointment System! This project is built with Angular and .NET technologies to provide an efficient and user-friendly appointment scheduling system for patients, doctors, and admins.
 
-- [x] Interceptor ekle bearer token için.
+## Technologies Used 💻
 
-- [ ] İngilizce Dil desteğine bak.
+- **Angular**: Platform for building mobile and desktop web applications.
+- **FullCalendar**: Event calendar for scheduling.
+- **SignalR**: Real-time web functionalities.
+- **ngx-translate**: Internationalization library for Angular.
+- **Tailwind CSS**: Utility-first CSS framework for rapid UI development.
 
-- [ ] Global Error Handler bak.
+## Features ✨
 
-- [ ] Backendden roller geldikten sonra guarda bak.
+- 📅 **Appointment Scheduling**: Easy and efficient appointment scheduling for patients.
+- 👨‍⚕️ **Doctor Management**: Doctors can manage their schedules and appointments.
+- 🛡️ **Admin Controls**: Admins have control over the system, including user management and appointment oversight.
+- 🌍 **Internationalization**: Multi-language support to cater to a diverse user base.
+- 🔔 **Notifications**: Real-time notifications for appointment updates.
 
-- [ ] Alert mesajlarına bak. (ngx toastr)
+## Demo 🎥
 
-- [ ] Doktor ve Admin sayfasını yap.
+Check out the demo video of the project:
 
-### backend todos
+[Demo Video](https://www.loom.com/share/4d8949b5139f4a7ab246dad9c3387a41)
 
-- [x] tokenda rol gelsin
+## License 📜
 
-- [x] tokenın süresi artsın su an sistemden cok cabuk atıyor.
+This project is licensed under the MIT License.
 
-- [ ] token gecerli değilken frontta yeniden giriş sayfasına yönlendirsin.
+---
 
-- [x] token gecerli değilken backend hata mesajı dönsün. debug moda giriyor.
-
-- [ ] backend seed data eklensin.
+Made with ❤️ by Acoustic Medical Center Team
